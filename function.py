@@ -24,5 +24,13 @@ def add_end(L=[]):
 print add_end()
 print add_end()
 
+#可变参数
+def calc(*numbers):
+    count = 0
+    for n in numbers:
+        count = count + n * n
+    return count
+
+
 
 
