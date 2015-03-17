@@ -12,16 +12,15 @@ print classmate, classmate[2]
 #只要x是非零数值、非空字符串、非空list等，就判断为True，否则为False
 x = []
 if x:
-    print 'True'
-
-theRange = range(0, 100, 5)
-print theRange
+    print True
 
 theStr = "123"
 print theStr, int(theStr)
 
 theDict = {"guo": 1, "liao": 2, "chen": 3, "he": 4}
 print theDict
+#判断字典是否有某元素
+print "zhu" in theDict
 print theDict.get("zhu", -1)
 theDict["zhu"] = 5
 theDict.pop("chen")
@@ -35,6 +34,39 @@ str1 = "abac"
 str2 = str1.replace("a", "A")
 print str2, str1
 
+#容器生成器
+theRange = range(0, 100, 5)
+print theRange
+
+theRange = range(10)
+print theRange
+print theRange[:5]
+print theRange[-5:]
+print theRange[-6::2]
+
+print [x * x for x in range(10) if x %2 ==0]
+print [m +n for m in "abc" for n in "xyz"]
+
+import os
+print [d for d in os.listdir("c:\\")]
+print [d for d in os.listdir(".")]
+print [d for d in os.listdir("..")]
+print [k +" = " +str(v) for k ,v in theDict.iteritems()]
+
+g =(x * x for x in range(10) if x %2 ==0)
+for elem in g:
+    print elem
+
+#迭代
+print "迭代"
+for k in theDict:
+    print k
+
+for v in theDict.itervalues():
+    print v
+
+for k, v in theDict.iteritems():
+    print k, v
 
 
 

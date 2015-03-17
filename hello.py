@@ -36,12 +36,35 @@ if var1 is var2:
 if var1 == var2:
     print True
 
+#moudle
+import sys
 
+def test():
+    args = sys.argv
+    if len(args)==1:
+        print 'Hello, world!'
+    elif len(args)==2:
+        print 'Hello, %s!' % args[1]
+    else:
+        print 'Too many arguments!'
 
+#一切可执行语句在被包含的时候就会被执行
+#函数不会，__name__在命令行直接运行时为__main__，被包含时为hello
+if __name__=='__main__':
+    test()
+else:
+    print __name__
 
+try:
+    import cStringIO as StringIO
+except ImportError: # 导入失败会捕获到ImportError
+    import StringIO
 
+#__xxx__这样的变量是特殊变量，可以被直接引用，但是有特殊用途
+#_xxx和__xxx这样的函数或变量就是非公开的
 
-
+import sys
+print sys.path
 
 
 
