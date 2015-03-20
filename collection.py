@@ -40,6 +40,7 @@ print theRange
 
 theRange = range(10)
 print theRange
+print theRange[0:2]
 print theRange[:5]
 print theRange[-5:]
 print theRange[-6::2]
@@ -67,6 +68,16 @@ for v in theDict.itervalues():
 
 for k, v in theDict.iteritems():
     print k, v
+
+#set
+set1 =set(theRange)
+print set1
+set2 =set(range(5, 15))
+print set2
+
+set1 |=set2
+print set1
+
 
 
 
