@@ -24,16 +24,8 @@ def dlimages(threadid ,index):
 
 
 threads =[]
-threads.append(threading.Thread(target=dlimages ,name="thread1" ,args=(1,291)))
-threads.append(threading.Thread(target=dlimages ,name="thread2" ,args=(2,216)))
-threads.append(threading.Thread(target=dlimages ,name="thread3" ,args=(3,20)))
-threads.append(threading.Thread(target=dlimages ,name="thread4" ,args=(4,199)))
-threads.append(threading.Thread(target=dlimages ,name="thread5" ,args=(5,181)))
-threads.append(threading.Thread(target=dlimages ,name="thread6" ,args=(6,213)))
-threads.append(threading.Thread(target=dlimages ,name="thread7" ,args=(7,191)))
-threads.append(threading.Thread(target=dlimages ,name="thread8" ,args=(8,197)))
-threads.append(threading.Thread(target=dlimages ,name="thread9" ,args=(9,170)))
-threads.append(threading.Thread(target=dlimages ,name="thread10" ,args=(10,180)))
+threads.append(threading.Thread(target=dlimages ,name="thread2" ,args=(2,163782)))
+threads.append(threading.Thread(target=dlimages ,name="thread4" ,args=(4,163026)))
 
 print len(threads)
 
