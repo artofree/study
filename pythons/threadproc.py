@@ -26,12 +26,13 @@ def fun():
 def thread_fun(num):
     for n in range(0, int(num)):
         print " I come from %s, num: %s" % ( threading.currentThread().getName(), n)
+        time.sleep(1)
 
 thread_list = list()
 # 先创建线程对象
 for i in range(0, 3):
     thread_name = "thread_%s" % i
-    thread_list.append(threading.Thread(target=thread_fun, name=thread_name, args=(20,)))
+    thread_list.append(threading.Thread(target=thread_fun, name=thread_name, args=(5,)))
 
 # 启动所有线程
 for thread in thread_list:

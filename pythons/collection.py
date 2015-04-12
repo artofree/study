@@ -49,7 +49,7 @@ print [x * x for x in range(10) if x %2 ==0]
 print [m +n for m in "abc" for n in "xyz"]
 
 import os
-print [d for d in os.listdir("c:\\")]
+#print [d for d in os.listdir("c:\\")]
 print [d for d in os.listdir(".")]
 print [d for d in os.listdir("..")]
 print [k +" = " +str(v) for k ,v in theDict.iteritems()]

@@ -21,10 +21,12 @@ b = a
 a = 'XYZ'
 print b
 
+#print 'Hi, %s, you have $%d.'
 print 'Hi, %s, you have $%d.' % ('Michael', 1000000)
 
 #is用于比较id，==用于比较值。此时None 1 为不变对象，指向同一个不变对象的变量id相同
 #id相同值必然相同，值相同id未必相同
+#None 没有==只有is or is not
 l = None
 if l is None:
     print True
@@ -36,7 +38,7 @@ if var1 is var2:
 if var1 == var2:
     print True
 
-#moudle
+#moudleZ
 import sys
 
 def test():
@@ -66,7 +68,13 @@ except ImportError: # 导入失败会捕获到ImportError
 import sys
 print sys.path
 
+import os
+print os.getcwd()
 
+print os.path.dirname(os.path.dirname(__file__))
+
+import random
+print random.randint(0 ,10)
 
 
 
