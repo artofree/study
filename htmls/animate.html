@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Carousel Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../utility/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../utility/bootstrap/js/jquery.min.js"></script>
+    <script src="../utility/bootstrap/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script>
+        //动画序列
+        $(document).ready(function () {
+            $("button").click(function () {
+                var div = $("div");
+                div.animate({height: '300px', opacity: '0.4'}, "slow");
+                div.animate({width: '300px', opacity: '0.8'}, "slow");
+                div.animate({height: '100px', opacity: '0.4'}, "slow");
+                div.animate({width: '100px', opacity: '0.8'}, "slow");
+                div.animate({width: '200px', opacity: '1'}, "slow");
+            });
+        });
+        ///css选择器
+        $(document).ready(function () {
+            $(".div2 > p").click(function () {
+                $(this).hide();
+            });
+        })
+    </script>
+    <!-- Custom styles for this template -->
+    <style>
+        div
+        {
+            border-style: solid;
+            border-width: 1px;
+            border-color: blue;
+        }
+        .div2
+        {
+            width: 50%;
+            margin: 0px auto;
+        }
+
+        .div2 > p {
+            color: #ffff00;
+        }
+    </style>
+</head>
+<body>
+<div class="div1">
+    <button>开始动画</button>
+<p>默认情况下，所有 HTML 元素的位置都是静态的，并且无法移动。如需对位置进行操作，记得首先把元素的 CSS position 属性设置为 relative、fixed 或 absolute。</p>
+
+<div style="background:#98bf21;height:100px;width:100px;position:relative;">
+</div>
+</div>
+
+<div class="div2">
+    <p class="p1">ppppppp1111111</p>
+</div>
+</body>
+</body>
+</html>
