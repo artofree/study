@@ -27,6 +27,7 @@ theDict.pop("chen")
 print theDict
 
 s = {1, 1, 2, 2, 3, 3, "guo"}
+s.add("liao")
 print s
 #s.remove(4)会出错
 
