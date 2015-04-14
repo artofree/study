@@ -20,7 +20,7 @@ print os.path.abspath(".")
 #os.mkdir("d:\\newdir")
 
 
-print [x for x in os.listdir('d:\\study') if os.path.isfile(x) and os.path.splitext(x)[1] =='.py']
+print [x for x in os.listdir('d:\\study\\pythons') if os.path.isfile(x) and os.path.splitext(x)[1] =='.py']
 
 theList =["111" ,"222" ,"333" ,"444"]
 with codecs.open('d:\\guo', 'a', 'utf-8') as f:
