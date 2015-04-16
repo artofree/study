@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Carousel Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../utility/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../utility/bootstrap/js/jquery.min.js"></script>
+    <script src="../utility/bootstrap/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- Custom styles for this template -->
+    <style>
+        div {
+            border-style: solid;
+            border-width: 1px;
+            border-color: blue;
+            width: 50%;
+            margin: 20px auto;
+        }
+
+    </style>
+    <script>
+        ///div1
+        $(document).ready(function () {
+            $("h2").nextAll().css({"color": "red", "border": "2px solid red"});
+            var theHs = $("h2").nextAll();
+            var theStr = theHs.toString();
+            alert(theHs.push("123"));
+        });
+        ///div2
+        (function ($) {
+            $.fn.AlertSelf = function () {
+                this.click(function () {
+                    alert($(this).html())
+                });
+            };
+            $.fn.AlertIt = function () {
+                this.click(function () {
+                    alert($(this).html())
+                });
+            }
+        })(jQuery);
+        $(document).ready(function () {
+            $("#OnlyUl li").AlertIt();
+        });
+        ///div3
+        //形式一
+        (function ($) {
+            $.fn.extend({
+                foo3: function () {
+                    alert('对象级别插件extend方式1');
+                },
+                bar3: function () {
+                    alert('对象级别插件extend方式2');
+                }
+            })
+        })(jQuery);
+
+        //形式二
+        (function ($) {
+            $.fn.foo4 = function () {
+                alert('对象级别插件fn方式');
+            }
+        })(jQuery);
+
+        //接收参数来控制插件的行为
+        (function ($) {
+            $.fn.bar4 = function (options) {
+                var defaults = {aaa: '1', bbb: '2'};
+                var opts = $.extend(defaults, options);
+                alert('参数值:aaa:' + opts.aaa + ';bbb:' + opts.bbb);
+            }
+        })(jQuery);
+
+        //提供公有方法访问插件的配置项值
+        (function ($) {
+            $.fn.foo5 = function (options) {
+                var opts = $.extend({}, $.fn.foo5.defaults, options);
+                alert('参数值:aaa:' + opts.aaa + ';bbb:' + opts.bbb);
+            }
+            $.fn.foo5.defaults = {aaa: '1', bbb: '2'};
+        })(jQuery);
+
+        //提供公有方法来访问插件中其他的方法
+        (function ($) {
+            $.fn.bar5 = function (options) {
+                $.fn.bar5.alert(options);
+            }
+            $.fn.bar5.alert = function (params) {
+                alert(params);
+            }
+        })(jQuery);
+
+        $(function () {
+            $('.div3').foo3();
+            $('.div3').bar3();
+            $('.div3').foo4();
+            $('.div3').bar4();
+            $('.div3').bar4({aaa: '3'});
+            $('.div3').bar4({aaa: '3', bbb: '4'});
+            $('.div3').foo5();
+            $('.div3').foo5({aaa: '5', bbb: '6'});
+            $('.div3').bar5('aaaa');
+        });
+    </script>
+</head>
+<body>
+<!--div class="div"-->
+<div class="div1">div1
+    <p>p</p>
+    <span>span</span>
+
+    <h2>h2</h2>
+
+    <h3>h3</h3>
+
+    <p>p</p>
+</div>
+
+<div class="div2">div2
+    <ul id="OnlyUl">
+        <li>aaa</li>
+        <li>bbb</li>
+        <li>ccc</li>
+    </ul>
+</div>
+<div class="div3">
+    div3
+</div>
+</body>
+</html>
