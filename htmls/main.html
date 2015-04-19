@@ -133,10 +133,12 @@
         }
     </style>
     <script>
-        theCount = 3;
+        var theCount = 3;
         function update() {
+            if(theCount ==10)
+                return;
             theCount = theCount + 1;
-            theString = '<div class="item"><img src="../utility/pic/' + theCount + '.jpg" alt=""></div>';
+            var theString = '<div class="item"><img src="../utility/pic/' + theCount + '.jpg" alt=""></div>';
             $(".carousel-inner").append(theString);
         }
     </script>
