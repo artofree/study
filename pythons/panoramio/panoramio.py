@@ -20,21 +20,21 @@ def getFun(theStr):
     print len(photos)
     return photos
 
-theIndex =3025
-minX =0
-minY =0
+theIndex =1
+minX = -180
+minY = -90
 halfUrl =r""
-while minX <0:
-    while minY <0:
-        halfUrl =r"&minx=" +str(minX) +r"&miny=" +str(minY) +r"&maxx=" +str(minX +6) +r"&maxy=" +str(minY +3) +r"&size=medium&mapfilter=false"
+while minX <180:
+    while minY <90:
+        halfUrl =r"&minx=" +str(minX) +r"&miny=" +str(minY) +r"&maxx=" +str(minX +360) +r"&maxy=" +str(minY +180) +r"&size=medium&mapfilter=false"
         tmpList =getFun(halfUrl)
         #写入文件
-        fileName ="D:\\panoramio\\%04d_%d_%d_%d_%d" % (theIndex ,minX ,minY ,minX +6 ,minY +3)
+        fileName ="e:\\panoramio\\x360y180_1\\%04d_%d_%d_%d_%d" % (theIndex ,minX ,minY ,minX +90 ,minY +45)
         with codecs.open(fileName, 'w', 'utf-8') as f:
             f.writelines(tmpList)
         theIndex +=1
-        minY +=3
-    minX +=6
+        minY +=45
+    minX +=90
     minY =-90
 
 #with codecs.open("D:\\panoramio\\panoramio", 'w', 'utf-8') as f:
