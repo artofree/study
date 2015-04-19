@@ -7,11 +7,11 @@ def dlstatus(threadid):
     photoPath =os.path.join('E:\\panoramio\\allimages'  ,str(threadid))
     statusPath =os.path.join('E:\\panoramio\\allstatus'  ,str(threadid))
     photoList =[os.path.splitext(x)[0] for x in os.listdir(photoPath)]
-    print len(photoList)
+    print 'thread ' +str(threadid) +' is ' +str(len(photoList))
     statusList =[os.path.splitext(x)[0] for x in os.listdir(statusPath)]
     statusSet =set(statusList)
-    print len(statusList)
-    print len(statusSet)
+    print 'thread ' +str(threadid) +' is ' +str(len(statusList))
+    print 'thread ' +str(threadid) +' is ' +str(len(statusSet))
     for thePhoto in photoList:
         if thePhoto not in statusSet:
             theUrl =r'http://www.panoramio.com/photo/' +thePhoto
@@ -23,7 +23,7 @@ def dlstatus(threadid):
                 f.write(thePage)
             statusSet.add(thePhoto)
 
-    print 'thread ' +str(threadid) +'is finished!'
+    print 'thread ' +str(threadid) +' is finished!'
 
 threads =[]
 threads.append(threading.Thread(target=dlstatus ,name="thread1" ,args=(1,)))
@@ -39,7 +39,7 @@ threads.append(threading.Thread(target=dlstatus ,name="thread10" ,args=(10,)))
 
 for t in threads:
     t.start()
-    time.sleep(3)
+    time.sleep(10)
 for t in threads:
     t.join()
 
