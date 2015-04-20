@@ -5,18 +5,16 @@ import os, urllib2, threading, codecs, time
 
 def dlstatus(threadid):
     photoPath =os.path.join('E:\\panoramio\\allimages'  ,str(threadid))
-    statusPath =os.path.join('E:\\panoramio\\allstatus'  ,str(threadid))
+    statusPath =os.path.join('E:\\panoramio\\allinfos'  ,str(threadid))
     photoList =[os.path.splitext(x)[0] for x in os.listdir(photoPath)]
-    photoSet =set(photoList)
     print 'thread ' +str(threadid) +' is ' +str(len(photoList))
-    print 'thread ' +str(threadid) +' is ' +str(len(photoSet))
     statusList =[os.path.splitext(x)[0] for x in os.listdir(statusPath)]
     statusSet =set(statusList)
     print 'thread ' +str(threadid) +' is ' +str(len(statusList))
     print 'thread ' +str(threadid) +' is ' +str(len(statusSet))
     for thePhoto in photoList:
         if thePhoto not in statusSet:
-            theUrl =r'http://www.panoramio.com/photo/' +thePhoto +r'/stats'
+            theUrl =r'http://www.panoramio.com/photo/' +thePhoto
             try:
                 thePage  =urllib2.urlopen(theUrl).read()
             except:
