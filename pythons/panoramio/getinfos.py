@@ -26,16 +26,7 @@ def dlstatus(threadid):
     print 'thread ' +str(threadid) +' is finished!'
 
 threads =[]
-threads.append(threading.Thread(target=dlstatus ,name="thread1" ,args=(1,)))
-threads.append(threading.Thread(target=dlstatus ,name="thread2" ,args=(2,)))
 threads.append(threading.Thread(target=dlstatus ,name="thread3" ,args=(3,)))
-threads.append(threading.Thread(target=dlstatus ,name="thread4" ,args=(4,)))
-threads.append(threading.Thread(target=dlstatus ,name="thread5" ,args=(5,)))
-threads.append(threading.Thread(target=dlstatus ,name="thread6" ,args=(6,)))
-threads.append(threading.Thread(target=dlstatus ,name="thread7" ,args=(7,)))
-threads.append(threading.Thread(target=dlstatus ,name="thread8" ,args=(8,)))
-threads.append(threading.Thread(target=dlstatus ,name="thread9" ,args=(9,)))
-threads.append(threading.Thread(target=dlstatus ,name="thread10" ,args=(10,)))
 
 for t in threads:
     t.start()
