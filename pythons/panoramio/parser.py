@@ -26,14 +26,13 @@ for index in range(1,2):
             print theFile
             #infos
             filepath =os.path.join(infopath ,theFile)
+            if os.path.getsize(filepath) <40000:
+                continue
             d = pq(filename=filepath)
             #d = pq(url=r"http://www.panoramio.com/photo/95808783")
             #d = pq(url=r"http://www.panoramio.com/photo/96312089")
             #d = pq(url=r"http://www.panoramio.com/photo/9631201")
             #userid
-            content =d("#profile_pic_info a")
-            if len(content) ==0:
-                continue
             content =d("#profile_pic_info a").attr("href")
             listStr.append(content[content.rfind('/') +1:])
             #userphotos
@@ -68,6 +67,8 @@ for index in range(1,2):
             listStr.append(','.join(tagList))
             #status
             filepath =os.path.join(statuspath ,theFile)
+            if os.path.getsize(filepath) <20000:
+                continue
             d = pq(filename=filepath)
             #d = pq(url=r"http://www.panoramio.com/photo/95808783/stats")
             #looks,comments,favorites,likes
