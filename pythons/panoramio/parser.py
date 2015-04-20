@@ -23,6 +23,7 @@ for index in range(1,2):
     for theFile in statusList:
         if theFile in infoSet:
             listStr = [theFile.split('.')[0]]
+            print theFile
             #infos
             filepath =os.path.join(infopath ,theFile)
             d = pq(filename=filepath)
@@ -30,6 +31,9 @@ for index in range(1,2):
             #d = pq(url=r"http://www.panoramio.com/photo/96312089")
             #d = pq(url=r"http://www.panoramio.com/photo/9631201")
             #userid
+            content =d("#profile_pic_info a")
+            if len(content) ==0:
+                continue
             content =d("#profile_pic_info a").attr("href")
             listStr.append(content[content.rfind('/') +1:])
             #userphotos
