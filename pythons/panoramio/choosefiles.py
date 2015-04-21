@@ -27,10 +27,10 @@ for x in resultList:
         x[idx] =int(x[idx])
 
 #按-2，-3，-1排序
-resultList.sort(key=lambda x:(x[-2] ,x[-3] ,x[-1]) ,reverse=True)
+#resultList.sort(key=lambda x:(x[-2] ,x[-3] ,x[-1]) ,reverse=True)
 
 #挪动到指定文件夹
-dList =resultList[:1000]
+dList =resultList[:10000]
 for x in dList:
     filename =x[0] +'.jpg'
     srcPath =os.path.join(photoPath ,filename)
