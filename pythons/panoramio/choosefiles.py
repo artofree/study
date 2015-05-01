@@ -19,6 +19,7 @@ for x in resultList:
     if len(x) <15:
         dList.append(x)
 
+#剩下的是数据齐全的干净图片
 for x in dList:
     resultList.remove(x)
 
