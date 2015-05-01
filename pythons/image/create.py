@@ -1,27 +1,20 @@
 # -*- coding: utf-8 -*-
 
 import os ,sys
-try:
-    import cStringIO as StringIO
-except ImportError: # 导入失败会捕获到ImportError
-    import StringIO
 from PIL import Image
 
-outPath ='/Users/guopeng/Documents/panoramio/2028142.jpg'
+oriPath = 'C:\\Users\\peng\\Desktop\\123.jpg'
 
-oriPath ='/Users/guopeng/Documents/panoramio/smalls/2028142.jpg'
-im =Image.open(oriPath)
-ios =StringIO.StringIO()
-print ios.tell()
-im.save(ios ,'JPEG')
-print ios.tell()
-
-oriPath ='/Users/guopeng/Documents/panoramio/smalls/2028142.jpg'
-im =Image.open(oriPath)
-im.save(ios ,'JPEG')
-print ios.tell()
-
-ios.seek(1824)
-cont =ios.read(1824)
-with open(outPath, 'w') as f:
-    f.write(cont)
+im = Image.open(oriPath)
+box = (100, 100, 400, 400)
+region = im.crop(box)
+print region
+print type(im.size())
+# box = (100, 100, 400, 400)
+# region = im.crop(box)
+# im2 =Image.open(oriPath)
+#
+#
+#
+# print region.__class__
+# print im.__class__
