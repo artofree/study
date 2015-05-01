@@ -86,6 +86,9 @@ print theList
 theList.remove([8,7,7])
 print theList
 
+theList =[1,2,5,6,8,0]
+theList.sort(reverse=True)
+print theList[0]
 
 
 
