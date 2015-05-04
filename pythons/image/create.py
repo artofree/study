@@ -3,13 +3,14 @@
 import os ,sys
 from PIL import Image
 
-oriPath = 'C:\\Users\\peng\\Desktop\\123.jpg'
+oriPath = '/Users/guopeng/Documents/panoramio/photos/2028142.jpg'
 
-im = Image.open(oriPath)
+im1 = Image.open(oriPath)
+print im1.size[0]
 box = (100, 100, 400, 400)
-region = im.crop(box)
-print region
-print type(im.size())
+im2 = Image.open(oriPath)
+im1.paste(im2 ,(0,0,im1.size[0] ,im1.size[1]))
+
 # box = (100, 100, 400, 400)
 # region = im.crop(box)
 # im2 =Image.open(oriPath)
