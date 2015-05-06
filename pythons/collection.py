@@ -90,6 +90,11 @@ theList =[1,2,5,6,8,0]
 theList.sort(reverse=True)
 print theList[0]
 
+mylist=[5,4,3,2,1]
+for i in reversed(mylist):
+    print i
+print mylist
+
 
 
 
