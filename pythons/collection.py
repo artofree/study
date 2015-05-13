@@ -79,9 +79,15 @@ print set2
 set1 |=set2
 print set1
 
+theList =[1 ,4 ,3 ,7 ,9 ,5, 2]
+print theList.sort()
+
 #排序
+print u"排序"
 theList =[[1,3,6] ,[5,2,1] ,[8,7,7] ,[9,3,2] ,[7,6,7] ,[4,6,1] ,[8,8,8]]
 theList.sort(key=lambda x:(x[1],x[2]) ,reverse=True)
+print theList
+theList.sort(key=lambda col:(col[1]))
 print theList
 theList.remove([8,7,7])
 print theList

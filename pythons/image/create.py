@@ -2,6 +2,11 @@
 
 import os ,sys
 from PIL import Image
+try:
+    import cStringIO as StringIO
+except ImportError: # 导入失败会捕获到ImportError
+    import StringIO
+
 
 oriPath = '/Users/guopeng/Documents/panoramio/smalls/2028142.jpg'
 watermark = Image.new('RGBA', (256 ,256) ,(0 ,0 ,0 ,0))
@@ -9,8 +14,12 @@ im = Image.open(oriPath)
 box = (100, 100, 164, 164)
 region = im.crop(box)
 watermark.paste(im ,(32 ,32 ,96 ,96))
-watermark.save('/Users/guopeng/Documents/panoramio/test.png' ,'PNG')
-i =0
+#watermark.save('/Users/guopeng/Documents/panoramio/test.png' ,'PNG')
+
+for i in range(100000):
+    allStream =StringIO.StringIO()
+    watermark.save(allStream ,"PNG")
+
 
 # box = (100, 100, 400, 400)
 # region = im.crop(box)

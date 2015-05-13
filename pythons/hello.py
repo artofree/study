@@ -76,6 +76,15 @@ print os.path.dirname(os.path.dirname(__file__))
 import random
 print random.randint(0 ,10)
 
+theList =[1]
+
+def funs():
+    i =len()
+
+funs()
+funs()
+i =0
+
 
 
 

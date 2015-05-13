@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
+
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-
     <title>Carousel Template for Bootstrap</title>
+
 
     <!-- Bootstrap core CSS -->
     <link href="../utility/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,11 +31,29 @@
     <script src="../utility/bootstrap/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="../js/cols.js"></script>
+    <script type="text/javascript">
+        var new_width = 800; //你要固定的浏览器宽度
+        var new_height = 600; //你要固定的浏览器高度
+        function resizewindow() {
+            window.resizeTo(new_width, new_height);
+        }
+        resizewindow();
+    </script>
     <style>
-        html, body, #div0 {
-            height: 100%;
-            width: 100%;
+        html, body {
+            height: 500px;
+            width: 1000px;
+            border-style: solid;
+            border-width: 1px;
+            border-color: #000000;
+        }
+
+        .div1 {
+            border-style: solid;
+            border-width: 1px;
+            border-color: #ffff00;
+            min-height: 500px;
+            min-width: 500px;
         }
 
         div {
@@ -42,38 +61,30 @@
             border-width: 1px;
             border-color: red;
         }
-
-        #mapdiv {
-            float: left;
-            height: 100%;
-        }
-
-        #rightdiv {
-            float: right;
-            height: 100%;
-            padding: 20px;
-        }
     </style>
     <!-- Custom styles for this template -->
 </head>
 <body>
-<div id="div0">
-    <div id="mapdiv">
-        1
-    </div>
-    <div id="rightdiv">
-        <div id="tabdiv" style="">
-            tabdiv
-        </div>
-        <div id="thumbdiv" class="123">
-        </div>
-        <div id="navdiv" style="margin-top: 100px">
-            navdiv
-        </div>
-    </div>
-    <div style="float: left ;height: 114px ;width: 114px">
-        <img src="fghgh" style="width: 100px ;height: 100px ;background: rgb(255, 255, 255); ">
-    </div>
+<div class="div1">
+    123
+</div>
+<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+<div class="row">
+    <div class="col-xs-12 col-md-8">.col-xs-12 .col-md-8</div>
+    <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+</div>
+
+<!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+<div class="row">
+    <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+    <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+    <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+</div>
+
+<!-- Columns are always 50% wide, on mobile and desktop -->
+<div class="row">
+    <div class="col-xs-6">.col-xs-6</div>
+    <div class="col-xs-6">.col-xs-6</div>
 </div>
 </body>
 </html>
