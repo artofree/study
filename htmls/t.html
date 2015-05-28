@@ -32,21 +32,55 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <style>
-
+        .showborder {
+            border-style: solid;
+            border-color: blue;
+            border-width: 1px;
+        }
     </style>
     <!-- Custom styles for this template -->
 </head>
 <body>
+<!-- one row -->
 <div class="row">
-  <div class="col-xs-2">
-    <input type="text" class="form-control" placeholder=".col-xs-2">
-  </div>
-  <div class="col-xs-3">
-    <input type="text" class="form-control" placeholder=".col-xs-3">
-  </div>
-  <div class="col-xs-3">
-    <input type="text" class="form-control" placeholder=".col-xs-4">
-  </div>
+    <div class="col-xs-2">
+        <input type="text" class="form-control" placeholder=".col-xs-2">
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" placeholder=".col-xs-3">
+    </div>
+    <div class="col-xs-3">
+        <input type="text" class="form-control" placeholder=".col-xs-4">
+    </div>
+</div>
+<div class="showborder" style="width: 192px">
+    <img src="http://mw2.google.com/mw-panoramio/photos/thumbnail/4861913.jpg" style="height: 192px">
+    <div class="showborder" style="height: 30px">
+        <div class="showborder1" id="likediv" style="float: left;margin-left: 10px">
+            喜欢
+            <img src="http://mw2.google.com/mw-panoramio/photos/thumbnail/4861913.jpg" id="like_photo"
+             style="cursor: pointer;height: 30px;width: 20px;">
+            <span id="likecount">123</span>
+        </div>
+        <div class="showborder1" id="favoritediv" style="float: right;margin-right: 10px">
+            收藏
+            <img src="http://mw2.google.com/mw-panoramio/photos/thumbnail/4861913.jpg" id="favorite_photo"
+             style="cursor: pointer;height: 30px;width: 20px;">
+            <span id="favoritecount">123</span>
+        </div>
+    </div>
+</div>
+<button type="button" class="btn btn-default" aria-label="Left Align">
+    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+</button>
+
+<button type="button" class="btn btn-default btn-lg">
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+</button>
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  Enter a valid email address
 </div>
 </body>
 </html>

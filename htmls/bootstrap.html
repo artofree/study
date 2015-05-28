@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
+
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-
     <title>Carousel Template for Bootstrap</title>
+
 
     <!-- Bootstrap core CSS -->
     <link href="../utility/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,51 +31,22 @@
     <script src="../utility/bootstrap/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="../js/cols.js"></script>
     <style>
-        html, body, #div0 {
-            height: 100%;
-            width: 100%;
-        }
-
-        div {
+        .div1{
             border-style: solid;
+            border-color: green;
             border-width: 1px;
-            border-color: red;
-        }
-
-        #mapdiv {
-            float: left;
-            height: 100%;
-        }
-
-        #rightdiv {
-            float: right;
-            height: 100%;
-            padding: 20px;
         }
     </style>
     <!-- Custom styles for this template -->
 </head>
 <body>
-<div id="div0">
-    <div id="mapdiv">
-        1
-    </div>
-    <div id="rightdiv">
-        <div id="tabdiv" style="">
-            tabdiv
-        </div>
-        <div id="thumbdiv" class="123">
-        </div>
-        <div id="navdiv" style="margin-top: 100px">
-            <div id="frontdiv" style="float: left;width: 200px;padding-left: 50px"><a href="#" id="frontloop"><h4>《《上一页</h4></a></div>
-            <div id="backdiv" style="float: right;width: 150px"><a href="#" id="backloop"><h4>下一页》》</h4></a></div>
-        </div>
-    </div>
-    <div style="float: left ;height: 114px ;width: 114px">
-        <img src="fghgh" style="width: 100px ;height: 100px ;background: rgb(255, 255, 255); ">
-    </div>
+<h1 class="bg-primary">bg-primary</h1>
+<p class="bg-success">bg-success</p>
+<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<div>
+    <div class="div1 pull-left">left</div>
+    <div class="div1 pull-right">right</div>
 </div>
 </body>
 </html>

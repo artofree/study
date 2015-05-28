@@ -41,23 +41,36 @@ function sortNumber(a, b) {
 }
 
 theArr = [];
-theArr.push([31 ,"1"]);
-theArr.push([69 ,"2"]);
-theArr.push([7 ,"3"]);
-theArr.push([48 ,"4"]);
-theArr.push([96 ,"5"]);
+theArr.push([31, "1"]);
+theArr.push([69, "2"]);
+theArr.push([7, "3"]);
+theArr.push([48, "4"]);
+theArr.push([96, "5"]);
 
 theArr.sort(sortNumber);
 
-theArr =[];
-theArr["123"] =3;
-theArr["343"] =7;
-theArr["445"] =1;
-i =theArr.sort();
-i =theArr["123"];
+theArr = [];
+theArr["123"] = 3;
+theArr["343"] = 7;
+theArr["445"] = 1;
+i = theArr.sort();
+i = theArr["123"];
 i = 0;
 
+function myfun(isTrue) {
+    var myArr = [];
+    if (isTrue) {
+        myArr["isTrue"] = 1;
+    }
+    else {
+        myArr["isTrue"] = 0;
+    }
+    return myArr;
+}
 
+var arr = myfun(1);
+i = arr['isTrue'];
+i = 0;
 
 
 

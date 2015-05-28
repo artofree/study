@@ -11,16 +11,16 @@ outPath ='/Users/guopeng/Documents/panoramio/2028142.jpg'
 
 oriPath ='/Users/guopeng/Documents/panoramio/smalls/2028142.jpg'
 im =Image.open(oriPath)
-print im.mode()
+print(im.mode())
 ios =StringIO.StringIO()
-print ios.tell()
+print(ios.tell())
 im.save(ios ,'JPEG')
-print ios.tell()
+print(ios.tell())
 
 oriPath ='/Users/guopeng/Documents/panoramio/smalls/2028142.jpg'
 im =Image.open(oriPath)
 im.save(ios ,'JPEG')
-print ios.tell()
+print(ios.tell())
 
 ios.seek(1824)
 cont =ios.read(1824)

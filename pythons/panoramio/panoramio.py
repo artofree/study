@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import json, urllib2, codecs
+import json, urllib.request, codecs
 
 def getFun(theStr):
     photos =[]
@@ -8,7 +8,7 @@ def getFun(theStr):
     has_more =True
     while has_more:
         theUrl =r"http://www.panoramio.com/map/get_panoramas.php?set=full&from=" +str(index *100) +r"&to=" +str(index *100 +100) +theStr
-        thePage =urllib2.urlopen(theUrl).read()
+        thePage =urllib.request.urlopen(theUrl).read()
         jsonResult =json.loads(thePage)
         tmpPhotos =jsonResult["photos"]
         photoStr =""
@@ -17,7 +17,7 @@ def getFun(theStr):
             photos.append(photoStr)
         has_more =jsonResult["has_more"]
         index += 1
-    print len(photos)
+    print(len(photos))
     return photos
 
 theIndex =1

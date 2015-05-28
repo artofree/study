@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, urllib2, threading, codecs
+import os, urllib.request, threading, codecs
 
 def dlimages(threadid ,index):
     photolist =[]
@@ -13,7 +13,7 @@ def dlimages(threadid ,index):
     for photo in photolist:
         weburl =r"http://static.panoramio.com/photos/1920x1280/" +photo.strip() +r".jpg"
         try:
-            thephoto  =urllib2.urlopen(weburl).read()
+            thephoto  =urllib.request.urlopen(weburl).read()
         except:
             continue
         with codecs.open(photourl +photo.strip() +".jpg", 'wb') as f:
@@ -27,11 +27,11 @@ threads =[]
 threads.append(threading.Thread(target=dlimages ,name="thread2" ,args=(2,163782)))
 threads.append(threading.Thread(target=dlimages ,name="thread4" ,args=(4,163026)))
 
-print len(threads)
+print(len(threads))
 
 for t in threads:
     t.start()
 for t in threads:
     t.join()
 
-print "congratulation!"
+print("congratulation!")
