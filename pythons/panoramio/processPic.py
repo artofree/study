@@ -53,7 +53,8 @@ for thePhoto in photoList:
         out.save(os.path.join(tiniPath ,thePhoto) ,'JPEG' ,quality = 100)
 
 
-#加框
+
+#加框1
 # photoList =os.listdir(photoPath)
 # for thePhoto in photoList:
 #     if thePhoto.find('.jpg') >0:
