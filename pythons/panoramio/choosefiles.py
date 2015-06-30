@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # 从parser出的信息中选取测试文件
 
-import os, urllib2, threading, codecs, time, shutil
+import os, urllib, threading, codecs, time, shutil
 
 photoPath = r"E:\panoramio\allimages\1"
 resultpath = r"/Users/guopeng/Documents/panoramio/1"
