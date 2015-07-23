@@ -79,7 +79,7 @@ print(random.randint(0 ,10))
 theList =[1]
 
 def funs():
-    i =len()
+    i =len(theList)
 
 funs()
 funs()
