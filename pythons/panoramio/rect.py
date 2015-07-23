@@ -46,7 +46,7 @@ class ltlnrect(object):
 
 theRect =ltlnrect(90.0 ,-90.0 ,180.0 ,-180.0)
 theCount =int(math.pow(2 ,8))
-print type(theCount)
+print(type(theCount))
 ltLen =(theRect.nelt -theRect.swlt)/theCount
 lnLen =(theRect.neln -theRect.swln)/theCount
 matrix = [[ltlnrect(theRect.nelt -col*ltLen ,theRect.nelt -(col +1)*ltLen ,theRect.swln +(row +1)*lnLen ,theRect.swln +row *lnLen) for col in range(theCount)] for row in range(theCount)]

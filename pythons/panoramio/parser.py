@@ -3,7 +3,7 @@
 #photoid,userid,username,userphotos,lt,ltc,ln,lnc,place,photo_title,taken_time,tags,looks,likes,favorites,comments
 #其中tags试图与标准tags对应，梳理
 
-import os, urllib2, threading, codecs, time
+import os, urllib.request, urllib.error, urllib.parse, threading, codecs, time
 from pyquery import PyQuery as pq
 from lxml import etree
 
@@ -62,7 +62,7 @@ for index in range(10,11):
             #tags
             tagStr =d("#interim-tags").html()
             dd =pq(tagStr)
-            content =dd("li").items()
+            content =list(dd("li").items())
             tagList =[]
             for x in content:
                 tagStr =x.text()

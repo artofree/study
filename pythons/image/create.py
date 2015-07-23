@@ -3,9 +3,9 @@
 import os ,sys
 from PIL import Image
 try:
-    import cStringIO as StringIO
+    import io as StringIO
 except ImportError: # 导入失败会捕获到ImportError
-    import StringIO
+    import io
 
 
 oriPath = '/Users/guopeng/Documents/panoramio/smalls/2028142.jpg'
@@ -17,7 +17,7 @@ watermark.paste(im ,(32 ,32 ,96 ,96))
 #watermark.save('/Users/guopeng/Documents/panoramio/test.png' ,'PNG')
 
 for i in range(100000):
-    allStream =StringIO.StringIO()
+    allStream =io.StringIO()
     watermark.save(allStream ,"PNG")
 
 

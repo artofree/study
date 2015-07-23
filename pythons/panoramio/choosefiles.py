@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # 从parser出的信息中选取测试文件
 
-import os, urllib, threading, codecs, time, shutil
+import os, urllib.request, urllib.parse, urllib.error, threading, codecs, time, shutil
 
 photoPath = r"E:\panoramio\allimages\1"
 resultpath = r"/Users/guopeng/Documents/panoramio/1"
@@ -40,7 +40,7 @@ for x in range(1,16):
     for idx in scoreList:
         if scoreList[idx] >score*(x-1) and scoreList[idx] <=score*x:
             levelList.append(idx)
-    print len(levelList)
+    print(len(levelList))
 
 # 按-2，-3，-1排序
 #resultList.sort(key=lambda x:(x[-2] ,x[-3] ,x[-1]) ,reverse=True)

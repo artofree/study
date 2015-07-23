@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #将所有fullimage的paser信息和对应1920图片整理出来
 
-import os, urllib, threading, codecs, time, shutil
+import os, urllib.request, urllib.parse, urllib.error, threading, codecs, time, shutil
 
 photourl =r"E:\panoramio\fullImages"
 sourceurl =r"E:\panoramio\allimages"

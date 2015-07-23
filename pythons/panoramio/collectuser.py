@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, urllib2, threading, codecs, time
+import os, urllib.request, urllib.error, urllib.parse, threading, codecs, time
 from pyquery import PyQuery as pq
 from lxml import etree
 
@@ -19,7 +19,7 @@ for index in range(1,2):
     for theFile in statusList:
         if theFile in infoSet:
             theCount +=1
-            print theCount
+            print(theCount)
             #infos
             filepath =os.path.join(infopath ,theFile)
             if os.path.getsize(filepath) <40000:

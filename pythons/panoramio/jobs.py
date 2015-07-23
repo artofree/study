@@ -25,7 +25,7 @@ def dlimages(threadid ,index):
 
 threads =[]
 threads.append(threading.Thread(target=dlimages ,name="thread2" ,args=(2,163782)))
-print(len(threads))
+print((len(threads)))
 
 for t in threads:
     t.start()

@@ -17,7 +17,7 @@ def getFun(theStr):
             photos.append(photoStr)
         has_more =jsonResult["has_more"]
         index += 1
-    print(len(photos))
+    print((len(photos)))
     return photos
 
 theIndex =1

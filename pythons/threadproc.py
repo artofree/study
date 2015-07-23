@@ -3,29 +3,29 @@ import time, threading
 
 # 新线程执行的代码:
 def loop():
-    print 'thread %s is running...' % threading.current_thread().name
+    print('thread %s is running...' % threading.current_thread().name)
     n = 0
     while n < 5:
         n = n + 1
-        print 'thread %s >>> %s' % (threading.current_thread().name, n)
+        print('thread %s >>> %s' % (threading.current_thread().name, n))
         time.sleep(1)
-    print 'thread %s ended.' % threading.current_thread().name
+    print('thread %s ended.' % threading.current_thread().name)
 
 
 def fun():
-    print 'thread %s is running...' % threading.current_thread().name
+    print('thread %s is running...' % threading.current_thread().name)
     t = threading.Thread(target=loop, name='LoopThread')
     t2 = threading.Thread(target=loop, name='LoopThread2')
     t.start()
     t2.start()
     t2.join()
     t.join()
-    print 'thread %s ended.' % threading.current_thread().name
+    print('thread %s ended.' % threading.current_thread().name)
 
 
 def thread_fun(num):
     for n in range(0, int(num)):
-        print " I come from %s, num: %s" % ( threading.currentThread().getName(), n)
+        print(" I come from %s, num: %s" % ( threading.currentThread().getName(), n))
         time.sleep(1)
 
 thread_list = list()
