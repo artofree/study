@@ -19,13 +19,9 @@ var i = [];
 i["a"] = 1;
 i = null;
 a = 0;
+sdfd = 100;
 
-theArr = [1, 2, 3, 1, 3, 5, 8, 1, 10];
-for (var x in theArr) {
-    if (theArr[x] === 2) {
-        theArr.splice(x, 1);
-    }
-}
+theArr = [1, 2, 3, 2, 3, 5, 2, 1, 10];
 theArr["1"] = 1;
 theArr["2"] = 2;
 i = theArr["1"];
@@ -58,6 +54,10 @@ i = theArr["123"];
 i = 0;
 
 function myfun(isTrue) {
+    var theArr = 1;
+    if (i) {
+        i =theArr;
+    }
     var myArr = [];
     if (isTrue) {
         myArr["isTrue"] = 1;
@@ -68,12 +68,37 @@ function myfun(isTrue) {
     return myArr;
 }
 
+i =theArr;
+
 var arr = myfun(1);
 i = arr['isTrue'];
 i = 0;
 
+var val = 0.1 + 0.2;
+val = parseFloat("12.4ab");
+val = true + "";
+var obj;
+val = obj && obj.getname();
+val = "123" && 123;
+if ("123" == val)
+    val = 0;
 
+arr = new Array(3);
+arr[0] = "George";
+arr[1] = "John";
+arr[2] = "Thomas";
 
+var arr2 = new Array(3);
+arr2[0] = "James";
+arr2[1] = "Jhon";
+arr2[2] = "Martin";
+
+var arr3 = new Array(2);
+arr3[0] = "William";
+arr3[1] = "Franklin";
+
+var theArr = arr.concat(arr2, arr3);
+i = 0;
 
 
 

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-print("100 + 200 =", 100+200)
-
-#print r'\\\t\\\'
+#in out
+#print(r'\\\\t\\\')
 print(r'\\\\t\\')
 
 print("line1\nline2\nline3")
@@ -10,19 +9,18 @@ print('''line1
 line2
 line3''')
 
-a = 100
-if a > 0:
-    print(a)
-else:
-    print(-a)
+print('Hi, %s, you have $%d.' % ('Michael', 1000000))
 
+#变量
 a = 'ABC'
 b = a
 a = 'XYZ'
 print(b)
 
-#print 'Hi, %s, you have $%d.'
-print('Hi, %s, you have $%d.' % ('Michael', 1000000))
+#只要x是非零数值、非空字符串、非空list等，就判断为True，否则为False
+x = []
+if x:
+    print(True)
 
 #is用于比较id，==用于比较值。此时None 1 为不变对象，指向同一个不变对象的变量id相同
 #id相同值必然相同，值相同id未必相同
@@ -76,22 +74,16 @@ print(os.path.dirname(os.path.dirname(__file__)))
 import random
 print(random.randint(0 ,10))
 
-theList =[1]
 
-def funs():
-    i =len(theList)
+#zip用法：
+l1 =[1 ,2 ,3 ,4 ,5]
+l2 =['a' ,'b' ,'c' ,'d' ,'e']
+print (list(zip(l1 ,l2)))
+print (list(zip(*zip(l1 ,l2))))
+matrix =[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+print (list(zip(*matrix)))
+print (list(zip(*zip(*matrix))))
 
-funs()
-funs()
-i =0
-
-
-
-
-
-
-
-
-
-
-
+#
+l1 =[n*n for n in range(10)]
+print (l1)

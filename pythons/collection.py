@@ -1,22 +1,25 @@
 # -*- coding: utf-8 -*-
+#tuple:
+t1 =1 ,2 ,3 ,4 ,5
+t2 =('a' ,'b' ,'c')
+print(t1 +t2)
+print(t1 ,t2)
+x ,y ,z =t2
+print (x , y ,z)
+
+
+#list:
 classmate = []
 print((classmate, len(classmate)))
 classmate = ["guo", "liao", "chen", "he", 123, None]
 print(classmate)
-print((classmate[0], len(classmate), classmate[-1]))
+print(classmate[0], len(classmate), classmate[-1])
 
 classmate[2] = "zhu"
 classmate.pop(0)
 print((classmate, classmate[2]))
 
-#只要x是非零数值、非空字符串、非空list等，就判断为True，否则为False
-x = []
-if x:
-    print(True)
-
-theStr = "123"
-print((theStr, int(theStr)))
-
+#dict
 theDict = {"guo": 1, "liao": 2, "chen": 3, "he": 4}
 print(theDict)
 #判断字典是否有某元素
@@ -35,32 +38,6 @@ str1 = "abac"
 str2 = str1.replace("a", "A")
 print((str2, str1))
 
-#容器生成器
-theRange = list(range(0, 100, 5))
-print(theRange)
-
-theRange = list(range(10))
-print(theRange)
-print((theRange[0:2]))
-print((theRange[:5]))
-print((theRange[-5:]))
-print((theRange[-6::2]))
-
-print([x * x for x in range(10) if x %2 ==0])
-print([m +n for m in "abc" for n in "xyz"])
-
-import os
-#print [d for d in os.listdir("c:\\")]
-print([d for d in os.listdir(".")])
-print([d for d in os.listdir("..")])
-print([k +" = " +str(v) for k ,v in list(theDict.items())])
-
-g =(x * x for x in range(10) if x %2 ==0)
-for elem in g:
-    print(elem)
-
-#迭代
-print("迭代")
 for k in theDict:
     print(k)
 
@@ -96,10 +73,26 @@ theList =[1,2,5,6,8,0]
 theList.sort(reverse=True)
 print((theList[0]))
 
-mylist=[5,4,3,2,1]
+mylist=[5,3,1,2,4]
 for i in reversed(mylist):
     print(i)
 print(mylist)
+
+t =1 ,2 ,3
+print(t)
+
+#容器生成器
+theRange = list(range(0, 100, 5))
+print(theRange)
+
+print([x * x for x in range(10) if x %2 ==0])
+print([m +n for m in "abc" for n in "xyz"])
+
+import os
+#print [d for d in os.listdir("c:\\")]
+print([d for d in os.listdir(".")])
+print([d for d in os.listdir("..")])
+
 
 
 

@@ -33,6 +33,15 @@ print(calc())
 theNums =[1 ,2 ,3 ,4 ,5]
 print(calc(*theNums))
 
+#默认参数，关键字参数,可以混用
+def fun(name ,age=18 ,score =80):
+    print ("name :%s , age :%d , score :%d" % (name ,age ,score))
+
+fun('guo')
+fun('guo' ,20)
+fun('guo' ,score=100)
+fun(age=16 ,name='liao')
+
 #函数变量
 print("函数变量")
 
