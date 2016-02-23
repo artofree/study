@@ -9,19 +9,29 @@ def dlstatus(threadid):
     photoList =[os.path.splitext(x)[0] for x in os.listdir(photoPath)]
     print('thread ' +str(threadid) +' is ' +str(len(photoList)))
     statusList =[os.path.splitext(x)[0] for x in os.listdir(statusPath)]
-    statusSet =set(statusList)
-    print('thread ' +str(threadid) +' is ' +str(len(statusList)))
-    print('thread ' +str(threadid) +' is ' +str(len(statusSet)))
-    for thePhoto in photoList:
-        if thePhoto not in statusSet:
-            theUrl =r'http://www.panoramio.com/photo/' +thePhoto
-            try:
-                thePage  =urllib.request.urlopen(theUrl).read()
-            except:
-                continue
-            with codecs.open(os.path.join(statusPath  ,thePhoto) +".htm", 'wb') as f:
-                f.write(thePage)
-            statusSet.add(thePhoto)
+
+    # statusSet =set(statusList)
+    # print('thread ' +str(threadid) +' is ' +str(len(statusList)))
+    # print('thread ' +str(threadid) +' is ' +str(len(statusSet)))
+    # for thePhoto in photoList:
+    #     if thePhoto not in statusSet:
+    #         theUrl =r'http://www.panoramio.com/photo/' +thePhoto
+    #         try:
+    #             thePage  =urllib.request.urlopen(theUrl).read()
+    #         except:
+    #             continue
+    #         with codecs.open(os.path.join(statusPath  ,thePhoto) +".htm", 'wb') as f:
+    #             f.write(thePage)
+    #         statusSet.add(thePhoto)
+
+    for thePhoto in photoList[photoList.index(statusList[-1]) +1:]:
+        theUrl =r'http://www.panoramio.com/photo/' +thePhoto
+        try:
+            thePage  =urllib.request.urlopen(theUrl).read()
+        except:
+            continue
+        with codecs.open(os.path.join(statusPath  ,thePhoto) +".htm", 'wb') as f:
+            f.write(thePage)
 
     print('thread ' +str(threadid) +' is finished!')
 

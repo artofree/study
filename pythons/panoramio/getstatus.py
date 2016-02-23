@@ -7,23 +7,35 @@ def dlstatus(threadid):
     photoPath =os.path.join('E:\\panoramio\\allimages'  ,str(threadid))
     statusPath =os.path.join('E:\\panoramio\\allstatus'  ,str(threadid))
     photoList =[os.path.splitext(x)[0] for x in os.listdir(photoPath)]
-    photoSet =set(photoList)
-    print('thread ' +str(threadid) +' is ' +str(len(photoList)))
-    print('thread ' +str(threadid) +' is ' +str(len(photoSet)))
     statusList =[os.path.splitext(x)[0] for x in os.listdir(statusPath)]
-    statusSet =set(statusList)
-    print('thread ' +str(threadid) +' is ' +str(len(statusList)))
-    print('thread ' +str(threadid) +' is ' +str(len(statusSet)))
-    for thePhoto in photoList:
-        if thePhoto not in statusSet:
-            theUrl =r'http://www.panoramio.com/photo/' +thePhoto +r'/stats'
-            try:
-                thePage  =urllib.request.urlopen(theUrl).read()
-            except:
-                continue
-            with codecs.open(os.path.join(statusPath  ,thePhoto) +".htm", 'wb') as f:
-                f.write(thePage)
-            statusSet.add(thePhoto)
+
+    #这些代码只是为了去重
+    # photoSet =set(photoList)
+    # print('thread ' +str(threadid) +' is ' +str(len(photoList)))
+    # print('thread ' +str(threadid) +' is ' +str(len(photoSet)))
+    # statusList =[os.path.splitext(x)[0] for x in os.listdir(statusPath)]
+    # statusSet =set(statusList)
+    # print('thread ' +str(threadid) +' is ' +str(len(statusList)))
+    # print('thread ' +str(threadid) +' is ' +str(len(statusSet)))
+    # for thePhoto in photoList:
+    #     if thePhoto not in statusSet:
+    #         theUrl =r'http://www.panoramio.com/photo/' +thePhoto +r'/stats'
+    #         try:
+    #             thePage  =urllib.request.urlopen(theUrl).read()
+    #         except:
+    #             continue
+    #         with codecs.open(os.path.join(statusPath  ,thePhoto) +".htm", 'wb') as f:
+    #             f.write(thePage)
+    #         statusSet.add(thePhoto)
+
+    for thePhoto in photoList[photoList.index(statusList[-1]) +1 :]:
+        theUrl =r'http://www.panoramio.com/photo/' +thePhoto +r'/stats'
+        try:
+            thePage  =urllib.request.urlopen(theUrl).read()
+        except:
+            continue
+        with codecs.open(os.path.join(statusPath  ,thePhoto) +".htm", 'wb') as f:
+            f.write(thePage)
 
     print('thread ' +str(threadid) +' is finished!')
 

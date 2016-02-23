@@ -1,34 +1,44 @@
 # -*- coding: utf-8 -*-
-#in out
+
+###in out
 #print(r'\\\\t\\\')
 print(r'\\\\t\\')
-
 print("line1\nline2\nline3")
 #等价于
 print('''line1
 line2
 line3''')
-
 print('Hi, %s, you have $%d.' % ('Michael', 1000000))
 
-#变量
+charA = 65
+charB = 66
+print("ASCII码65代表：%c" % charA)
+print("ASCII码66代表：%c" % charB)
+Num1 = 0xEF3
+Num2 = 0xAB03
+print('转换成十进制分别为：%u和%u' % (Num1, Num2))
+Num3 = 1200000
+print('转换成科学计数法为：%e' % Num3)
+q ='12313af'
+print("It write: %s" % q)
+print("It write: %r" % q)
+
+
+###变量
 a = 'ABC'
 b = a
 a = 'XYZ'
 print(b)
-
 #只要x是非零数值、非空字符串、非空list等，就判断为True，否则为False
 x = []
 if x:
     print(True)
-
 #is用于比较id，==用于比较值。此时None 1 为不变对象，指向同一个不变对象的变量id相同
 #id相同值必然相同，值相同id未必相同
 #None 没有==只有is or is not
 l = None
 if l is None:
     print(True)
-
 var1 = 1
 var2 = 1.0
 if var1 is var2:
@@ -36,9 +46,11 @@ if var1 is var2:
 if var1 == var2:
     print(True)
 
-#moudleZ
-import sys
+print(1 and 0 and 3)
+print(0 or 1 or 3)
 
+###moudle
+import sys
 def test():
     args = sys.argv
     if len(args)==1:
@@ -75,7 +87,7 @@ import random
 print(random.randint(0 ,10))
 
 
-#zip用法：
+###zip用法：
 l1 =[1 ,2 ,3 ,4 ,5]
 l2 =['a' ,'b' ,'c' ,'d' ,'e']
 print (list(zip(l1 ,l2)))
@@ -84,6 +96,5 @@ matrix =[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 print (list(zip(*matrix)))
 print (list(zip(*zip(*matrix))))
 
-#
-l1 =[n*n for n in range(10)]
-print (l1)
+
+

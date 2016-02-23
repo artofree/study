@@ -1,0 +1,26 @@
+.header-v6 .navbar-nav > li > .form-control {
+    background-color:rgba(127, 127, 127, 0);
+    color: rgba(200 ,200 ,200 ,1);
+    height: 30px;
+    width: 270px;
+    margin-top: 32px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-left: 10px;
+    font-size: 15px;
+    /*border-width: 0px;*/
+}
+
+.header-fixed .header-v6.header-fixed-shrink .navbar-nav > li > .form-control {
+    /*color: rgba(67 ,67 ,67 ,1);*/
+    color: rgba(200 ,200 ,200 ,1);
+    height: 30px;
+    /*width: 240px;*/
+    margin-top: 20px;
+    border-color: rgb(96,158,20);
+    /*border-width: 0px;*/
+}
+
+.header-fixed .header-v6.header-fixed-shrink .navbar {
+		background-color:rgba(25, 25, 25, 0.9);
+	}
