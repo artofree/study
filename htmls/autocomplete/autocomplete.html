@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>自动完成部件（Autocomplete Widget）演示</title>
+    <link rel="stylesheet" href="../../utility/jquery-ui-themes-1.11.4/themes/blitzer/jquery-ui.min.css">
+    <script src="../../utility/bootstrap/js/jquery.min.js"></script>
+    <script src="../../utility/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+</head>
+<body>
+
+<label for="autocomplete">选择一个编程语言：</label>
+<input  id="autocomplete">
+
+<script>
+    var tags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"];
+    $("#autocomplete").autocomplete({
+        source: function (request, response) {
+            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            response($.grep(tags, function (item) {
+                return matcher.test(item);
+            }));
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+    <title>Blank Page | Unify - Responsive Website Template</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../assets/favicon.ico">
+
+    <!-- Web Fonts -->
+    <link rel='stylesheet' type='text/css'
+          href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <!-- CSS Header and Footer -->
+    <link rel="stylesheet" href="../assets/css/headers/header-default.css">
+    <link rel="stylesheet" href="../assets/css/footers/footer-v1.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="../assets/plugins/animate.css">
+    <link rel="stylesheet" href="../assets/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/font-awesome.min.css">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="../assets/css/custom.css">
+</head>
+
+<body>
+<div class="wrapper">
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Brand</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                    <li>
+                        <button class="btn-u btn-u-lg btn-u-dark" type="button">Large button</button>
+                    </li>
+                    <li>
+                        <button class="btn-u btn-u-lg btn-u-dark" type="button">Large button</button>
+                    </li>
+                    <li>
+                        <button class="btn-u btn-u-lg btn-u-dark" type="button">Large button</button>
+                    </li>
+                    <li>
+                        <button class="btn-u btn-u-lg btn-u-dark" type="button">Large button</button>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" id="t0" class="btn btn-lg btn-danger">Popover Example 2</a>
+                    </li>
+                    <li>
+                        <a class="btn-u btn-u-lg btn-u-dark" href="#"><i class="fa fa-cog"></i> Take this action</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <a tabindex="0" id='t4' class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
+       title="Dismissible popover"
+       data-content="And here's some amazing content. It's very engaging. Right?">可消失的弹出框</a>
+    <br>
+
+    <!--///-->
+    <a id="t1" tabindex="0" role="button" class="btn btn-lg btn-danger">t1</a>
+    <a id="t2" tabindex="0" class="btn btn-lg btn-danger" role="button">t2</a>
+    <a href="#" id="t5" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover">弹出框3</a>
+
+    <div id="LinkDIV" style="float:left;width:200px">
+    </div>
+    <br>
+    <a href="#" id="popoverExampleTwo" class="btn btn-lg btn-danger">Popover Example 2</a>
+    <!-- Popover 2 hidden content -->
+    <div id="popoverExampleTwoHiddenContent" style="display: none">
+        <div><b>Popover Example</b> 2 - Content</div>
+    </div>
+    <!-- Popover 2 hidden title -->
+    <div id="popoverExampleTwoHiddenTitle" style="display: none">
+        Popover Example <b>2</b> - Title
+    </div>
+
+</div>
+
+<!-- JS Global Compulsory -->
+<script type="text/javascript" src="../assets/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/jquery/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script type="text/javascript" src="../assets/plugins/back-to-top.js"></script>
+<script type="text/javascript" src="../assets/plugins/smoothScroll.js"></script>
+<!-- JS Customization -->
+<script type="text/javascript" src="../assets/js/custom.js"></script>
+<!-- JS Page Level -->
+<script type="text/javascript" src="../assets/js/app.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        App.init();
+    });
+    //    $(function () {
+    //        $('[data-toggle="popover"]').popover()
+    //    });
+    $(document).ready(function () {
+        $("#t0").popover(
+                {
+                    trigger: "hover", //触发方式
+                    html: 'true',
+                    placement: "bottom",
+                    title: '123',
+                    content: '123'
+                }
+        );
+    });
+
+    //    $(function () {
+    $(document).ready(function () {
+//        $("#LinkDIV").html('<a id="t5" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover">弹出框3</a>');
+//        $('[data-toggle="popover"]').each(function () {
+//            var element = $(this);
+//            var id = element.attr('id');
+//            var txt = element.html();
+//            element.popover({
+//                trigger: 'focus',
+//                placement: 'bottom', //top, bottom, left or right
+//                title: txt,
+//                html: 'true',
+//                content: '123123'
+//            });
+//        });
+        $("#t1").popover({
+            trigger: 'focus',
+            placement: 'bottom', //top, bottom, left or right
+            title: "123",
+            html: 'true',
+            content: '123123'
+        });
+
+        $("#t2").popover({
+            trigger: "manual",
+            html: true,
+            animation: false,
+            title: "123",
+            content: '<a href="http://www.baidu.com">Link</a>'
+        })
+                .on("focus", function () {
+                    var _this = this;
+                    $(this).popover("show");
+                    $(".popover").on("mouseleave", function () {
+                        $(_this).popover('hide');
+                    });
+                }).on("mouseleave", function () {
+                    var _this = this;
+                    setTimeout(function () {
+                        if (!$(".popover:hover").length) {
+                            $(_this).popover("hide");
+                        }
+                    }, 300);
+                });
+
+        $("#popoverExampleTwo").popover({
+            html: true,
+            trigger: 'focus',
+            content: function () {
+                return $('#popoverExampleTwoHiddenContent').html();
+            },
+            title: function () {
+                return $('#popoverExampleTwoHiddenTitle').html();
+            }
+        });
+
+        $("body").click(function (event) {
+            if(event.target.id =='t1')
+            {
+                alert("t1");
+            }
+        });
+    });
+</script>
+<!--[if lt IE 9]>
+<script src="../assets/plugins/respond.js"></script>
+<script src="../assets/plugins/html5shiv.js"></script>
+<script src="../assets/plugins/placeholder-IE-fixes.js"></script>
+<![endif]-->
+
+</body>
+</html>
