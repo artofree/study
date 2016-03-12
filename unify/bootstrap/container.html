@@ -17,6 +17,9 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="../assets/favicon.ico">
 
+    <!-- Web Fonts -->
+    <link rel='stylesheet' type='text/css'
+          href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
 
     <!-- CSS Global Compulsory -->
     <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
@@ -35,13 +38,31 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="../assets/css/custom.css">
     <style>
-
+        .col-sm-9 {
+            border: 1px blue solid;
+        }
     </style>
 </head>
-
+<!--...container提供不同视口下的固定宽度和内补，container-fluid提供内补，宽度为父窗口宽度-->
 <body>
 <div class="wrapper">
-
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9">
+                Level 1: .col-sm-9
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-6">
+                            Level 2: .col-xs-8 .col-sm-6
+                        </div>
+                        <div class="col-xs-4 col-sm-6">
+                            Level 2: .col-xs-4 .col-sm-6
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- JS Global Compulsory -->
 <script type="text/javascript" src="../assets/plugins/jquery/jquery.min.js"></script>

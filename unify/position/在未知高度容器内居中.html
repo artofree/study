@@ -35,14 +35,45 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="../assets/css/custom.css">
     <style>
+        .con{
+            position: relative;
+            border: 1px blue solid;
+            height: 500px;
+            width: 1000px;
+        }
+        .mask {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(200, 200, 200, .2);
+        }
 
+        .mask:after {
+            content: "123";
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+        }
+
+        .dialog {
+            display: inline-block;
+            border: 3px solid lightblue;
+        }
     </style>
 </head>
 
 <body>
-<div class="wrapper">
-
+<div class="con">
+    <div class="mask">
+        <div class="dialog">
+            未知宽高元素窗口水平垂直居中(拖动右下角改变宽高)"
+        </div>
+    </div>
 </div>
+
 <!-- JS Global Compulsory -->
 <script type="text/javascript" src="../assets/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../assets/plugins/jquery/jquery-migrate.min.js"></script>

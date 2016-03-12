@@ -35,14 +35,45 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="../assets/css/custom.css">
     <style>
+        section {
+            border: solid 1px;
+        }
 
+        section section {
+            margin-left: 10px;
+            margin-top: 10px;
+            text-align: center;
+            line-height: 200px;
+            width: 200px;
+            border-radius: 20px;
+            height: 200px;
+        }
+
+        .parent {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            height: 440px;
+            width: 660px;
+        }
+
+        .parent section:first-child {
+            height: 410px;
+        }
     </style>
 </head>
 
 <body>
 <div class="wrapper">
-
+    <section class="parent">
+        <section>A</section>
+        <section>B</section>
+        <section>C</section>
+        <section>D</section>
+        <section>E</section>
+    </section>
 </div>
+
 <!-- JS Global Compulsory -->
 <script type="text/javascript" src="../assets/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../assets/plugins/jquery/jquery-migrate.min.js"></script>

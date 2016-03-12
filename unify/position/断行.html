@@ -35,14 +35,45 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="../assets/css/custom.css">
     <style>
+        .wrapper {
+            width: 100px;
+            word-wrap: break-word;
+            word-break: keep-all;
+            border: 1px blue solid;
+        }
 
+        .nowrap{
+            width: 200px;
+            border: 1px blue solid;
+        }
+        .nowrap li {
+            white-space: nowrap;
+            width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
 </head>
 
 <body>
 <div class="wrapper">
-
+    .adfgsfgsg .sfgadfgsfgsgsfgadf .gsfgsgsfgadfgsfgsgsfgad .fgsfgsgsfgadfgsfgsgsfg .adfoijaodif .dfg .godafgdg .dfg
 </div>
+<br>
+
+<div class="nowrap">
+    <ul>
+        <li>强制不换行div{</li>
+        <li>//white-space：不换行;normal 默认;nowrap强制在同</li>
+        <li>内显示所有文本，直到文本结束或者遭遇 br 对象</li>
+        <li>white-space:nowrap; }</li>
+        <li>自动换div{ word-wrap: break-word;</li>
+        <li>//word-break设置强行换行;normal 亚洲语言和非亚语</li>
+        <li>的文本规则，允许在字内换行</li>
+        <li>word-break: normal; }强制英文单词断行本</li>
+    </ul>
+</div>
+
 <!-- JS Global Compulsory -->
 <script type="text/javascript" src="../assets/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../assets/plugins/jquery/jquery-migrate.min.js"></script>

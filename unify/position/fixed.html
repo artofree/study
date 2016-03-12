@@ -35,14 +35,29 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="../assets/css/custom.css">
     <style>
-
+        h1{
+            border:1px blue solid;
+        }
+        .pos_fixed{
+            position: fixed;
+            /*....如果不指定top会跟着body走*/
+            top: 0px;
+            left: 100px;
+            /*....不指定宽度则仅包含内容*/
+            width: 500px;
+        }
+        body{
+            padding-top: 50px;
+        }
     </style>
 </head>
 
 <body>
 <div class="wrapper">
-
+    <div class="pos_fixed"><h1>fixed</h1></div>
+    <div class="thecontent"><h1>content</h1></div>
 </div>
+
 <!-- JS Global Compulsory -->
 <script type="text/javascript" src="../assets/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../assets/plugins/jquery/jquery-migrate.min.js"></script>

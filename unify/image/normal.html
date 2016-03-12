@@ -35,14 +35,56 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="../assets/css/custom.css">
     <style>
+        .container {
+            border: 1px red solid;
+            text-align: center;
+        }
 
+        .image {
+            border: 1px blue solid;
+            /*...刚好包裹图片！！*/
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .img {
+            margin: 5px;
+            opacity: 0.5;
+        }
+
+        .text {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
 <body>
-<div class="wrapper">
+<div class="container">
+    <div class="image">
+        <a href="#">
+            <img class="img" src="../assets/photo/5.jpg" width="200px" height="200px">
+        </a>
 
+        <div class="text">关于图片的描述</div>
+    </div>
+    <div class="image">
+        <a href="#">
+            <img class="img" src="../assets/photo/5.jpg" width="200px" height="200px">
+        </a>
+
+        <div class="text">关于图片的描述</div>
+    </div>
+    <div class="image">
+        <a href="#">
+            <img class="img" src="../assets/photo/5.jpg" width="200px" height="200px">
+        </a>
+
+        <div class="text">关于图片的描述</div>
+    </div>
 </div>
+
 <!-- JS Global Compulsory -->
 <script type="text/javascript" src="../assets/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../assets/plugins/jquery/jquery-migrate.min.js"></script>
