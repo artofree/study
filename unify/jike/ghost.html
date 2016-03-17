@@ -35,51 +35,63 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="../assets/css/custom.css">
     <style>
-        .con{
-            position: relative;
-            border: 1px blue solid;
-            height: 500px;
-            width: 1000px;
+        .wrapper{
+            background-color: #0e8a65;
         }
-        .mask {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
+        .main-header {
             text-align: center;
-            background-color: rgba(200, 200, 200, .2);
+            padding: 42px 0;
+            background-image: url(http://static.ghostchina.com/image/6/d1/fcb3879e14429d75833a461572e64.jpg);
+            background-position: center 20%;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
-
-        .mask:after {
-            content: "123";
-            display: inline-block;
-            vertical-align: middle;
-            height: 100%;
+        .theNav{
+            border-top: 1px grey solid;
+            border-bottom: 1px grey solid;
+            text-align: center;
+            background-color: white;
+            margin-bottom: 35px;
         }
-        /*.before{*/
-            /*display: inline-block;*/
-            /*vertical-align: middle;*/
-            /*height: 100%;*/
-        /*}*/
-
-        .dialog {
+        .theNav .menu{
+            padding: 0;
+            margin: 0;
+        }
+        .theNav li{
+            list-style: none;
             display: inline-block;
-            /*display: inline;*/
-            height: 100px;
-            border: 3px solid lightblue;
-            vertical-align: middle;
+            /*position:relative;*/
+        }
+        .theNav li a{
+            color: #505050;
+            line-height: 50px;
+            display: block;
+            padding: 0 21px;
         }
     </style>
 </head>
 
 <body>
-<div class="con">
-    <div class="mask">
-        <!--<div class="before">123</div>-->
-        <div class="dialog">
-            未知宽高
+<div class="wrapper">
+    <header class="main-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a class="branding" href="http://www.baidu.com" title="百度首页">
+                        <img src="http://static.ghostchina.com/image/b/46/4f5566c1f7bc28b3f7ac1fada8abe.png">
+                    </a>
+                </div>
+            </div>
         </div>
+    </header>
+    <div class="theNav">
+        <ul class="menu">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">信息</a></li>
+            <li><a href="#">昨天</a></li>
+            <li><a href="#">天气</a></li>
+            <li><a href="#">季节</a></li>
+        </ul>
     </div>
 </div>
 

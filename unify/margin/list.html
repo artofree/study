@@ -35,51 +35,49 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="../assets/css/custom.css">
     <style>
-        .con{
-            position: relative;
-            border: 1px blue solid;
-            height: 500px;
-            width: 1000px;
-        }
-        .mask {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            text-align: center;
-            background-color: rgba(200, 200, 200, .2);
+        body, ul, li {
+            padding: 0;
+            margin: 0;
         }
 
-        .mask:after {
-            content: "123";
-            display: inline-block;
-            vertical-align: middle;
-            height: 100%;
+        ul, li {
+            list-style: none;
         }
-        /*.before{*/
-            /*display: inline-block;*/
-            /*vertical-align: middle;*/
-            /*height: 100%;*/
-        /*}*/
 
-        .dialog {
-            display: inline-block;
-            /*display: inline;*/
+        #test {
+            width: 320px;
+            height: 210px;
+            background: #CCC;
+        }
+
+        #test ul {
+            margin-right: -10px;
+            zoom: 1;
+        }
+
+        #test ul li {
+            width: 100px;
             height: 100px;
-            border: 3px solid lightblue;
-            vertical-align: middle;
+            background: #F60;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            float: left;
         }
+
     </style>
 </head>
 
 <body>
-<div class="con">
-    <div class="mask">
-        <!--<div class="before">123</div>-->
-        <div class="dialog">
-            未知宽高
-        </div>
+<div class="wrapper">
+    <div id="test">
+        <ul>
+            <li>子元素1</li>
+            <li>子元素2</li>
+            <li>子元素3</li>
+            <li>子元素4</li>
+            <li>子元素5</li>
+            <li>子元素6</li>
+        </ul>
     </div>
 </div>
 

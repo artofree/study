@@ -35,51 +35,21 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="../assets/css/custom.css">
     <style>
-        .con{
-            position: relative;
-            border: 1px blue solid;
-            height: 500px;
-            width: 1000px;
-        }
-        .mask {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            text-align: center;
-            background-color: rgba(200, 200, 200, .2);
-        }
-
-        .mask:after {
-            content: "123";
-            display: inline-block;
-            vertical-align: middle;
-            height: 100%;
-        }
-        /*.before{*/
-            /*display: inline-block;*/
-            /*vertical-align: middle;*/
-            /*height: 100%;*/
-        /*}*/
-
-        .dialog {
-            display: inline-block;
-            /*display: inline;*/
-            height: 100px;
-            border: 3px solid lightblue;
-            vertical-align: middle;
+        .img-content{
+            padding: 100px 0;
+            background-image: url(../assets/photo/5.jpg);
+            /*background-size: 100% 100%;*/
+            /*background-size: contain;*/
+            background-size: cover;
+            /*margin-bottom: 100px;*/
         }
     </style>
 </head>
 
 <body>
-<div class="con">
-    <div class="mask">
-        <!--<div class="before">123</div>-->
-        <div class="dialog">
-            未知宽高
-        </div>
+<div class="wrapper">
+    <div class="img-content" style="text-align: center">
+        <button>123123123</button>
     </div>
 </div>
 

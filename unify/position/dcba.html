@@ -45,10 +45,13 @@
             line-height: 50px;
             margin-left: 10px;
             display: inline-block;
+
+            /*...默认为底部对其*/
+            vertical-align: middle;
         }
 
-        /**start here**/
-        .main {
+        /*...默认为继承*/
+        body {
             text-align: center;
         }
 
@@ -57,7 +60,8 @@
 
 <body>
 <div class="main">
-    <div class="thediv">
+
+    <div class="thediv" style="font-size: 30px">
         A
     </div>
     <div class="thediv">
@@ -69,6 +73,7 @@
     <div class="thediv">
         D
     </div>
+    <a href="#" class="thediv" style="font-size: 25px">E</a>
 </div>
 
 <!-- JS Global Compulsory -->

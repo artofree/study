@@ -13,44 +13,34 @@
     <script src="../../utility/bootstrap/js/jquery.min.js"></script>
     <script src="../../utility/bootstrap/js/bootstrap.min.js"></script>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-width: 600px;
-        }
+        .div1 {
+            position: relative;
+            margin-top: 200px;
+            margin-left: 200px;
+            width: 100px;
+            height: 300px;
 
-        .main {
-            float: left;
-            width: 100%;
+            border: 1px solid blue;
         }
+        .div2{
+            position: relative;
+            margin-left: 50%;
+            margin-top: 50%;
 
-        .main_body {
-            margin: 0 210px;
-            background: #888;
-            height: 200px;
-        }
-
-        .left, .right {
-            float: left;
-            width: 200px;
-            height: 200px;
-            background: #F60;
-        }
-
-        .left {
-            margin-left: -100%;
-        }
-        .right{
-            margin-left: -200px;
+            border-style: solid;
+            border-width: 1px;
+            border-color: red;
         }
     </style>
     <!-- Custom styles for this template -->
 </head>
 <body>
-<div class="main">
-    <div class="main_body">Main</div>
-</div>
-<div class="left">Left</div>
-<div class="right">Right</div>
+    <div class="div1">
+        <div class="div2">
+            div2
+        </div>
+    </div>
+    <div class="div3" style="border: 1px blue solid; height: 100px; margin-bottom: -10px;">div3</div>
+    <div class="div4" style="border: 1px blue solid; height: 100px;">div4</div>
 </body>
 </html>
