@@ -45,20 +45,41 @@
 
         .navcon {
             width: 500px;
+            /*height: 100px;*/
+            margin: 0 auto;
             background-color: grey;
-            height: 100px;
+            overflow: hidden;
+
+            /*text-align: center;*/
         }
 
         ul {
+            background-color: green;
+            display: inline-block;
             position: relative;
-            margin-top: 200px;
+            margin: 20px auto;
         }
 
         li {
-            display: inline;
+            display: inline-block;
         }
 
-        a {
+        .div1 {
+            width: 500px;
+            background-color: grey;
+            margin: 50px auto;
+            /*...将设置inline或者inline-block元素在其最近父窗口内水平居中*/
+            text-align: center;
+        }
+        .div11{
+            display: inline-block;
+            width: 300px;
+            background-color: red;
+            margin: 30px auto;
+        }
+        .div2 {
+            display: inline-block;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -66,15 +87,24 @@
 <body>
 <div class="wrapper">
     <div class="navcon">
-        <div style="margin-top: 100px">
-            <!--<ul class="mynav">-->
-                <!--<li><a href="#">feature1</a></li>-->
-                <!--<li><a href="#">feature2</a></li>-->
-                <!--<li><a href="#">feature3</a></li>-->
-                <!--<li><a href="#">feature4</a></li>-->
-                <!--<li><a href="#">feature5</a></li>-->
-                <!--<li><a href="#">feature6</a></li>-->
-            <!--</ul>-->
+        <div>
+            <ul class="mynav">
+                <li><a href="#">feature1</a></li>
+                <li><a href="#">feature2</a></li>
+                <li><a href="#">feature3</a></li>
+                <li><a href="#">feature4</a></li>
+                <li><a href="#">feature5</a></li>
+                <li><a href="#">feature6</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="div1">
+        <div class="div11">
+            <div class="div2">div2</div>
+            <div class="div2">div2</div>
+            <div class="div2">div2</div>
+            <div class="div2">div2</div>
         </div>
     </div>
 </div>

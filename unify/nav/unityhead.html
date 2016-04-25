@@ -41,20 +41,30 @@
         div {
             border: 1px blue solid;
         }
-
+        /*...图片居中！！*/
+        /*.con-brand{*/
+            /*text-align: center;*/
+        /*}*/
+        /*.brand {*/
+            /*display: inline-block;*/
+            /*margin: 20px auto;*/
+        /*}*/
+        /*...或者*/
         .brand {
-            /*...图片居中！！*/
             display: block;
             margin: 20px auto;
         }
-
+        /*... 负margin一般用于中间内容不足，底部依然在最下面*/
+            /*或者做减法计算时*/
         .barcon {
-            height: 80px;
-            margin-bottom: -50px;
+            /*height: 80px;*/
+            /*margin-bottom: -50px;*/
+            height: 30px;
+            /*line-height: 30px;*/
         }
 
         .navcon {
-            height: 50px;
+            height: 100px;
             /*border: 1px red solid;*/
         }
     </style>
@@ -64,7 +74,7 @@
 <div class="wrapper">
     <div class="container">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-3 con-brand">
                 <a href="#"><img src="../assets/img/logo1-default.png" class="brand"></a>
             </div>
             <div class="col-sm-9">

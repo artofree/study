@@ -1,0 +1,92 @@
+.wrapper {
+    background-color: #ebebeb;
+}
+
+.main-header {
+    /*text-align: center;*/
+    /*padding: 42px 0;*/
+    background-image: url(http://static.ghostchina.com/image/6/d1/fcb3879e14429d75833a461572e64.jpg);
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/*.theImg {*/
+    /*display: block;*/
+    /*margin: 42px auto;*/
+/*}*/
+
+.theNav {
+    border-top: 1px grey solid;
+    border-bottom: 1px grey solid;
+    text-align: center;
+    background-color: white;
+    margin-bottom: 35px;
+}
+
+.theNav .menu {
+    padding: 0;
+    margin: 0;
+}
+
+.theNav li {
+    list-style: none;
+    display: inline-block;
+    /*position:relative;*/
+}
+
+.theNav li a {
+    color: #505050;
+    line-height: 50px;
+    display: block;
+    padding: 0 21px;
+}
+
+.post {
+    padding: 35px;
+    background-color: white;
+    margin-bottom: 35px;
+    position: relative;
+    /*overflow: hidden;*/
+}
+
+.post .post-head {
+    text-align: center;
+}
+
+.post .post-head .post-meta {
+    margin: 15px 0;
+}
+
+.post .post-btn {
+    margin-top: 30px;
+}
+
+.post .footer .tag-list a {
+    color: grey;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.post .footer hr {
+    margin: 15px 0;
+}
+
+.sidebar .widget {
+    background-color: white;
+    padding: 21px;
+    margin-bottom: 30px;
+}
+
+.sidebar .widget .title {
+    padding-bottom: 10px;
+    border-bottom: 1px grey solid;
+}
+
+.sidebar .widget .theContent a {
+    border: 1px green solid;
+    padding: 2px 7px;
+    margin: 3px 7px;
+    display: inline-block;
+    line-height: 50px;
+}
