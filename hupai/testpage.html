@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>兼容性测试</title>
+    <link href="css/css.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+    <script src="js/swfobject.js"></script>
+	<style>
+        #testdialog {
+            max-width: 760px;
+            margin: 0px auto;
+            border:1px solid #0094ff;
+            min-height:500px;
+            padding:20px;
+        }
+    </style>
+    <script>
+	function Test() {
+    funCheckBrowser();
+    funFlashChecker();
+    if (checkBrowser && checkFlash) {
+        $("#testResultText").text("浏览器测试通过");
+        $("#testResultText").attr("class", "");
+        $("#testResultText").addClass("bg-right");
+		loadFlash();
+    }
+    else {
+        $("#testResultText").text("浏览器未通过测试");
+        $("#testResultText").attr("class", "");
+        $("#testResultText").addClass("bg-wrong");
+    }
+
+}
+function loadFlash()
+{
+	var flashvars = {
+            
+        };
+        var params = {
+            menu: "false",
+            scale: "noScale",
+            allowFullscreen: "true",
+            allowScriptAccess: "always",
+            bgcolor: "",
+            wmode: "transparent"
+        };
+        var attributes = {
+            id: "testsocket"
+        };
+
+        swfobject.embedSWF(
+            "flashselftest-release.swf?p=1.1",
+            "altContent01", "900", "450", "11",
+            "expressInstall.swf",
+            flashvars, params, attributes);
+}
+       var checkBrowser = false;
+function funCheckBrowser() {
+    var Sys = {};
+    var ua = navigator.userAgent.toLowerCase();
+    var s;
+    var scan;
+ 
+   (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1].split(".")[0] :
+   (s = ua.match(/edge\/([\d.]+)/)) ? Sys.edge = s[1].split(".")[0]:
+   (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1].split(".")[0] :
+   (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1].split(".")[0] :
+   (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1].split(".")[0] :
+   (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1].split(".")[0] : 0;
+   
+ 
+    var comment = "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请在Windows视窗系统上使用ie6及以上版本浏览器或在Mac OS X系统上使用Safari浏览器。";
+    if (Sys.ie) {
+        $("#BrowserTest").text("您使用的是ie内核,版本号为" + Sys.ie + "的浏览器");
+        if (Sys.ie < 6) {
+            $("#BrowserTestImg").attr("src", "img/alert.jpg");
+            $("#BrowserTest").text("您使用的是ie内核,版本号为" + Sys.ie + "的浏览器。" + comment);
+            $("#iesetup").show();
+            $("#firefoxsetup").show();
+            $(".download1").show();
+        }
+        else { checkBrowser = true; }
+    }
+    else if (!!window.ActiveXObject || "ActiveXObject" in window) {
+        $("#BrowserTest").text("您使用的是ie内核,版本号为11的浏览器");
+        checkBrowser = true;
+    }
+    else if (Sys.edge) {
+        $("#BrowserTest").html("您使用的是edge内核的浏览器。" );
+        checkBrowser = true;
+    }
+    else if (Sys.firefox) {
+        $("#BrowserTest").html("您使用的是firefox内核的浏览器。" + comment);
+        $("#BrowserTestImg").attr("src", "img/alert.png");
+        $("#iesetup").show();
+        $("#firefoxsetup").show();
+        $(".download1").show();
+    }
+    else if (Sys.chrome) {
+        $("#BrowserTest").html("您使用的是chrome内核的浏览器。" + comment);
+        $("#BrowserTestImg").attr("src", "img/alert.png");
+        $("#iesetup").show();
+        $("#firefoxsetup").show();
+        $(".download1").show();
+
+    }
+    else if (Sys.opera) {
+        $("#BrowserTestImg").attr("src", "img/alert.jpg");
+        $("#BrowserTest").html("您使用的是opera内核的浏览器。" + comment);
+        $("#iesetup").show();
+        $("#firefoxsetup").show();
+        $(".download1").show();
+    }
+    else if (Sys.safari) {
+        $("#BrowserTest").html("您使用的是safari内核的浏览器");
+
+        checkBrowser = true;
+    }
+    $("#BrowserTestImg").show();
+}
+var checkFlash = false;
+function funFlashChecker() {
+    var hasFlash = 0;
+    var flashVersion = 0;
+
+    if (document.all) {
+        try {
+            var swf = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+            if (swf) {
+                hasFlash = 1;
+                VSwf = swf.GetVariable("$version");
+                flashVersion = parseInt(VSwf.split(" ")[1].split(",")[0]);
+            }
+        } catch (e) { }
+    } else {
+        if (navigator.plugins && navigator.plugins.length > 0) {
+            for (var x = 0; x < navigator.plugins.length ; x++) {
+                if (navigator.plugins[x].name.indexOf("Shockwave Flash") > -1) {
+                    var swf = navigator.plugins[x];
+                    if (swf) {
+                        hasFlash = 1;
+                        var words = swf.description.split(" ");
+                        for (var i = 0; i < words.length; ++i) {
+                            if (isNaN(parseInt(words[i]))) continue;
+                            if (flashVersion < parseInt(words[i]))
+                                flashVersion = parseInt(words[i]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if (hasFlash) {
+        if (flashVersion < 11) {
+            $("#FlashTest").text("您的浏览器安装了版本为" + flashVersion + "的flash插件，请安装11及以上版本");
+            $("#FlashTestImg").attr("src", "img/alert.jpg");
+            $("#flashsetup").show();
+        }
+        else {
+            $("#FlashTest").text("您的浏览器安装了版本为" + flashVersion + "的flash插件");
+            checkFlash = true;
+        }
+    }
+    else {
+
+        $("#FlashTest").text("您的浏览器未安装flash插件,请先安装flash插件");
+        $("#FlashTestImg").attr("src", "img/alert.jpg");
+        $("#flashsetup").show();
+    }
+    $("#FlashTestImg").show();
+}
+
+    </script>
+</head>
+<body onload="Test();">
+    <div id="testdialog" style="max-width:900px;width:900px; position:relative" >
+		
+         
+        <ul>
+            <li class="testResult"><a class="bg-right" id="testResultText">浏览器测试通过</a></li>
+            <li><a><img src="img/tick.jpg" id="BrowserTestImg" style="display:none" /></a><a id="BrowserTest">浏览器版本检测</a></li>
+            <li><a><img src="img/tick.jpg" id="FlashTestImg" style="display:none" /></a><a id="FlashTest">Flash版本检测</a><br /><a class="download" href="http://get.adobe.com/cn/flashplayer/" target="_blank" style="display:none" id="flashsetup">点击至Adobe官网下载</a></li>
+			<li ><a><img src="img/qa.jpg"    /></a>点击下载<a href="qa.doc" style="color:blue;">《常见兼容性问答》</a></li>
+			<li style="margin:0 auto;text-align:center;" >
+<div style="font-size:20px;float:left;padding-left:45px">Flash联机测试</div>
+<div id="altContent01">如果您看不到Flash请检查您浏览器的Internet安全等级</div></li>
+        </ul>
+    </div>
+</body>
+</html>
