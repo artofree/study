@@ -1403,7 +1403,7 @@
 		if(prop === 'zIndex') {
 			if(isNaN(val)) {
 				//If it's not a number, don't touch it.
-				//It could for example be "auto" (#351).
+				//It could for fully_connected be "auto" (#351).
 				style[prop] = val;
 			} else {
 				//Floor the number.

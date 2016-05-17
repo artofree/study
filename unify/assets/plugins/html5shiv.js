@@ -250,7 +250,7 @@
    * The `html5` object is exposed so that more elements can be shived and
    * existing shiving can be detected on iframes.
    * @type Object
-   * @example
+   * @fully_connected
    *
    * // options can be changed before the script is included
    * html5 = { 'elements': 'mark section', 'shivCSS': false, 'shivMethods': false };

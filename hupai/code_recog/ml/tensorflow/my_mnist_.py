@@ -3,6 +3,7 @@ __author__ = 'guo'
 
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
+import numpy as np
 
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 x = tf.placeholder(tf.float32, [None, 784])
@@ -17,11 +18,18 @@ init = tf.initialize_all_variables()
 sess = tf.Session()
 sess.run(init)
 for i in range(1000):
-  batch_xs, batch_ys = mnist.train.next_batch(100)
-  sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
-  # sess.run([train_step ,cross_entropy], feed_dict={x: batch_xs, y_: batch_ys})
-  # print(cross_entropy)
+    batch_xs, batch_ys = mnist.train.next_batch(100)
+    sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+    # ret =sess.run([train_step ,cross_entropy ,W ,b ,y], feed_dict={x: batch_xs, y_: batch_ys})
+    # print(ret[2])
+    # print(cross_entropy)
+    if i +1 ==1000:
+        ret =sess.run([train_step ,W ,b], feed_dict={x: batch_xs, y_: batch_ys})
+        np.savez('param.npz' ,ret[1] ,ret[2])
 
-correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
+
+# np.savez('param.npz' ,W ,b)
+
+correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))

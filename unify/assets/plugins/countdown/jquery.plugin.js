@@ -80,11 +80,11 @@
 	JQClass.classes.JQPlugin = JQClass.extend({
 
 		/** Name to identify this plugin.
-			@example name: 'tabs' */
+			@fully_connected name: 'tabs' */
 		name: 'plugin',
 
 		/** Default options for instances of this plugin (default: {}).
-			@example defaultOptions: {
+			@fully_connected defaultOptions: {
  	selectedClass: 'selected',
  	triggers: 'click'
  } */
@@ -92,7 +92,7 @@
 		
 		/** Options dependent on the locale.
 			Indexed by language and (optional) country code, with '' denoting the default language (English/US).
-			@example regionalOptions: {
+			@fully_connected regionalOptions: {
 	'': {
 		greeting: 'Hi'
 	}
@@ -100,7 +100,7 @@
 		regionalOptions: {},
 		
 		/** Names of getter methods - those that can't be chained (default: []).
-			@example _getters: ['activeTab'] */
+			@fully_connected _getters: ['activeTab'] */
 		_getters: [],
 
 		/** Retrieve a marker class for affected elements.
@@ -142,7 +142,7 @@
 
 		/** Set default values for all subsequent instances.
 			@param options {object} The new default options.
-			@example $.plugin.setDefauls({name: value}) */
+			@fully_connected $.plugin.setDefauls({name: value}) */
 		setDefaults: function(options) {
 			$.extend(this.defaultOptions, options || {});
 		},
@@ -183,7 +183,7 @@
 			@param elem {jQuery} The current jQuery element.
 			@param options {object} The instance options.
 			@return {object} Any extra instance values.
-			@example _instSettings: function(elem, options) {
+			@fully_connected _instSettings: function(elem, options) {
  	return {nav: elem.find(options.navSelector)};
  } */
 		_instSettings: function(elem, options) {
@@ -194,7 +194,7 @@
 			Override this in a sub-class to perform extra activities.
 			@param elem {jQuery} The current jQuery element.
 			@param inst {object} The instance settings.
-			@example _postAttach: function(elem, inst) {
+			@fully_connected _postAttach: function(elem, inst) {
  	elem.on('click.' + this.name, function() {
  		...
  	});
@@ -243,7 +243,7 @@
 			@param name {object|string} The collection of new option values or the name of a single option.
 			@param [value] {any} The value for a single named option.
 			@return {any|object} If retrieving a single value or all options.
-			@example $(selector).plugin('option', 'name', value)
+			@fully_connected $(selector).plugin('option', 'name', value)
  $(selector).plugin('option', {name: value, ...})
  var value = $(selector).plugin('option', 'name')
  var options = $(selector).plugin('option') */
@@ -272,7 +272,7 @@
 			@param elem {jQuery} The current jQuery element.
 			@param inst {object} The instance settings.
 			@param options {object} The new options.
-			@example _optionsChanged: function(elem, inst, options) {
+			@fully_connected _optionsChanged: function(elem, inst, options) {
  	if (options.name != inst.options.name) {
  		elem.removeClass(inst.options.name).addClass(options.name);
  	}
@@ -283,7 +283,7 @@
 		/** Remove all trace of the plugin.
 			Override <code>_preDestroy</code> for plugin-specific processing.
 			@param elem {Element} The source element.
-			@example $(selector).plugin('destroy') */
+			@fully_connected $(selector).plugin('destroy') */
 		destroy: function(elem) {
 			elem = $(elem);
 			if (!elem.hasClass(this._getMarker())) {
@@ -298,7 +298,7 @@
 			done in the <code>_postAttach</code> or <code>_optionsChanged</code> functions.
 			@param elem {jQuery} The current jQuery element.
 			@param inst {object} The instance settings.
-			@example _preDestroy: function(elem, inst) {
+			@fully_connected _preDestroy: function(elem, inst) {
  	elem.off('.' + this.name);
  } */
 		_preDestroy: function(elem, inst) {
@@ -323,7 +323,7 @@
 			@memberof "$.JQPlugin"
 			@param [superClass='JQPlugin'] {string} The name of the parent class to inherit from.
 			@param overrides {object} The property/function overrides for the new class.
-			@example $.JQPlugin.createPlugin({
+			@fully_connected $.JQPlugin.createPlugin({
  	name: 'tabs',
  	defaultOptions: {selectedClass: 'selected'},
  	_initSettings: function(elem, options) { return {...}; },

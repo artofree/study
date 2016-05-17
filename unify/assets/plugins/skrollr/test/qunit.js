@@ -317,7 +317,7 @@ var QUnit = {
 	},
 
 	// Asserts true.
-	// @example ok( "asdfasdf".length > 5, "There must be at least 5 chars" );
+	// @fully_connected ok( "asdfasdf".length > 5, "There must be at least 5 chars" );
 	ok: function(result, msg) {
 		if (!config.current) {
 			throw new Error("ok() assertion outside test context, was " + sourceFromStacktrace(2));
@@ -343,7 +343,7 @@ var QUnit = {
 	},
 
 	// Checks that the first two arguments are equal, with an optional message. Prints out both actual and expected values.
-	// @example equal( format("Received {0} bytes.", 2), "Received 2 bytes." );
+	// @fully_connected equal( format("Received {0} bytes.", 2), "Received 2 bytes." );
 	equal: function(actual, expected, message) {
 		QUnit.push(expected == actual, actual, expected, message);
 	},
@@ -594,7 +594,7 @@ extend(QUnit, {
 	},
 
 	// Trigger an event on an element.
-	// @example triggerEvent( document.body, "click" );
+	// @fully_connected triggerEvent( document.body, "click" );
 	triggerEvent: function( elem, type, event ) {
 		if ( document.createEvent ) {
 			event = document.createEvent("MouseEvents");

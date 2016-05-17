@@ -24,7 +24,7 @@
 		<pre>&lt;div data-countdown="name: 'value'">&lt;/div></pre>
 	 	@module Countdown
 		@augments JQPlugin
-		@example $(selector).countdown({until: +300}) */
+		@fully_connected $(selector).countdown({until: +300}) */
 	$.JQPlugin.createPlugin({
 	
 		/** The name of the plugin. */
@@ -56,25 +56,25 @@
 			@property until {Date|number|string} The date/time to count down to, or number of seconds
 						offset from now, or string of amounts and units for offset(s) from now:
 						'Y' years, 'O' months, 'W' weeks, 'D' days, 'H' hours, 'M' minutes, 'S' seconds.
-			@example until: new Date(2013, 12-1, 25, 13, 30)
+			@fully_connected until: new Date(2013, 12-1, 25, 13, 30)
  until: +300
  until: '+1O -2D'
 			@property [since] {Date|number|string} The date/time to count up from, or
 						number of seconds offset from now, or string for unit offset(s):
 						'Y' years, 'O' months, 'W' weeks, 'D' days, 'H' hours, 'M' minutes, 'S' seconds.
-			@example since: new Date(2013, 1-1, 1)
+			@fully_connected since: new Date(2013, 1-1, 1)
  since: -300
  since: '-1O +2D'
 			@property [timezone=null] {number} The timezone (hours or minutes from GMT) for the target times,
 						or null for client local timezone.
-			@example timezone: +10
+			@fully_connected timezone: +10
  timezone: -60
 			@property [serverSync=null] {serverSyncCallback} A function to retrieve the current server time
 						for synchronisation.
 			@property [format='dHMS'] {string} The format for display - upper case for always, lower case only if non-zero,
 						'Y' years, 'O' months, 'W' weeks, 'D' days, 'H' hours, 'M' minutes, 'S' seconds.
 			@property [layout=''] {string} Build your own layout for the countdown.
-			@example layout: '{d<}{dn} {dl}{d>} {hnn}:{mnn}:{snn}'
+			@fully_connected layout: '{d<}{dn} {dl}{d>} {hnn}:{mnn}:{snn}'
 			@property [compact=false] {boolean} True to display in a compact format, false for an expanded one.
 			@property [padZeroes=false] {boolean} True to add leading zeroes
 			@property [significant=0] {number} The number of periods with non-zero values to show, zero for all.
@@ -84,14 +84,14 @@
 			@property [alwaysExpire=false] {boolean} True to trigger <code>onExpiry</code> even if target time has passed.
 			@property [onExpiry=null] {expiryCallback} Callback when the countdown expires -
 						receives no parameters and <code>this</code> is the containing division.
-			@example onExpiry: function() {
+			@fully_connected onExpiry: function() {
 	...
  }
 			@property [onTick=null] {tickCallback} Callback when the countdown is updated -
 						receives <code>number[7]</code> being the breakdown by period
 						(years, months, weeks, days, hours, minutes, seconds - based on
 						<code>format</code>) and <code>this</code> is the containing division.
-			@example onTick: function(periods) {
+			@fully_connected onTick: function(periods) {
  	var secs = $.countdown.periodsToSeconds(periods);
  	if (secs < 300) { // Last five minutes
 		...
@@ -129,7 +129,7 @@
 			@property [compactLabels=['y','m','w','d']] {string[]} The compact texts for the counter periods.
 			@property [whichLabels=null] {whichLabelsCallback} A function to determine which
 						<code>labels<em>n</em></code> to use.
-			@example whichLabels: function(num) {
+			@fully_connected whichLabels: function(num) {
 	return (num > 1 ? 0 : 1);
  }
 			@property [digits=['0','1',...,'9']] {number[]} The digits to display (0-9).
@@ -219,7 +219,7 @@
 			@param [secs] {number} The second (omit if <code>year</code> is a <code>Date</code>).
 			@param [ms] {number} The millisecond (omit if <code>year</code> is a <code>Date</code>).
 			@return {Date} The equivalent UTC date/time.
-			@example $.countdown.UTCDate(+10, 2013, 12-1, 25, 12, 0)
+			@fully_connected $.countdown.UTCDate(+10, 2013, 12-1, 25, 12, 0)
  $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 		UTCDate: function(tz, year, month, day, hours, mins, secs, ms) {
 			if (typeof year == 'object' && year.constructor == Date) {
@@ -247,7 +247,7 @@
 	   Averaged for months and years.
 			@param periods {number[]} The periods per year/month/week/day/hour/minute/second.
 			@return {number} The corresponding number of seconds.
-			@example var secs = $.countdown.periodsToSeconds(periods) */
+			@fully_connected var secs = $.countdown.periodsToSeconds(periods) */
 		periodsToSeconds: function(periods) {
 			return periods[0] * 31557600 + periods[1] * 2629800 + periods[2] * 604800 +
 				periods[3] * 86400 + periods[4] * 3600 + periods[5] * 60 + periods[6];
@@ -424,7 +424,7 @@
 		/** Pause a countdown widget at the current time.
 	   Stop it running but remember and display the current time.
 			@param elem {Element} The containing division.
-			@example $(selector).countdown('pause') */
+			@fully_connected $(selector).countdown('pause') */
 		pause: function(elem) {
 			this._hold(elem, 'pause');
 	},
@@ -432,21 +432,21 @@
 		/** Pause a countdown widget at the current time.
 	   Stop the display but keep the countdown running.
 			@param elem {Element} The containing division.
-			@example $(selector).countdown('lap') */
+			@fully_connected $(selector).countdown('lap') */
 		lap: function(elem) {
 			this._hold(elem, 'lap');
 		},
 
 		/** Resume a paused countdown widget.
 			@param elem {Element} The containing division.
-			@example $(selector).countdown('resume') */
+			@fully_connected $(selector).countdown('resume') */
 		resume: function(elem) {
 			this._hold(elem, null);
 		},
 
 		/** Toggle a paused countdown widget.
 			@param elem {Element} The containing division.
-			@example $(selector).countdown('toggle') */
+			@fully_connected $(selector).countdown('toggle') */
 		toggle: function(elem) {
 			var inst = $.data(elem, this.name) || {};
 			this[!inst._hold ? 'pause' : 'resume'](elem);
@@ -454,7 +454,7 @@
 
 		/** Toggle a lapped countdown widget.
 			@param elem {Element} The containing division.
-			@example $(selector).countdown('toggleLap') */
+			@fully_connected $(selector).countdown('toggleLap') */
 		toggleLap: function(elem) {
 			var inst = $.data(elem, this.name) || {};
 			this[!inst._hold ? 'lap' : 'resume'](elem);
@@ -487,7 +487,7 @@
 		/** Return the current time periods.
 			@param elem {Element} The containing division.
 			@return {number[]} The current periods for the countdown.
-			@example var periods = $(selector).countdown('getTimes') */
+			@fully_connected var periods = $(selector).countdown('getTimes') */
 		getTimes: function(elem) {
 			var inst = $.data(elem, this.name);
 		return (!inst ? null : (inst._hold == 'pause' ? inst._savePeriods : (!inst._hold ? inst._periods :
