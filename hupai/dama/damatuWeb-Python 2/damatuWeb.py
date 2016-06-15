@@ -112,10 +112,10 @@ class DamatuApi():
 		
 #调用类型实例：
 #1.实例化类型 参数是打码兔用户账号和密码	
-dmt=DamatuApi("slientcraft","inwcwizard")
+# dmt=DamatuApi("slientcraft","inwcwizard")
 #2.调用方法：
 #print(dmt.getBalance()) #查询余额
-print(dmt.decode('/Users/guo/Desktop/1.png',200)) #上传打码
+# print(dmt.decode('/Users/guo/Desktop/1.png',200)) #上传打码
 #print(dmt.decodeUrl('http://captcha.qq.com/getimage?aid=549000912&r=0.7257105156128585&uin=3056517021',200)) #上传打码
 #print(dmt.reportError('894657096')) #上报错误
 
