@@ -107,7 +107,7 @@ def deCode():
 
 def beginWork():
     click_img(r"C:\Users\guo\Desktop\thePrj\51\add_price.png" ,1)
-    pyautogui.typewrite('900')
+    pyautogui.typewrite('800')
 
 def mainWork():
     click_img(r"C:\Users\guo\Desktop\thePrj\51\add_price_button.png")

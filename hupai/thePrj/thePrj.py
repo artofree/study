@@ -128,6 +128,7 @@ def mainWork():
 
 #main
 pyautogui.click(x=260 ,y=1060 ,button='left')
+time.sleep(0.2)
 beginWork()
 
 while 1:
@@ -135,7 +136,7 @@ while 1:
     if not timeStamp:
         checkTime()
     #检查有没被T出
-    #...
+    #
     #到策略点干活
     if timeStamp ==45:
         mainWork()
