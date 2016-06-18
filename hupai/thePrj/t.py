@@ -80,7 +80,6 @@ def grabCode():
     right ,bottom =begin_x +tip_loc[0] +target.width ,begin_y +tip_loc[1] +target.height
     tip =ImageGrab.grab((left ,top ,right ,bottom))
     tip =tip.resize((tip.width *2,90))
-    # code =ImageGrab.grab((1230 ,420 ,1230 +135 ,420 +90))
     code =ImageGrab.grab((1000 ,450 ,1000 +150 ,450 +90))
     code =code.resize((code.width *2 ,code.height *2) ,Image.ANTIALIAS)
     ret =Image.new('RGB', (tip.width +code.width, code.height), (255, 255, 255))
@@ -108,7 +107,7 @@ def deCode():
 
 def beginWork():
     click_img(r"C:\Users\guo\Desktop\thePrj\alltobid\add_price.png" ,1)
-    pyautogui.typewrite('900')
+    pyautogui.typewrite('800')
 
 def mainWork():
     click_img(r"C:\Users\guo\Desktop\thePrj\alltobid\add_price_button.png")
@@ -129,17 +128,9 @@ def mainWork():
 
 #main
 pyautogui.click(x=260 ,y=1060 ,button='left')
-time.sleep(0.2)
-beginWork()
-
-while 1:
-    #找点对齐时间
-    if not timeStamp:
-        checkTime()
-    #检查有没被T出
-    #
-    #到策略点干活
-    if timeStamp ==45:
-        mainWork()
-        break
-    time.sleep(0.3)
+time.sleep(1)
+grabCode()
+click_img(r"C:\Users\guo\Desktop\thePrj\alltobid\type_code.png")
+timeStamp =50
+x =deCode()
+# pyautogui.typewrite(deCode())
