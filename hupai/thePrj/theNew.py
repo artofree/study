@@ -4,7 +4,7 @@ import numpy as np
 import pyautogui,datetime,time ,threading
 import theLib.damatu as td
 
-p_timeTarget =r'C:\Users\guo\Desktop\thePrj\alltobid\25.png'
+p_timeTarget =r'C:\Users\guo\Desktop\thePrj\alltobid\23.png'
 code_url =r'C:\Users\guo\Desktop\thePrj\alltobid\code.png'
 s_checkTime =(500 ,200 ,900 ,600)
 first_bTime ,first_eTime ,first_dPrice =38 ,45 ,'600'
@@ -41,7 +41,7 @@ def checkTime():
     res = cv2.matchTemplate(screen,timeTarget,method)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
     if max_val >0.99:
-        timeStamp =25
+        timeStamp =23
         t =threading.Thread(target=addTime)
         t.start()
 
@@ -109,7 +109,7 @@ def deCode( theCodeDict ,t_Time):
     for i in range(20):
         t =threading.Thread(target=getDamatu, args=(theCodeDict,))
         t.start()
-    for i in range(20):
+    for i in range(10):
         t =threading.Thread(target=getLianzhong, args=(theCodeDict,))
         t.start()
     print(t_Time-timeStamp)
