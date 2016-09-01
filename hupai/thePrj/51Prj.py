@@ -102,6 +102,7 @@ def deCode():
     if 'IERROR' in theCodeDict:
         theCodeDict.pop('IERROR')
     theCodeDict = sorted(theCodeDict.items(), key=lambda dic: dic[1])
+    theCodeDict ={}
     print(theCodeDict[-1][0])
     return theCodeDict[-1][0]
 
