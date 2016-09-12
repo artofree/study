@@ -4,7 +4,7 @@ import numpy as np
 import pyautogui,datetime,time ,threading
 import theLib.damatu as td
 
-p_timeTarget =r'C:\Users\guo\Desktop\thePrj\51\29_21.png'
+p_timeTarget =r'C:\Users\guo\Desktop\thePrj\51\21.png'
 code_url =r'C:\Users\guo\Desktop\thePrj\51\code.png'
 s_checkTime =(500 ,200 ,900 ,600)
 first_bTime ,first_eTime ,first_dPrice =38 ,45 ,'600'

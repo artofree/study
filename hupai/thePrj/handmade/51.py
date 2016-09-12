@@ -2,13 +2,15 @@ import cv2 ,requests
 from PIL import ImageGrab ,Image
 import numpy as np
 import pyautogui,datetime,time ,threading
-import theLib.damatu as td
 
-p_timeTarget =r'C:\Users\guo\Desktop\thePrj\51\29_21.png'
+pyautogui.FAILSAFE =False
+
+p_timeTarget =r'C:\Users\guo\Desktop\thePrj\51\21.png'
 code_url =r'C:\Users\guo\Desktop\thePrj\51\code.png'
+code_url1 =r'C:\Users\guo\Desktop\thePrj\51\code1.png'
 s_checkTime =(500 ,200 ,900 ,600)
-first_bTime ,first_eTime ,first_dPrice =38 ,45 ,'600'
-second_eTime ,second_dPrice =55 ,'800'
+first_bTime ,first_eTime ,first_dPrice =38 ,45 ,'500'
+second_bTime ,second_eTime ,second_dPrice =47 ,54 ,'700'
 s_grabCode =(970 ,380 ,1190 ,545)
 c_deltaPrice =(1190 ,380)
 c_addPrice =(1315 ,375)
@@ -34,6 +36,7 @@ def addTime():
         timeStamp +=1
 
 def checkTime():
+    # print(datetime.datetime.now())
     global timeTarget
     global timeStamp
     screen =ImageGrab.grab(s_checkTime)
@@ -44,6 +47,7 @@ def checkTime():
         timeStamp =21
         t =threading.Thread(target=addTime)
         t.start()
+    # print(datetime.datetime.now())
 
 def click_img(url ,d=0):
     # print(datetime.datetime.now())
@@ -160,53 +164,42 @@ def beginWork():
     pyautogui.typewrite(first_dPrice)
 
 def firstWork():
-    pyautogui.click(c_deltaPrice[0] ,c_deltaPrice[1] ,button='left')
+    pyautogui.doubleClick(c_deltaPrice[0] ,c_deltaPrice[1] ,button='left')
     pyautogui.typewrite(first_dPrice)
     time.sleep(0.1)
     pyautogui.click(c_addPrice[0] ,c_addPrice[1] ,button='left')
     time.sleep(0.1)
     pyautogui.click(c_confirmPrice[0] ,c_confirmPrice[1] ,button='left')
-    time.sleep(0.1)
+    time.sleep(first_eTime -timeStamp)
+    click_img(r"C:\Users\guo\Desktop\thePrj\51\confirm_code_button.png")
+    # print(timeStamp)
+    time.sleep(0.5)
     while 1:
-        if check_img(r"C:\Users\guo\Desktop\thePrj\51\tip_begin.png"):
-            time.sleep(0.5)
-            if check_img(r"C:\Users\guo\Desktop\thePrj\51\refresh_code_button.png"):
-                click_img(r"C:\Users\guo\Desktop\thePrj\51\refresh_code_button.png")
-            else:
-                # print(datetime.datetime.now())
-                print(timeStamp)
-                grabCodeNew()
-                pyautogui.click(c_typeCode[0] ,c_typeCode[1] ,button='left')
-                theCode =deCode(firstCodeDict ,first_eTime)
-                pyautogui.typewrite(theCode)
-                click_img(r"C:\Users\guo\Desktop\thePrj\51\confirm_code_button.png")
-                time.sleep(0.3)
-                while 1:
-                    if check_img(r"C:\Users\guo\Desktop\thePrj\51\confirm_code_button.png"):
-                        click_img(r"C:\Users\guo\Desktop\thePrj\51\confirm_code_button.png")
-                        return
+        if check_img(r"C:\Users\guo\Desktop\thePrj\51\confirm_code_button.png"):
+            click_img(r"C:\Users\guo\Desktop\thePrj\51\confirm_code_button.png")
+            return
+
 
 def secondWork():
+    print(timeStamp)
+    global second_dPrice
+    sleepTime =second_eTime -timeStamp
+    if  timeStamp ==49:
+        second_dPrice ='600'
+    if timeStamp >=50:
+        second_dPrice ='500'
+        sleepTime =5
+    print(sleepTime)
     pyautogui.doubleClick(c_deltaPrice[0] ,c_deltaPrice[1] ,button='left')
     pyautogui.typewrite(second_dPrice)
     time.sleep(0.1)
     pyautogui.click(c_addPrice[0] ,c_addPrice[1] ,button='left')
     time.sleep(0.1)
     pyautogui.click(c_confirmPrice[0] ,c_confirmPrice[1] ,button='left')
-    while 1:
-        if check_img(r"C:\Users\guo\Desktop\thePrj\51\tip_begin.png"):
-            time.sleep(0.5)
-            if check_img(r"C:\Users\guo\Desktop\thePrj\51\refresh_code_button.png"):
-                click_img(r"C:\Users\guo\Desktop\thePrj\51\refresh_code_button.png")
-            else:
-                # print(datetime.datetime.now())
-                print(timeStamp)
-                grabCodeNew()
-                pyautogui.click(c_typeCode[0] ,c_typeCode[1] ,button='left')
-                theCode =deCode(secondCodeDict ,second_eTime)
-                pyautogui.typewrite(theCode)
-                click_img(r"C:\Users\guo\Desktop\thePrj\51\confirm_code_button.png")
-                break
+    time.sleep(sleepTime)
+    click_img(r"C:\Users\guo\Desktop\thePrj\51\confirm_code_button.png")
+    code =ImageGrab.grab((558 ,424 ,857 ,518))
+    code.save(code_url, "PNG")
 
 #main
 pyautogui.click(x=260 ,y=1060 ,button='left')
@@ -221,9 +214,9 @@ while 1:
     #到策略点干活
     if timeStamp ==first_bTime:
         firstWork()
+    if timeStamp >=second_bTime:
         secondWork()
         break
     time.sleep(0.3)
-
 
 
