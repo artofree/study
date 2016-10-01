@@ -5,7 +5,26 @@ import requests
 import json
 from datetime import datetime
 
-print(datetime.now().timestamp())
+r =requests.get(url='http://127.0.0.1:8000')
+
+# now =datetime.now()
+# print(now)
+# print(now.strftime('%H:%M:%S.%f'))
+# print(int(now.strftime('%S')) +float(now.strftime('%f')[0]) /10)
+# print(datetime.now())
+# print(time.time())
+# index =0
+# while index <100:
+#     theT =time.time()
+#     index +=1
+#     time.sleep(0.1 +theT -time.time())
+#     # now =datetime.now()
+# print(type(time.time()))
+# print(datetime.now())
+
+# payload = {'idt': '0001'}
+# r = requests.get('http://127.0.0.1:8000/getCode' ,payload)
+# print(r.text)
 
 
 # payload = {'id': 'testuser'}

@@ -206,7 +206,9 @@ pyautogui.click(x=260 ,y=1060 ,button='left')
 while 1:
     #找点对齐时间
     if not timeStamp:
+        print(time.time())
         checkTime()
+        print(time.time())
     #检查有没被T出
     #...
     #到策略点干活

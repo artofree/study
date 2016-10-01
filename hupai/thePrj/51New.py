@@ -27,7 +27,7 @@ firstCodeDict = {}
 secondCodeDict = {}
 lock = threading.Lock()
 
-
+#计时器并向服务端上传时间戳
 def addTime():
     global timeStamp
     while 1:
@@ -41,7 +41,7 @@ def addTime():
             time.sleep(1 -dlt)
         timeStamp += 1
 
-
+#
 def checkTime():
     global timeTarget
     global timeStamp
