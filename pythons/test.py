@@ -5,7 +5,10 @@ import requests
 import json
 from datetime import datetime
 
-r =requests.get(url='http://127.0.0.1:8000')
+now =time.time()
+r =requests.get(url='http://139.219.238.37:8000/gettesttime')
+print(r.text)
+print(now)
 
 # now =datetime.now()
 # print(now)
@@ -41,7 +44,7 @@ r =requests.get(url='http://127.0.0.1:8000')
 # i =0
 #
 #
-# # r =requests.get(url='http://127.0.0.1:8000')
+# # r =requests.get(url='http://127.0.0.1:8000/gettest')
 # print(r.status_code)
 # print(r.url)
 # print(r.text)
