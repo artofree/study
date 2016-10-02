@@ -5,10 +5,16 @@ import requests
 import json
 from datetime import datetime
 
-now =time.time()
-r =requests.get(url='http://139.219.238.37:8000/gettesttime')
-print(r.text)
-print(now)
+def fun():
+    print(1)
+    return
+
+fun()
+
+# now =time.time()
+# r =requests.get(url='http://139.219.238.37:8000/gettesttime')
+# print(r.text)
+# print(now)
 
 # now =datetime.now()
 # print(now)

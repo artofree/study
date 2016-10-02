@@ -5,6 +5,7 @@ import pyautogui, datetime, time, threading, requests
 import theLib.damatu as td
 from io import BytesIO as StringIO
 
+checkTimeTarget =1
 p_timeTarget = r'C:\Users\guo\Desktop\thePrj\51\29_21.png'
 code_url = r'd:\51\0001.png'
 s_checkTime = (500, 200, 900, 600)
@@ -27,6 +28,22 @@ firstCodeDict = {}
 secondCodeDict = {}
 lock = threading.Lock()
 
+#如果checkTimeTarget为1，启线程对时
+def checkTime():
+    global timeTarget
+    global timeStamp
+    screen = ImageGrab.grab(s_checkTime)
+    screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+    res = cv2.matchTemplate(screen, timeTarget, method)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+    if max_val > 0.99:
+        timeStamp = 21
+        return
+
+if checkTimeTarget:
+    t = threading.Thread(target=checkTime())
+    t.start()
+
 #计时器并向服务端上传时间戳
 def addTime():
     global timeStamp
@@ -40,19 +57,6 @@ def addTime():
         if 1 -dlt >0:
             time.sleep(1 -dlt)
         timeStamp += 1
-
-#
-def checkTime():
-    global timeTarget
-    global timeStamp
-    screen = ImageGrab.grab(s_checkTime)
-    screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
-    res = cv2.matchTemplate(screen, timeTarget, method)
-    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-    if max_val > 0.99:
-        timeStamp = 21
-        t = threading.Thread(target=addTime)
-        t.start()
 
 
 def click_img(url, d=0):
