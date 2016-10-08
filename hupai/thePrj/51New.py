@@ -1,4 +1,4 @@
-import cv2, requests
+import cv2, requests ,inspect ,ctypes
 from PIL import ImageGrab, Image
 import numpy as np
 import pyautogui, datetime, time, threading, requests

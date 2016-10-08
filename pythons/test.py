@@ -1,25 +1,28 @@
-import time, threading ,os
+import time, threading ,os ,inspect ,ctypes
 
 import requests
 
 import json
 from datetime import datetime
 
-def fun():
-    print(1)
-    return
+i =98 /100
 
-fun()
+print(i)
+
+
+
+# baseTime =11 *3600 +29 *60
+# now =datetime.now()
+# print(now)
+# print(now.strftime('%H:%M:%S.%f'))
+# print(int(now.strftime('%S')) +float(now.strftime('%f')[:2]) /100)
+
 
 # now =time.time()
 # r =requests.get(url='http://139.219.238.37:8000/gettesttime')
 # print(r.text)
 # print(now)
 
-# now =datetime.now()
-# print(now)
-# print(now.strftime('%H:%M:%S.%f'))
-# print(int(now.strftime('%S')) +float(now.strftime('%f')[0]) /10)
 # print(datetime.now())
 # print(time.time())
 # index =0
