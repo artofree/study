@@ -43,6 +43,7 @@ def checkTime():
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
     if max_val >0.99:
         timeStamp =25
+        print('yes........!')
         t =threading.Thread(target=addTime)
         t.start()
     # print(datetime.datetime.now())
@@ -206,9 +207,9 @@ pyautogui.click(x=260 ,y=1060 ,button='left')
 while 1:
     #找点对齐时间
     if not timeStamp:
-        print(time.time())
+        dlt =time.time()
         checkTime()
-        print(time.time())
+        print(time.time() -dlt)
     #检查有没被T出
     #...
     #到策略点干活

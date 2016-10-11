@@ -5,7 +5,7 @@ import pyautogui,datetime,time ,threading
 
 pyautogui.FAILSAFE =False
 
-p_timeTarget =r'C:\Users\guo\Desktop\thePrj\51\21.png'
+p_timeTarget =r'C:\Users\guo\Desktop\thePrj\51\29_21.png'
 code_url =r'C:\Users\guo\Desktop\thePrj\51\code.png'
 code_url1 =r'C:\Users\guo\Desktop\thePrj\51\code1.png'
 s_checkTime =(500 ,200 ,900 ,600)
@@ -199,8 +199,8 @@ def secondWork():
     time.sleep(sleepTime)
     click_img(r"C:\Users\guo\Desktop\thePrj\51\confirm_code_button.png")
     code =ImageGrab.grab((558 ,424 ,857 ,518))
-    code.save(code_url, "PNG")
-
+    # code.save(code_url, "PNG")
+    code.show()
 #main
 pyautogui.click(x=260 ,y=1060 ,button='left')
 #beginWork()

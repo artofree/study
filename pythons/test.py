@@ -1,28 +1,36 @@
-import time, threading ,os ,inspect ,ctypes
+import time, threading ,os
 
 import requests
 
 import json
 from datetime import datetime
 
-i =98 /100
+import configparser
 
-print(i)
+def theFun(tp):
+    print(tp[0] ,tp[1])
 
 
-
-# baseTime =11 *3600 +29 *60
-# now =datetime.now()
-# print(now)
-# print(now.strftime('%H:%M:%S.%f'))
-# print(int(now.strftime('%S')) +float(now.strftime('%f')[:2]) /100)
-
+cf = configparser.ConfigParser()
+cf.read(r"C:\Users\guo\Desktop\thePrj\51\conf")
+scns =cf.sections()
+print(scns)
+print(cf.options('db'))
+print(cf.items('db'))
+theTuple =cf.get('concurrent' ,'thread')
+theTuple =json.loads(theTuple)
+print(theTuple)
+theFun(theTuple)
 
 # now =time.time()
 # r =requests.get(url='http://139.219.238.37:8000/gettesttime')
 # print(r.text)
 # print(now)
 
+# now =datetime.now()
+# print(now)
+# print(now.strftime('%H:%M:%S.%f'))
+# print(int(now.strftime('%S')) +float(now.strftime('%f')[0]) /10)
 # print(datetime.now())
 # print(time.time())
 # index =0

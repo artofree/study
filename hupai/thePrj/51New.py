@@ -1,16 +1,17 @@
-import cv2, requests ,inspect ,ctypes
+import theLib.damatu as td
+import theLib.lib as tl
 from PIL import ImageGrab, Image
 import numpy as np
-import pyautogui, datetime, time, threading, requests
-import theLib.damatu as td
+import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 
 checkTimeTarget =1
-p_timeTarget = r'C:\Users\guo\Desktop\thePrj\51\29_21.png'
-code_url = r'd:\51\0001.png'
+servUrl ='http://139.219.238.37:8000/'
+# servUrl ='http://192.168.0.106:8000/'
+p_timeTarget = r'C:\Users\guo\Desktop\thePrj\51\29_23.png'
 s_checkTime = (500, 200, 900, 600)
 first_bTime, first_eTime, first_dPrice = 38, 45, '600'
-second_bTime ,second_eTime, second_dPrice = 47 ,55, '800'
+second_bTime ,second_eTime, second_dPrice = 47 ,55, '700'
 s_grabCode = (970, 380, 1190, 545)
 c_deltaPrice = (1190, 380)
 c_addPrice = (1315, 375)
@@ -24,40 +25,32 @@ begin_y = 100
 timeTarget = Image.open(p_timeTarget)
 timeTarget = cv2.cvtColor(np.array(timeTarget, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
 timeStamp = 0
-firstCodeDict = {}
-secondCodeDict = {}
 lock = threading.Lock()
 
-#如果checkTimeTarget为1，启线程对时
 def checkTime():
     global timeTarget
-    global timeStamp
-    screen = ImageGrab.grab(s_checkTime)
-    screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
-    res = cv2.matchTemplate(screen, timeTarget, method)
-    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-    if max_val > 0.99:
-        timeStamp = 21
-        return
-
+    while 1:
+        screen = ImageGrab.grab(s_checkTime)
+        screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+        res = cv2.matchTemplate(screen, timeTarget, method)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        if max_val > 0.99:
+            requests.get(url=servUrl +'setTimeStamp')
+            return
+        time.sleep(0.2)
 if checkTimeTarget:
-    t = threading.Thread(target=checkTime())
+    t = threading.Thread(target=checkTime)
     t.start()
 
-#计时器并向服务端上传时间戳
-def addTime():
+#与服务对时，如果服务器时间大于0，700
+def getTimeStamp():
     global timeStamp
     while 1:
-        dlt = datetime.datetime.now().timestamp()
-        if second_bTime - timeStamp >0:
-            payload = {'idt': '0001', 'timeStamp': str(second_bTime - timeStamp)}
-            requests.post('http://192.168.0.106:8000/setTimeStamp', data=payload)
-        dlt =datetime.datetime.now().timestamp() -dlt
-        # print(dlt)
-        if 1 -dlt >0:
-            time.sleep(1 -dlt)
-        timeStamp += 1
-
+        timeStamp =float(requests.get(url=servUrl +'getTimeStamp').text)
+        timeStamp =round(timeStamp ,2)
+        time.sleep(0.2)
+t = threading.Thread(target=getTimeStamp)
+t.start()
 
 def click_img(url, d=0):
     # print(datetime.datetime.now())
@@ -189,19 +182,17 @@ def secondWork():
             else:
                 # print(timeStamp)
                 # grabCodeNew()
-                print(datetime.datetime.now())
                 code = ImageGrab.grab(s_grabCode)
                 catch =StringIO()
                 code.save(catch ,'PNG')
-                print(datetime.datetime.now())
                 pyautogui.click(c_typeCode[0], c_typeCode[1], button='left')
                 # theCode = deCode(secondCodeDict, second_eTime)
                 payload = {'idt': '0001'}
                 files = {'file': catch.getvalue()}
-                requests.post('http://192.168.0.106:8000/uploadPic', files=files ,data=payload)
+                requests.post(servUrl +'uploadPic', files=files ,data=payload)
                 print(datetime.datetime.now())
                 time.sleep(second_eTime -timeStamp)
-                theCode =requests.get('http://192.168.0.106:8000/getCode' ,payload)
+                theCode =requests.get(servUrl +'getCode' ,payload)
                 pyautogui.typewrite(theCode.text)
                 click_img(r"C:\Users\guo\Desktop\thePrj\51\confirm_code_button.png")
                 break
@@ -209,17 +200,17 @@ def secondWork():
 
 # main
 pyautogui.click(x=260, y=1060, button='left')
+pyautogui.click(x=630, y=640, button='left')
+pyautogui.click(x=1148, y=42, button='left')
+time.sleep(100)
 # beginWork()
 
 while 1:
-    # 找点对齐时间
-    if not timeStamp:
-        checkTime()
     # 检查有没被T出
     # ...
     # 到策略点干活
-    if timeStamp == second_bTime:
+    if timeStamp > second_bTime:
         # firstWork()
         secondWork()
         break
-    time.sleep(0.3)
+    time.sleep(0.1)
