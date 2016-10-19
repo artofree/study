@@ -7,26 +7,20 @@ from datetime import datetime
 
 import configparser
 
-
-thef =23.90
-print(int(thef))
-
 def theFun(tp):
     print(tp[0] ,tp[1])
 
 
-# cf = configparser.ConfigParser()
-# cf.read(r"C:\Users\guo\Desktop\thePrj\51\conf")
-# scns =cf.sections()
-# print(scns)
-# print(cf.options('db'))
-# print(cf.items('db'))
-# theTuple =cf.get('concurrent' ,'thread')
-# theTuple =json.loads(theTuple)
-# print(theTuple)
-# theFun(theTuple)
-
-
+cf = configparser.ConfigParser()
+cf.read(r"C:\Users\guo\Desktop\thePrj\51\conf")
+scns =cf.sections()
+print(scns)
+print(cf.options('db'))
+print(cf.items('db'))
+theTuple =cf.get('concurrent' ,'thread')
+theTuple =json.loads(theTuple)
+print(theTuple)
+theFun(theTuple)
 
 # now =time.time()
 # r =requests.get(url='http://139.219.238.37:8000/gettesttime')

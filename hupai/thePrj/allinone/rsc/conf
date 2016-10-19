@@ -1,0 +1,22 @@
+[login]
+coor_login_telcom =[880 ,390]
+coor_login_notelcom =[1050 ,390]
+coor_login_closefirstpage =[810 ,40]
+
+coor_login_checkie =[1250 ,745]
+coor_login_agree =[1200 ,740]
+coor_login_orderid =[1120 ,270]
+coor_login_orderpass =[1120 ,325]
+coor_login_code =[1120 ,380]
+area_login_code =[1200 ,360 ,1320 ,395]
+coor_login_longin =[1150 ,450]
+check_login_against =rsc\check_login_against.png
+coor_login_confirmagainst =[1125 ,610]
+coor_login_identy =[1120 ,380]
+coor_login_againstcode =[1120 ,435]
+area_login_againstcode =[1200 ,415 ,1320 ,450]
+coor_login_againstlongin =[1150 ,500]
+
+
+
+[main]
