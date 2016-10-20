@@ -4,12 +4,18 @@ from PIL import ImageGrab, Image
 import numpy as np
 import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
-import configparser ,json
+import configparser ,json ,zipfile ,os
 
-time.sleep(5)
-theConf =myLib.myConf()
+import myThread
+
+myThread.beginWork()
+time.sleep(10)
+myThread.clearWork()
+
+# time.sleep(5)
+# theConf =myLib.myConf()
 # pyautogui.click(theConf.coor_login_closefirstpage)
-print(myLib.check_img(theConf.check_login_against))
+# print(myLib.check_img(theConf.check_login_against))
 # cf = configparser.ConfigParser()
 # cf.read(r"rsc\conf")
 # scns =cf.sections()

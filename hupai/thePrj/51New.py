@@ -42,7 +42,7 @@ if checkTimeTarget:
     t = threading.Thread(target=checkTime)
     t.start()
 
-#与服务对时，如果服务器时间大于0，700
+#与服务对时，如果服务器时间大于0
 def getTimeStamp():
     global timeStamp
     while 1:

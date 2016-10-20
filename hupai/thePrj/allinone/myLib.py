@@ -1,4 +1,4 @@
-import inspect ,ctypes ,configparser ,json
+import inspect ,ctypes ,configparser ,json ,sys
 import damatu as td
 import lib as tl
 from PIL import ImageGrab, Image
