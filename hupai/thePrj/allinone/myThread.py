@@ -15,9 +15,12 @@ def mainWork():
     t = threading.Thread(target=getTimeStamp)
     t.start()
     threadList.append(t)
-    while 1:
-        print('mainThread' +str(timeStamp))
-        time.sleep(1)
+    print('mainThread:' +str(timeStamp))
+    time.sleep(11)
+    print('mainThread:' +str(timeStamp))
+    # while 1:
+    #     print('mainThread' +str(timeStamp))
+    #     time.sleep(1)
 
 def beginWork():
     t = threading.Thread(target=mainWork)

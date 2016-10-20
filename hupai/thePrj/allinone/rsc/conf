@@ -17,6 +17,6 @@ coor_login_againstcode =[1120 ,435]
 area_login_againstcode =[1200 ,415 ,1320 ,450]
 coor_login_againstlongin =[1150 ,500]
 
-
-
 [main]
+coor_main_kickconfirm =[1150 ,555]
+check_main_kick =rsc\check_main_kick.png

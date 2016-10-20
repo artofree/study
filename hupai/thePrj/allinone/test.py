@@ -6,11 +6,39 @@ import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 import configparser ,json ,zipfile ,os
 
-import myThread
+gindex =0
+def fun():
+    # gindex =1
+    print(gindex)
 
-myThread.beginWork()
-time.sleep(10)
-myThread.clearWork()
+fun()
+
+# lock = threading.Lock()
+#
+# def Thread1():
+#     time.sleep(5)
+#     print('thread1')
+#
+# def Thread2():
+#     lock.acquire()
+#     try:
+#         print('thread2')
+#     finally:
+#         lock.release()
+#
+#
+# t1 = threading.Thread(target=Thread1)
+# t1.start()
+# time.sleep(1)
+# myLib.stop_thread(t1)
+# t2 = threading.Thread(target=Thread2)
+# t2.start()
+
+# import myThread
+#
+# myThread.beginWork()
+# time.sleep(10)
+# myThread.clearWork()
 
 # time.sleep(5)
 # theConf =myLib.myConf()

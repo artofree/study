@@ -7,20 +7,28 @@ from datetime import datetime
 
 import configparser
 
-def theFun(tp):
-    print(tp[0] ,tp[1])
 
+import socket
+#获取本机电脑名
 
-cf = configparser.ConfigParser()
-cf.read(r"C:\Users\guo\Desktop\thePrj\51\conf")
-scns =cf.sections()
-print(scns)
-print(cf.options('db'))
-print(cf.items('db'))
-theTuple =cf.get('concurrent' ,'thread')
-theTuple =json.loads(theTuple)
-print(theTuple)
-theFun(theTuple)
+hostname ='32455'
+theDict ={'hostname' :hostname}
+print(theDict)
+
+# def theFun(tp):
+#     print(tp[0] ,tp[1])
+#
+#
+# cf = configparser.ConfigParser()
+# cf.read(r"C:\Users\guo\Desktop\thePrj\51\conf")
+# scns =cf.sections()
+# print(scns)
+# print(cf.options('db'))
+# print(cf.items('db'))
+# theTuple =cf.get('concurrent' ,'thread')
+# theTuple =json.loads(theTuple)
+# print(theTuple)
+# theFun(theTuple)
 
 # now =time.time()
 # r =requests.get(url='http://139.219.238.37:8000/gettesttime')

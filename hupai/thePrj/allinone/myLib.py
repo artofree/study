@@ -57,6 +57,16 @@ class myConf(object):
         self.area_login_againstcode =self.loadcontent(cf ,'login' ,'area_login_againstcode')
         self.coor_login_againstlongin =self.loadcontent(cf ,'login' ,'coor_login_againstlongin')
 
+        self.coor_main_kickconfirm =self.loadcontent(cf ,'main' ,'coor_main_kickconfirm')
+        self.check_main_kick =cf.get('main' ,'check_main_kick')
+
     def loadcontent(self ,cf ,opt ,sub):
         content =cf.get(opt ,sub)
         return json.loads(content)
+
+
+
+
+# theConf = myConf()
+# time.sleep(5)
+# print(check_img(theConf.check_main_kick))
