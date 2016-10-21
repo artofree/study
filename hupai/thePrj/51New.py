@@ -17,7 +17,7 @@ c_deltaPrice = (1190, 380)
 c_addPrice = (1315, 375)
 c_confirmPrice = (1310, 485)
 c_typeCode = (1250, 480)
-c_confirmCode = (1065, 565)
+c_confirmCode = (1065, 570)
 
 method = eval('cv2.TM_CCOEFF_NORMED')
 begin_x = 800

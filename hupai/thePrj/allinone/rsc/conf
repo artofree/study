@@ -1,22 +1,40 @@
 [login]
-coor_login_telcom =[880 ,390]
-coor_login_notelcom =[1050 ,390]
-coor_login_closefirstpage =[810 ,40]
-
-coor_login_checkie =[1250 ,745]
-coor_login_agree =[1200 ,740]
-coor_login_orderid =[1120 ,270]
-coor_login_orderpass =[1120 ,325]
-coor_login_code =[1120 ,380]
-area_login_code =[1200 ,360 ,1320 ,395]
-coor_login_longin =[1150 ,450]
-check_login_against =rsc\check_login_against.png
-coor_login_confirmagainst =[1125 ,610]
-coor_login_identy =[1120 ,380]
-coor_login_againstcode =[1120 ,435]
-area_login_againstcode =[1200 ,415 ,1320 ,450]
-coor_login_againstlongin =[1150 ,500]
+coor_login_telcom = [880 ,390]
+coor_login_notelcom = [1050 ,390]
+coor_login_closefirstpage = [810 ,40]
+coor_login_checkie = [1250 ,745]
+coor_login_agree = [1200 ,740]
+coor_login_orderid = [1120 ,270]
+coor_login_orderpass = [1120 ,325]
+coor_login_code = [1120 ,380]
+area_login_code = [1200 ,360 ,1320 ,395]
+coor_login_longin = [1150 ,450]
+check_login_against = rsc\check_login_against.png
+coor_login_confirmagainst = [1125 ,610]
+coor_login_identy = [1120 ,380]
+coor_login_againstcode = [1120 ,435]
+area_login_againstcode = [1200 ,415 ,1320 ,450]
+coor_login_againstlongin = [1150 ,500]
 
 [main]
-coor_main_kickconfirm =[1150 ,555]
-check_main_kick =rsc\check_main_kick.png
+version = 0
+
+coor_main_kickconfirm = [1150 ,555]
+check_main_kick = rsc\check_main_kick.png
+
+coor_main_firststep1 = [1200 ,385]
+coor_main_firststep2 = [1200 ,445]
+coor_main_firststepconfirm = [1310 ,440]
+area_main_firststepcode = [960 ,410 ,1150 ,540]
+coor_main_firststepcode = [1250 ,490]
+coor_main_firststepcodeconfirm = [1066 ,570]
+check_main_confirm = rsc\check_main_confirm.png
+
+coor_main_seconddeltaprice =[1190, 380]
+coor_main_secondaddprice =[1315, 375]
+coor_main_secondconfirmprice =[1310, 485]
+check_main_secondcodehere =rsc\check_main_secondcodehere.png
+area_main_secondstepcode =[970, 380, 1190, 545]
+coor_main_secondstepcode =[1250, 480]
+coor_main_secondstepcodeconfirm =[1065, 570]
+

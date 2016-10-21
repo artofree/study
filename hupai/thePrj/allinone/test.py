@@ -6,12 +6,13 @@ import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 import configparser ,json ,zipfile ,os
 
-gindex =0
-def fun():
-    # gindex =1
-    print(gindex)
+def test():
+    while 1:
+        print(1)
+        time.sleep(1)
 
-fun()
+if __name__=='__main__':
+    test()
 
 # lock = threading.Lock()
 #
@@ -40,12 +41,25 @@ fun()
 # time.sleep(10)
 # myThread.clearWork()
 
+# theConf =myLib.myConf()
+# time.sleep(5)
+# myLib.click_img(theConf.check_main_confirm)
+
+# cmd = 'taskkill /F /IM iexplore.exe'
+# os.system(cmd)
+
 # time.sleep(5)
 # theConf =myLib.myConf()
 # pyautogui.click(theConf.coor_login_closefirstpage)
 # print(myLib.check_img(theConf.check_login_against))
 # cf = configparser.ConfigParser()
-# cf.read(r"rsc\conf")
+# cf.read(r"C:\Users\guo\Desktop\step")
+# cf.set('main' ,'step' ,'1')
+# cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
+# step =cf.get('main' ,'step')
+# print(step)
+# if step =='0':
+#     print(1)
 # scns =cf.sections()
 # print(scns)
 # print(cf.options('login'))

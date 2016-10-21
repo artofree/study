@@ -22,6 +22,27 @@ def _async_raise(tid, exctype):
 def stop_thread(thread):
     _async_raise(thread.ident, SystemExit)
 
+import os ,zipfile
+def zipDir(dirPath, zipPath):
+    zipf = zipfile.ZipFile(zipPath , mode='w')
+    lenDirPath = len(dirPath)
+    for root, _ , files in os.walk(dirPath):
+        for file in files:
+            filePath = os.path.join(root, file)
+            zipf.write(filePath , filePath[lenDirPath :] )
+    zipf.close()
+
+def unzip(source ,target):
+    source_zip=source
+    target_dir=target
+    myzip=zipfile.ZipFile(source_zip)
+    myfilelist=myzip.namelist()
+    for name in myfilelist:
+        f_handle=open(os.path.join(target_dir, name),"wb")
+        f_handle.write(myzip.read(name))
+        f_handle.close()
+    myzip.close()
+
 def check_img(url):
     target =Image.open(url)
     target =cv2.cvtColor(np.array(target, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
@@ -34,6 +55,17 @@ def check_img(url):
         return 1
     else:
         return 0
+
+def click_img(url):
+    target =Image.open(url)
+    img_size =target.size
+    target =cv2.cvtColor(np.array(target, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+    screen =ImageGrab.grab(area_grab)
+    screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+    res = cv2.matchTemplate(screen,target,method)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+    if max_val >0.9:
+        pyautogui.click(x=(area_grab[0] +max_loc[0] +img_size[0]//2) ,y=(area_grab[1] +max_loc[1] +img_size[1]//2))
 
 class myConf(object):
     def __init__(self):
@@ -59,6 +91,21 @@ class myConf(object):
 
         self.coor_main_kickconfirm =self.loadcontent(cf ,'main' ,'coor_main_kickconfirm')
         self.check_main_kick =cf.get('main' ,'check_main_kick')
+        self.coor_main_firststep1 =self.loadcontent(cf ,'main' ,'coor_main_firststep1')
+        self.coor_main_firststep2 =self.loadcontent(cf ,'main' ,'coor_main_firststep2')
+        self.coor_main_firststepconfirm =self.loadcontent(cf ,'main' ,'coor_main_firststepconfirm')
+        self.area_main_firststepcode =self.loadcontent(cf ,'main' ,'area_main_firststepcode')
+        self.coor_main_firststepcode =self.loadcontent(cf ,'main' ,'coor_main_firststepcode')
+        self.coor_main_firststepcodeconfirm =self.loadcontent(cf ,'main' ,'coor_main_firststepcodeconfirm')
+        self.check_main_confirm =cf.get('main' ,'check_main_confirm')
+
+        self.coor_main_seconddeltaprice =self.loadcontent(cf ,'main' ,'coor_main_seconddeltaprice')
+        self.coor_main_secondaddprice =self.loadcontent(cf ,'main' ,'coor_main_secondaddprice')
+        self.coor_main_secondconfirmprice =self.loadcontent(cf ,'main' ,'coor_main_secondconfirmprice')
+        self.check_main_secondcodehere =cf.get('main' ,'check_main_secondcodehere')
+        self.area_main_secondstepcode =self.loadcontent(cf ,'main' ,'area_main_secondstepcode')
+        self.coor_main_secondstepcode =self.loadcontent(cf ,'main' ,'coor_main_secondstepcode')
+        self.coor_main_secondstepcodeconfirm =self.loadcontent(cf ,'main' ,'coor_main_secondstepcodeconfirm')
 
     def loadcontent(self ,cf ,opt ,sub):
         content =cf.get(opt ,sub)
