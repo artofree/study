@@ -1,15 +1,16 @@
 import damatu as td
-import myLib ,damatu
+# import myLib ,damatu
 from PIL import ImageGrab, Image
 import numpy as np
 import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
-import configparser ,json ,zipfile ,os
+import configparser ,json ,zipfile ,os ,sys
 
 def test():
-    while 1:
-        print(1)
-        time.sleep(1)
+    print(100)
+    time.sleep(20)
+    python = sys.executable
+    os.execl(python, python, *sys.argv)
 
 if __name__=='__main__':
     test()

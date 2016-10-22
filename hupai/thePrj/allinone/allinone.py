@@ -7,7 +7,8 @@ import configparser,os
 
 decodeThreadList = []
 theCodeDict = {}
-second_bTime, second_eTime, second_dPrice = 48, 55, '700'
+first_bTime, first_eTime, first_dPrice = 38, 45, '600'
+second_bTime, second_eTime, second_dPrice = 47, 55, '700'
 servUrl = 'http://139.219.238.37:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
@@ -139,11 +140,11 @@ def preLogin():
 
 
 def againstLogin():
-    pyautogui.click(theConf.coor_login_orderid)
+    pyautogui.doubleClick(theConf.coor_login_orderid)
     time.sleep(1)
     pyautogui.typewrite(orderid)
     time.sleep(1)
-    pyautogui.click(theConf.coor_login_orderpass)
+    pyautogui.doubleClick(theConf.coor_login_orderpass)
     time.sleep(1)
     pyautogui.typewrite(orderpass)
     time.sleep(1)
@@ -185,11 +186,11 @@ def login():
 
 
 def firstStep(price):
-    pyautogui.click(theConf.coor_main_firststep1)
+    pyautogui.doubleClick(theConf.coor_main_firststep1)
     time.sleep(1)
     pyautogui.typewrite(price)
     time.sleep(1)
-    pyautogui.click(theConf.coor_main_firststep2)
+    pyautogui.doubleClick(theConf.coor_main_firststep2)
     time.sleep(1)
     pyautogui.typewrite(price)
     time.sleep(1)
@@ -205,9 +206,9 @@ def firstStep(price):
     time.sleep(1)
 
 
-def secondPrice():
+def secondStepPrice(dPrice ,eTime ,times):
     pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
-    pyautogui.typewrite(second_dPrice)
+    pyautogui.typewrite(dPrice)
     time.sleep(0.1)
     pyautogui.click(theConf.coor_main_secondaddprice)
     time.sleep(0.1)
@@ -218,21 +219,29 @@ def secondPrice():
             catch = StringIO()
             code.save(catch, 'PNG')
             pyautogui.click(theConf.coor_main_secondstepcode)
-            payload = {'idt': identy}
+            payload = {'idt': identy ,'times' :times}
             files = {'file': catch.getvalue()}
             requests.post(servUrl + 'uploadPic', files=files, data=payload)
             print(datetime.datetime.now())
-            time.sleep(second_eTime - timeStamp)
+            if eTime >timeStamp:
+                time.sleep(eTime - timeStamp)
             theCode = requests.get(servUrl + 'getCode', payload)
             pyautogui.typewrite(theCode.text)
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
             break
 
 
+isFirstPrice =1
 def secondStep():
+    global isFirstPrice
     while 1:
+        if timeStamp >first_bTime:
+            if isFirstPrice:
+                secondStepPrice(first_dPrice ,first_eTime ,'1')
+                myLib.click_img(theConf.check_main_confirm)
+                isFirstPrice =0
         if timeStamp > second_bTime:
-            secondPrice()
+            secondStepPrice(second_dPrice ,second_eTime ,'2')
             break
     time.sleep(0.1)
 
@@ -269,25 +278,6 @@ def mainWork():
     secondStepThread.start()
 
 
+
 if __name__=='__main__':
     mainWork()
-
-
-
-
-
-
-
-
-
-
-
-# def beginWork():
-#     t = threading.Thread(target=mainWork)
-#     t.start()
-#     threadList.append(t)
-#
-#
-# def endWork():
-#     for t in threadList:
-#         myLib.stop_thread(t)

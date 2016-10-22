@@ -60,12 +60,14 @@ def click_img(url):
     target =Image.open(url)
     img_size =target.size
     target =cv2.cvtColor(np.array(target, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
-    screen =ImageGrab.grab(area_grab)
-    screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
-    res = cv2.matchTemplate(screen,target,method)
-    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-    if max_val >0.9:
-        pyautogui.click(x=(area_grab[0] +max_loc[0] +img_size[0]//2) ,y=(area_grab[1] +max_loc[1] +img_size[1]//2))
+    while 1:
+        screen =ImageGrab.grab(area_grab)
+        screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+        res = cv2.matchTemplate(screen,target,method)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        if max_val >0.9:
+            pyautogui.click(x=(area_grab[0] +max_loc[0] +img_size[0]//2) ,y=(area_grab[1] +max_loc[1] +img_size[1]//2))
+            break
 
 class myConf(object):
     def __init__(self):
