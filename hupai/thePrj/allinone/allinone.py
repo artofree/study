@@ -241,6 +241,7 @@ def secondStep():
 ###主线程
 
 def mainWork():
+    print('everything begin....')
     ###如果主终端，则启动对时线程：
     if isMainClient =='1':
         checkTimeTrhead = threading.Thread(target=checkTime)
@@ -271,6 +272,8 @@ def mainWork():
 
 if __name__=='__main__':
     mainWork()
+
+# mainWork()
 
 
 
