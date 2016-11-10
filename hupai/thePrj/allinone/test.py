@@ -6,16 +6,18 @@ import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 import configparser ,json ,zipfile ,os ,sys
 
-time.sleep(5)
-s_checkTime = (0, 0, 1920, 1080)
-timeTarget = Image.open(r'rsc\29_23.png')
-timeTarget = cv2.cvtColor(np.array(timeTarget, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
-screen = ImageGrab.grab(s_checkTime)
-screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
-res = cv2.matchTemplate(screen, timeTarget, myLib.method)
-min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-if max_val > 0.99:
-    print(1)
+print(type(int('1')))
+
+# time.sleep(5)
+# s_checkTime = (0, 0, 1920, 1080)
+# timeTarget = Image.open(r'rsc\29_23.png')
+# timeTarget = cv2.cvtColor(np.array(timeTarget, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+# screen = ImageGrab.grab(s_checkTime)
+# screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+# res = cv2.matchTemplate(screen, timeTarget, myLib.method)
+# min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+# if max_val > 0.99:
+#     print(1)
 
 # def test():
 #     print(100)

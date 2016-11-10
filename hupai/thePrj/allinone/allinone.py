@@ -7,8 +7,8 @@ import configparser,os
 
 decodeThreadList = []
 theCodeDict = {}
-first_bTime, first_eTime, first_dPrice = 38, 45, '600'
-second_bTime, second_eTime, second_dPrice = 47, 55, '700'
+first_bTime, first_eTime, first_dPrice = 40, 47, '500'
+second_bTime, second_eTime, second_dPrice = 48, 55, '700'
 servUrl = 'http://139.219.238.37:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
@@ -21,9 +21,7 @@ timeTarget = Image.open(r'rsc\29_23.png')
 timeTarget = cv2.cvtColor(np.array(timeTarget, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
 
 ###第一常量，版本号信息
-vcf = configparser.ConfigParser()
-vcf.read(r"rsc\conf")
-curVersion = vcf.get('main', 'version')
+curVersion = 0
 
 ###第二常量，用hostname获得拍牌人信息
 hostName = socket.gethostname()
@@ -86,7 +84,7 @@ def deCode(area_code, lim=0):
 
 def checkVersion():
     while 1:
-        if requests.get(servUrl + 'getVersion').text != curVersion:
+        if int(requests.get(servUrl + 'getVersion').text) > curVersion:
             r = requests.get(servUrl + 'getVersionContent', stream=True)
             with open(r"C:\Users\guo\Desktop\archive.zip", 'wb') as fd:
                 for chunk in r.iter_content(10240):
@@ -113,6 +111,7 @@ def checkTime():
             return
         time.sleep(0.2)
 
+###获取时间戳，为2精度浮点数，表示最后一分钟秒数
 def getTimeStamp():
     global timeStamp
     while 1:
@@ -205,7 +204,26 @@ def firstStep(price):
     myLib.click_img(theConf.check_main_confirm)
     time.sleep(1)
 
+###获取预览图
+def secondStepGetTestImg():
+    pyautogui.click(theConf.coor_main_secondtestaddprice)
+    time.sleep(1)
+    pyautogui.click(theConf.coor_main_secondconfirmprice)
+    time.sleep(1)
+    while 1:
+        if myLib.check_img(theConf.check_main_secondcodehere):
+            code = ImageGrab.grab(theConf.area_main_secondstepcode)
+            catch = StringIO()
+            code.save(catch, 'PNG')
+            pyautogui.click(theConf.coor_main_secondstepcode)
+            payload = {'idt': identy ,'times' :'0'}
+            files = {'file': catch.getvalue()}
+            requests.post(servUrl + 'uploadPic', files=files, data=payload)
+            pyautogui.click(theConf.coor_main_secondetestcancel)
+            break
 
+
+###第二阶段出价函数
 def secondStepPrice(dPrice ,eTime ,times):
     pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
     pyautogui.typewrite(dPrice)
@@ -230,11 +248,16 @@ def secondStepPrice(dPrice ,eTime ,times):
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
             break
 
-
+isGetTestImg =1
 isFirstPrice =1
 def secondStep():
+    global isGetTestImg
     global isFirstPrice
     while 1:
+        if timeStamp >0:
+            if isGetTestImg:
+                secondStepGetTestImg()
+                isGetTestImg =0
         if timeStamp >first_bTime:
             if isFirstPrice:
                 secondStepPrice(first_dPrice ,first_eTime ,'1')
@@ -263,7 +286,7 @@ def mainWork():
     ###线程2-防t
     againstThread = threading.Thread(target=against)
     againstThread.start()
-    ###非手动版么自动登陆：
+    ###主线程非手动版么自动登陆：
     if handMade =='0':
         preLogin()
         login()

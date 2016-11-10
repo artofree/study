@@ -69,47 +69,51 @@ def click_img(url):
 
 class myConf(object):
     def __init__(self):
-        cf = configparser.ConfigParser()
-        cf.read(r"rsc\conf")
-        self.coor_login_telcom =self.loadcontent(cf ,'login' ,'coor_login_telcom')
-        self.coor_login_notelcom =self.loadcontent(cf ,'login' ,'coor_login_notelcom')
-        self.coor_login_closefirstpage =self.loadcontent(cf ,'login' ,'coor_login_closefirstpage')
+        self.coor_login_telcom =[880 ,390]
+        self.coor_login_notelcom =[1050 ,390]
+        self.coor_login_closefirstpage =[810 ,40]
 
-        self.coor_login_checkie =self.loadcontent(cf ,'login' ,'coor_login_checkie')
-        self.coor_login_agree =self.loadcontent(cf ,'login' ,'coor_login_agree')
-        self.coor_login_orderid =self.loadcontent(cf ,'login' ,'coor_login_orderid')
-        self.coor_login_orderpass =self.loadcontent(cf ,'login' ,'coor_login_orderpass')
-        self.coor_login_code =self.loadcontent(cf ,'login' ,'coor_login_code')
-        self.area_login_code =self.loadcontent(cf ,'login' ,'area_login_code')
-        self.coor_login_longin =self.loadcontent(cf ,'login' ,'coor_login_longin')
-        self.check_login_against =cf.get('login' ,'check_login_against')
-        self.coor_login_confirmagainst =self.loadcontent(cf ,'login' ,'coor_login_confirmagainst')
-        self.coor_login_identy =self.loadcontent(cf ,'login' ,'coor_login_identy')
-        self.coor_login_againstcode =self.loadcontent(cf ,'login' ,'coor_login_againstcode')
-        self.area_login_againstcode =self.loadcontent(cf ,'login' ,'area_login_againstcode')
-        self.coor_login_againstlongin =self.loadcontent(cf ,'login' ,'coor_login_againstlongin')
+        self.coor_login_checkie =[1250 ,745]
+        self.coor_login_agree =[1200 ,740]
+        self.coor_login_orderid =[1120 ,270]
+        self.coor_login_orderpass =[1120 ,325]
+        self.coor_login_code =[1120 ,380]
+        self.area_login_code =[1200 ,360 ,1320 ,395]
+        self.coor_login_longin =[1150 ,450]
+        self.check_login_against =r'rsc\check_login_against.png'
+        self.coor_login_confirmagainst =[1125 ,610]
+        self.coor_login_identy =[1120 ,380]
+        self.coor_login_againstcode =[1120 ,435]
+        self.area_login_againstcode =[1200 ,415 ,1320 ,450]
+        self.coor_login_againstlongin =[1150 ,500]
 
-        self.coor_main_kickconfirm =self.loadcontent(cf ,'main' ,'coor_main_kickconfirm')
-        self.check_main_kick =cf.get('main' ,'check_main_kick')
-        self.coor_main_firststep1 =self.loadcontent(cf ,'main' ,'coor_main_firststep1')
-        self.coor_main_firststep2 =self.loadcontent(cf ,'main' ,'coor_main_firststep2')
-        self.coor_main_firststepconfirm =self.loadcontent(cf ,'main' ,'coor_main_firststepconfirm')
-        self.area_main_firststepcode =self.loadcontent(cf ,'main' ,'area_main_firststepcode')
-        self.coor_main_firststepcode =self.loadcontent(cf ,'main' ,'coor_main_firststepcode')
-        self.coor_main_firststepcodeconfirm =self.loadcontent(cf ,'main' ,'coor_main_firststepcodeconfirm')
-        self.check_main_confirm =cf.get('main' ,'check_main_confirm')
+        self.coor_main_kickconfirm =[1150 ,555]
+        self.check_main_kick =r'rsc\check_main_kick.png'
+        self.coor_main_firststep1 =[1200 ,385]
+        self.coor_main_firststep2 =[1200 ,445]
+        self.coor_main_firststepconfirm =[1310 ,440]
+        self.area_main_firststepcode =[960 ,410 ,1150 ,540]
+        self.coor_main_firststepcode =[1250 ,490]
+        self.coor_main_firststepcodeconfirm =[1066 ,570]
+        self.check_main_confirm =r'rsc\check_main_confirm.png'
 
-        self.coor_main_seconddeltaprice =self.loadcontent(cf ,'main' ,'coor_main_seconddeltaprice')
-        self.coor_main_secondaddprice =self.loadcontent(cf ,'main' ,'coor_main_secondaddprice')
-        self.coor_main_secondconfirmprice =self.loadcontent(cf ,'main' ,'coor_main_secondconfirmprice')
-        self.check_main_secondcodehere =cf.get('main' ,'check_main_secondcodehere')
-        self.area_main_secondstepcode =self.loadcontent(cf ,'main' ,'area_main_secondstepcode')
-        self.coor_main_secondstepcode =self.loadcontent(cf ,'main' ,'coor_main_secondstepcode')
-        self.coor_main_secondstepcodeconfirm =self.loadcontent(cf ,'main' ,'coor_main_secondstepcodeconfirm')
+        self.coor_main_secondtestaddprice =[1160 ,450]
+        self.coor_main_secondetestcancel =[1245 ,567]
 
-    def loadcontent(self ,cf ,opt ,sub):
-        content =cf.get(opt ,sub)
-        return json.loads(content)
+        self.coor_main_seconddeltaprice =[1190, 380]
+        self.coor_main_secondaddprice =[1315, 375]
+        self.coor_main_secondconfirmprice =[1310, 485]
+        self.check_main_secondcodehere =r'rsc\check_main_secondcodehere.png'
+        self.area_main_secondstepcode =[970, 380, 1190, 545]
+        self.coor_main_secondstepcode =[1250, 480]
+        self.coor_main_secondstepcodeconfirm =[1065, 570]
+
+
+
+
+    # def loadcontent(self ,cf ,opt ,sub):
+    #     content =cf.get(opt ,sub)
+    #     return json.loads(content)
 
 
 

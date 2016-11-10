@@ -2,6 +2,7 @@
 coor_login_telcom = [880 ,390]
 coor_login_notelcom = [1050 ,390]
 coor_login_closefirstpage = [810 ,40]
+
 coor_login_checkie = [1250 ,745]
 coor_login_agree = [1200 ,740]
 coor_login_orderid = [1120 ,270]
@@ -29,6 +30,9 @@ area_main_firststepcode = [960 ,410 ,1150 ,540]
 coor_main_firststepcode = [1250 ,490]
 coor_main_firststepcodeconfirm = [1066 ,570]
 check_main_confirm = rsc\check_main_confirm.png
+
+coor_main_secondtestaddprice =[1160 ,450]
+coor_main_secondetestcancel =[1245 ,567]
 
 coor_main_seconddeltaprice =[1190, 380]
 coor_main_secondaddprice =[1315, 375]
