@@ -6,11 +6,11 @@ import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 
 checkTimeTarget =1
-servUrl ='http://139.219.238.37:8000/'
-# servUrl ='http://192.168.0.106:8000/'
+# servUrl ='http://139.219.238.37:8000/'
+servUrl ='http://192.168.0.106:8000/'
 p_timeTarget = r'C:\Users\guo\Desktop\thePrj\51\29_23.png'
 s_checkTime = (500, 200, 900, 600)
-first_bTime, first_eTime, first_dPrice = 38, 45, '600'
+first_bTime, first_eTime, first_dPrice = 38, 45, '500'
 second_bTime ,second_eTime, second_dPrice = 47 ,55, '700'
 s_grabCode = (970, 380, 1190, 545)
 c_deltaPrice = (1190, 380)
@@ -190,7 +190,7 @@ def secondWork():
                 payload = {'idt': '0001'}
                 files = {'file': catch.getvalue()}
                 requests.post(servUrl +'uploadPic', files=files ,data=payload)
-                print(datetime.datetime.now())
+                # print(datetime.datetime.now())
                 time.sleep(second_eTime -timeStamp)
                 theCode =requests.get(servUrl +'getCode' ,payload)
                 pyautogui.typewrite(theCode.text)
@@ -200,9 +200,6 @@ def secondWork():
 
 # main
 pyautogui.click(x=260, y=1060, button='left')
-pyautogui.click(x=630, y=640, button='left')
-pyautogui.click(x=1148, y=42, button='left')
-time.sleep(100)
 # beginWork()
 
 while 1:
