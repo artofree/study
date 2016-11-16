@@ -3,13 +3,12 @@ from PIL import ImageGrab, Image
 import numpy as np
 import cv2, pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
-import configparser,os
+import configparser,os ,sseclient
 
 decodeThreadList = []
 theCodeDict = {}
-first_bTime, first_eTime, first_dPrice = 40, 47, '500'
-second_bTime, second_eTime, second_dPrice = 48, 55, '700'
-servUrl = 'http://139.219.238.37:8000/'
+# servUrl = 'http://139.219.238.37:8000/'
+servUrl = 'http://192.168.0.106:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
 theConf = myLib.myConf()
@@ -23,9 +22,14 @@ timeTarget = cv2.cvtColor(np.array(timeTarget, dtype=np.uint8), cv2.COLOR_RGBA2G
 ###第一常量，版本号信息
 curVersion = 0
 
-###第二常量，用hostname获得拍牌人信息
+###第二常量，用hostname获得拍牌人信息和出价策略
 hostName = socket.gethostname()
-orderid, orderpass, identy = requests.get(servUrl + 'getOrderInfo', {'hostname': 'newguo'}).text.split('-')
+infoList =requests.get(servUrl + 'getOrderInfo', {'hostname':hostName}).text.split('~')
+identy ,orderid, orderpass, firstPrice ,secondPrice= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4]
+firstPrice =firstPrice.split('-')
+first_bTime, first_eTime, first_dPrice =int(firstPrice[0]) ,int(firstPrice[1]) ,firstPrice[2]
+secondPrice =secondPrice.split('-')
+second_bTime, second_eTime, second_dPrice =int(secondPrice[0]) ,int(secondPrice[1]) ,secondPrice[2]
 
 ###第三常量，取自mainConf
 cf = configparser.ConfigParser()
@@ -61,6 +65,11 @@ def deCode(area_code, lim=0):
         t.start()
         decodeThreadList.append(t)
     time.sleep(10)
+
+    for t in decodeThreadList:
+        myLib.stop_thread(t)
+    decodeThreadList = []
+
     if 'ERROR' in theCodeDict:
         theCodeDict.pop('ERROR')
     if 'IERROR' in theCodeDict:
@@ -75,9 +84,6 @@ def deCode(area_code, lim=0):
             theCodeDict.pop(key)
 
     theCodeDict = sorted(theCodeDict.items(), key=lambda dic: dic[1])
-    for t in decodeThreadList:
-        myLib.stop_thread(t)
-    decodeThreadList = []
     theCode = theCodeDict[-1][0]
     theCodeDict = {}
     return theCode
@@ -112,13 +118,20 @@ def checkTime():
         time.sleep(0.2)
 
 ###获取时间戳，为2精度浮点数，表示最后一分钟秒数
+# def getTimeStamp():
+#     global timeStamp
+#     while 1:
+#         timeStamp = float(requests.get(url=servUrl + 'getTimeStamp').text)
+#         timeStamp = round(timeStamp, 2)
+#         time.sleep(0.2)
+
 def getTimeStamp():
     global timeStamp
-    while 1:
-        timeStamp = float(requests.get(url=servUrl + 'getTimeStamp').text)
+    response = myLib.with_urllib3(url=servUrl + 'getTimeStamp')
+    client = sseclient.SSEClient(response)
+    for event in client.events():
+        timeStamp =float(event.data)
         timeStamp = round(timeStamp, 2)
-        time.sleep(0.2)
-
 
 def against():
     while 1:
@@ -231,8 +244,11 @@ def secondStepPrice(dPrice ,eTime ,times):
     pyautogui.click(theConf.coor_main_secondaddprice)
     time.sleep(0.1)
     pyautogui.click(theConf.coor_main_secondconfirmprice)
+    time.sleep(0.1)
     while 1:
-        if myLib.check_img(theConf.check_main_secondcodehere):
+        if myLib.check_img(theConf.check_main_refreshcode):
+            myLib.click_img(theConf.check_main_refreshcode)
+        elif myLib.check_img(theConf.check_main_secondcodehere):
             code = ImageGrab.grab(theConf.area_main_secondstepcode)
             catch = StringIO()
             code.save(catch, 'PNG')
@@ -245,6 +261,7 @@ def secondStepPrice(dPrice ,eTime ,times):
                 time.sleep(eTime - timeStamp)
             theCode = requests.get(servUrl + 'getCode', payload)
             pyautogui.typewrite(theCode.text)
+            time.sleep(0.1)
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
             break
 
@@ -254,13 +271,14 @@ def secondStep():
     global isGetTestImg
     global isFirstPrice
     while 1:
-        if timeStamp >0:
+        if timeStamp >27:
             if isGetTestImg:
                 secondStepGetTestImg()
                 isGetTestImg =0
         if timeStamp >first_bTime:
             if isFirstPrice:
                 secondStepPrice(first_dPrice ,first_eTime ,'1')
+                time.sleep(0.1)
                 myLib.click_img(theConf.check_main_confirm)
                 isFirstPrice =0
         if timeStamp > second_bTime:

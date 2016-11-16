@@ -64,8 +64,15 @@ def click_img(url):
         res = cv2.matchTemplate(screen,target,method)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
         if max_val >0.9:
-            pyautogui.click(x=(area_grab[0] +max_loc[0] +img_size[0]//2) ,y=(area_grab[1] +max_loc[1] +img_size[1]//2))
+            xc ,yc=area_grab[0] +max_loc[0] +img_size[0]//2 ,(area_grab[1] +max_loc[1] +img_size[1]//2)
+            pyautogui.click(xc ,yc)
             break
+
+def with_urllib3(url):
+    """Get a streaming response for the given event feed using urllib3."""
+    import urllib3
+    http = urllib3.PoolManager()
+    return http.request('GET', url, preload_content=False)
 
 class myConf(object):
     def __init__(self):
@@ -104,7 +111,8 @@ class myConf(object):
         self.coor_main_secondaddprice =[1315, 375]
         self.coor_main_secondconfirmprice =[1310, 485]
         self.check_main_secondcodehere =r'rsc\check_main_secondcodehere.png'
-        self.area_main_secondstepcode =[970, 380, 1190, 545]
+        self.check_main_refreshcode =r'rsc\check_main_refreshcode.png'
+        self.area_main_secondstepcode =[960, 410, 1190, 545]
         self.coor_main_secondstepcode =[1250, 480]
         self.coor_main_secondstepcodeconfirm =[1065, 570]
 
