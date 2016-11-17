@@ -7,8 +7,8 @@ import configparser,os ,sseclient
 
 decodeThreadList = []
 theCodeDict = {}
-# servUrl = 'http://139.219.238.37:8000/'
-servUrl = 'http://192.168.0.106:8000/'
+servUrl = 'http://139.219.238.37:8000/'
+# servUrl = 'http://192.168.0.106:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
 theConf = myLib.myConf()
@@ -224,7 +224,9 @@ def secondStepGetTestImg():
     pyautogui.click(theConf.coor_main_secondconfirmprice)
     time.sleep(1)
     while 1:
-        if myLib.check_img(theConf.check_main_secondcodehere):
+        if myLib.check_img(theConf.check_main_refreshcode):
+            myLib.click_img(theConf.check_main_refreshcode)
+        elif myLib.check_img(theConf.check_main_secondcodehere):
             code = ImageGrab.grab(theConf.area_main_secondstepcode)
             catch = StringIO()
             code.save(catch, 'PNG')
