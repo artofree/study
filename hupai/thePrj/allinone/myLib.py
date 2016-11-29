@@ -68,11 +68,6 @@ def click_img(url):
             pyautogui.click(xc ,yc)
             break
 
-def with_urllib3(url):
-    """Get a streaming response for the given event feed using urllib3."""
-    import urllib3
-    http = urllib3.PoolManager()
-    return http.request('GET', url, preload_content=False)
 
 class myConf(object):
     def __init__(self):

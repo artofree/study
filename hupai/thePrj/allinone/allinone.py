@@ -14,9 +14,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #用于前期自动登陆打码
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
 theConf = myLib.myConf()
-timeStamp = 0
 lock = threading.Lock()
 
+timeStamp ,stampDlt=0 ,0
+baseH ,baseM ,baseS1 ,baseS2=11 ,29 ,12 ,23
+baseTime =baseH *3600 +baseM *60
 s_checkTime = (500, 200, 900, 600)
 timeTarget1 = Image.open(r'rsc\29_12.png')
 timeTarget1 = cv2.cvtColor(np.array(timeTarget1, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
@@ -111,33 +113,46 @@ def checkVersion():
             os.execl(python, python, *sys.argv)
         time.sleep(10)
 
+def makeTimeStamp():
+    global timeStamp ,stampDlt
+    while 1:
+        now =datetime.datetime.now()
+        theH =int(now.strftime('%H'))
+        theM =int(now.strftime('%M'))
+        theS =int(now.strftime('%S'))
+        theStamp =theH *3600 +theM *60 +theS -baseTime +int(now.strftime('%f')[:2]) /100 -stampDlt
+        theStamp =round(theStamp ,2)
+        if 0 <theStamp <60:
+            timeStamp =theStamp
+        time.sleep(0.1)
+
+isFirstTimeChecked =False
 def checkTime():
-    global timeTarget1 ,timeTarget2
+    global timeTarget1 ,timeTarget2 ,stampDlt ,isFirstTimeChecked
     while 1:
         screen = ImageGrab.grab(s_checkTime)
         screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
-        res = cv2.matchTemplate(screen, timeTarget, myLib.method)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-        if max_val > 0.99:
-            requests.get(url=servUrl +'setTimeStamp')
+        res1 = cv2.matchTemplate(screen, timeTarget1, myLib.method)
+        min_val1, max_val1, min_loc1, max_loc1 = cv2.minMaxLoc(res1)
+        res2 = cv2.matchTemplate(screen, timeTarget2, myLib.method)
+        min_val2, max_val2, min_loc2, max_loc2 = cv2.minMaxLoc(res2)
+        if not isFirstTimeChecked and max_val1 >0.99:
+            isFirstTimeChecked =True
+            now =datetime.datetime.now()
+            stampDlt =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS1
+            stampDlt =round(stampDlt ,2)
+            if isMainClient =='1':
+                payload = {'times' :'1'}
+                requests.get(url=servUrl +'setTimeStamp' ,params=payload)
+        if max_val2 >0.99:
+            now =datetime.datetime.now()
+            stampDlt =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS2
+            stampDlt =round(stampDlt ,2)
+            if isMainClient =='1':
+                payload = {'times' :'2'}
+                requests.get(url=servUrl +'setTimeStamp' ,params=payload)
             return
         time.sleep(0.2)
-
-###获取时间戳，为2精度浮点数，表示最后一分钟秒数
-# def getTimeStamp():
-#     global timeStamp
-#     while 1:
-#         timeStamp = float(requests.get(url=servUrl + 'getTimeStamp').text)
-#         timeStamp = round(timeStamp, 2)
-#         time.sleep(0.2)
-
-def getTimeStamp():
-    global timeStamp
-    response = myLib.with_urllib3(url=servUrl + 'getTimeStamp')
-    client = sseclient.SSEClient(response)
-    for event in client.events():
-        timeStamp =float(event.data)
-        timeStamp = round(timeStamp, 2)
 
 def against():
     while 1:
@@ -299,16 +314,17 @@ def secondStep():
 ###主线程
 
 def mainWork():
-    ###如果主终端，则启动对时线程：
-    if isMainClient =='1':
-        checkTimeTrhead = threading.Thread(target=checkTime)
-        checkTimeTrhead.start()
+    ###无论是否主终端都启动对时线程：
+    makeTimeTrhead = threading.Thread(target=makeTimeStamp)
+    makeTimeTrhead.start()
+    checkTimeTrhead = threading.Thread(target=checkTime)
+    checkTimeTrhead.start()
     ###线程0-检查版本改变
     checkVersionThread = threading.Thread(target=checkVersion)
     checkVersionThread.start()
     ###线程1-常规终端只开获得时间戳
-    timeStampThread = threading.Thread(target=getTimeStamp)
-    timeStampThread.start()
+    # timeStampThread = threading.Thread(target=getTimeStamp)
+    # timeStampThread.start()
     ###线程2-防t
     againstThread = threading.Thread(target=against)
     againstThread.start()
