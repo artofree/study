@@ -8,17 +8,20 @@ import configparser,os ,sseclient
 decodeThreadList = []
 theCodeDict = {}
 # servUrl = 'http://139.219.238.37:8000/'
-# servUrl = 'http://192.168.0.106:8000/'
-servUrl = 'http://101.80.14.24:8000/'
+servUrl = 'http://192.168.0.106:8000/'
+# servUrl = 'http://101.80.14.24:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#用于前期自动登陆打码
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
 theConf = myLib.myConf()
 timeStamp = 0
 lock = threading.Lock()
 
 s_checkTime = (500, 200, 900, 600)
-timeTarget = Image.open(r'rsc\29_23.png')
-timeTarget = cv2.cvtColor(np.array(timeTarget, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+timeTarget1 = Image.open(r'rsc\29_12.png')
+timeTarget1 = cv2.cvtColor(np.array(timeTarget1, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+timeTarget2 = Image.open(r'rsc\29_23.png')
+timeTarget2 = cv2.cvtColor(np.array(timeTarget2, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
 
 ###第一常量，版本号信息
 curVersion = 0
@@ -109,7 +112,7 @@ def checkVersion():
         time.sleep(10)
 
 def checkTime():
-    global timeTarget
+    global timeTarget1 ,timeTarget2
     while 1:
         screen = ImageGrab.grab(s_checkTime)
         screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
