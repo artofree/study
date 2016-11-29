@@ -7,8 +7,9 @@ import configparser,os ,sseclient
 
 decodeThreadList = []
 theCodeDict = {}
-servUrl = 'http://139.219.238.37:8000/'
+# servUrl = 'http://139.219.238.37:8000/'
 # servUrl = 'http://192.168.0.106:8000/'
+servUrl = 'http://101.80.14.24:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
 theConf = myLib.myConf()
@@ -23,7 +24,8 @@ timeTarget = cv2.cvtColor(np.array(timeTarget, dtype=np.uint8), cv2.COLOR_RGBA2G
 curVersion = 0
 
 ###第二常量，用hostname获得拍牌人信息和出价策略
-hostName = socket.gethostname()
+hostName ='chepaiguo1'
+#hostName = socket.gethostname()
 infoList =requests.get(servUrl + 'getOrderInfo', {'hostname':hostName}).text.split('~')
 identy ,orderid, orderpass, firstPrice ,secondPrice= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4]
 firstPrice =firstPrice.split('-')
@@ -37,6 +39,7 @@ cf.read(r"C:\Users\guo\Desktop\mainConf")
 curStep =cf.get('main', 'step')
 isMainClient =cf.get('main', 'mainclient')
 handMade =cf.get('main', 'handmade')
+isTest =cf.get('main', 'test')
 
 
 def getCode():
@@ -280,7 +283,7 @@ def secondStep():
         if timeStamp >first_bTime:
             if isFirstPrice:
                 secondStepPrice(first_dPrice ,first_eTime ,'1')
-                time.sleep(0.1)
+                time.sleep(1)
                 myLib.click_img(theConf.check_main_confirm)
                 isFirstPrice =0
         if timeStamp > second_bTime:
@@ -307,7 +310,9 @@ def mainWork():
     againstThread = threading.Thread(target=against)
     againstThread.start()
     ###主线程非手动版么自动登陆：
-    if handMade =='0':
+    if isTest =='1':
+        pyautogui.click(x=260, y=1060)
+    elif handMade =='0':
         preLogin()
         login()
         ###若在第一阶段出价并记录已出价
