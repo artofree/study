@@ -307,7 +307,7 @@ def secondStep():
         if timeStamp > second_bTime:
             secondStepPrice(second_dPrice ,second_eTime ,'2')
             break
-    time.sleep(0.1)
+        time.sleep(0.1)
 
 
 ####################################################################################
