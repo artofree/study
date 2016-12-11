@@ -7,9 +7,11 @@ import configparser ,json ,zipfile ,os ,sys
 
 area_grab =[500 ,60 ,1400 ,750]
 
+ver =1
+
 time.sleep(5)
 # timeTarget = Image.open(r'rsc\check_main_kick.PNG')
-timeTarget = Image.open(r'rsc\check_login_against.PNG')
+timeTarget = Image.open(r'rsc\29_23.PNG')
 timeTarget = cv2.cvtColor(np.array(timeTarget, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
 screen = ImageGrab.grab(area_grab)
 screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)

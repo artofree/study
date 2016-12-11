@@ -9,7 +9,7 @@ decodeThreadList = []
 theCodeDict = {}
 # servUrl = 'http://139.219.238.37:8000/'
 # servUrl = 'http://192.168.0.106:8000/'
-servUrl = 'http://116.237.16.180:8000/'
+# servUrl = 'http://116.237.16.180:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #用于前期自动登陆打码
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
@@ -31,13 +31,13 @@ cf.read(r"C:\Users\guo\Desktop\mainConf")
 curVersion = 0
 
 ###第二常量，用hostname获得拍牌人信息和出价策略
-hostName =cf.get('main', 'hostname')
-infoList =requests.get(servUrl + 'getOrderInfo', {'hostname':hostName}).text.split('~')
-identy ,orderid, orderpass, firstPrice ,secondPrice= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4]
-firstPrice =firstPrice.split('-')
-first_bTime, first_eTime, first_dPrice =int(firstPrice[0]) ,int(firstPrice[1]) ,firstPrice[2]
-secondPrice =secondPrice.split('-')
-second_bTime, second_eTime, second_dPrice =int(secondPrice[0]) ,int(secondPrice[1]) ,secondPrice[2]
+# hostName =cf.get('main', 'hostname')
+# infoList =requests.get(servUrl + 'getOrderInfo', {'hostname':hostName}).text.split('~')
+# identy ,orderid, orderpass, firstPrice ,secondPrice= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4]
+# firstPrice =firstPrice.split('-')
+first_bTime, first_eTime, first_dPrice =39 ,45 ,'500'
+# secondPrice =secondPrice.split('-')
+second_bTime, second_eTime, second_dPrice =48 ,55 ,'500'
 
 ###第三常量，取自mainConf
 curStep =cf.get('main', 'step')
@@ -113,7 +113,7 @@ def checkVersion():
         time.sleep(10)
 
 def makeTimeStamp():
-    global timeStamp ,stampDlt ,baseTime
+    global timeStamp ,stampDlt
     while 1:
         now =datetime.datetime.now()
         theH =int(now.strftime('%H'))
@@ -140,16 +140,16 @@ def checkTime():
             now =datetime.datetime.now()
             stampDlt =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS1
             stampDlt =round(stampDlt ,2)
-            if isMainClient =='1':
-                payload = {'times' :'1'}
-                requests.get(url=servUrl +'setTimeStamp' ,params=payload)
+            # if isMainClient =='1':
+            #     payload = {'times' :'1'}
+            #     requests.get(url=servUrl +'setTimeStamp' ,params=payload)
         if max_val2 >0.99:
             now =datetime.datetime.now()
             stampDlt =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS2
             stampDlt =round(stampDlt ,2)
-            if isMainClient =='1':
-                payload = {'times' :'2'}
-                requests.get(url=servUrl +'setTimeStamp' ,params=payload)
+            # if isMainClient =='1':
+            #     payload = {'times' :'2'}
+            #     requests.get(url=servUrl +'setTimeStamp' ,params=payload)
             return
         time.sleep(0.2)
 
@@ -247,20 +247,19 @@ def secondStepGetTestImg():
         if myLib.check_img(theConf.check_main_refreshcode):
             myLib.click_img(theConf.check_main_refreshcode)
         elif myLib.check_img(theConf.check_main_secondcodehere):
-            if not secondCheck:
-                code = ImageGrab.grab(theConf.area_main_secondstepcode)
-                catch = StringIO()
-                code.save(catch, 'PNG')
-                pyautogui.click(theConf.coor_main_secondstepcode)
-                payload = {'idt': identy ,'times' :'0'}
-                files = {'file': catch.getvalue()}
-                requests.post(servUrl + 'uploadPic', files=files, data=payload)
+            code = ImageGrab.grab(theConf.area_main_secondstepcode)
+            catch = StringIO()
+            code.save(catch, 'PNG')
+            pyautogui.click(theConf.coor_main_secondstepcode)
+            payload = {'idt': identy ,'times' :'0'}
+            files = {'file': catch.getvalue()}
+            requests.post(servUrl + 'uploadPic', files=files, data=payload)
             pyautogui.click(theConf.coor_main_secondetestcancel)
             break
 
 
 ###第二阶段出价函数
-def secondStepPrice(dPrice ,eTime ,times):
+def secondStepPrice(dPrice ,eTime):
     pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
     pyautogui.typewrite(dPrice)
     time.sleep(0.1)
@@ -272,23 +271,19 @@ def secondStepPrice(dPrice ,eTime ,times):
         if myLib.check_img(theConf.check_main_refreshcode):
             myLib.click_img(theConf.check_main_refreshcode)
         elif myLib.check_img(theConf.check_main_secondcodehere):
-            code = ImageGrab.grab(theConf.area_main_secondstepcode)
-            payload = {'idt': identy ,'times' :times}
-            if secondCheck:
-                code.save(code_url, "PNG")
-            else:
-                catch = StringIO()
-                code.save(catch, 'PNG')
-                pyautogui.click(theConf.coor_main_secondstepcode)
-                files = {'file': catch.getvalue()}
-                requests.post(servUrl + 'uploadPic', files=files, data=payload)
+            # code = ImageGrab.grab(theConf.area_main_secondstepcode)
+            # catch = StringIO()
+            # code.save(catch, 'PNG')
+            pyautogui.click(theConf.coor_main_secondstepcode)
+            # payload = {'idt': identy ,'times' :times}
+            # files = {'file': catch.getvalue()}
+            # requests.post(servUrl + 'uploadPic', files=files, data=payload)
             # print(datetime.datetime.now())
             if eTime >timeStamp:
                 time.sleep(eTime - timeStamp)
-            if not secondCheck:
-                theCode = requests.get(servUrl + 'getCode', payload)
-                pyautogui.typewrite(theCode.text)
-                time.sleep(0.1)
+            # theCode = requests.get(servUrl + 'getCode', payload)
+            # pyautogui.typewrite(theCode.text)
+            time.sleep(0.1)
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
             break
 
@@ -298,18 +293,8 @@ def secondStep():
     global isGetTestImg
     global isFirstPrice
     while 1:
-        if timeStamp >27:
-            if isGetTestImg:
-                secondStepGetTestImg()
-                isGetTestImg =0
-        if timeStamp >first_bTime:
-            if isFirstPrice:
-                secondStepPrice(first_dPrice ,first_eTime ,'1')
-                time.sleep(1)
-                myLib.click_img(theConf.check_main_confirm)
-                isFirstPrice =0
         if timeStamp > second_bTime:
-            secondStepPrice(second_dPrice ,second_eTime ,'2')
+            secondStepPrice(second_dPrice ,second_eTime)
             break
         time.sleep(0.1)
 
@@ -321,18 +306,17 @@ def mainWork():
     ###无论是否主终端都启动对时线程：
     makeTimeTrhead = threading.Thread(target=makeTimeStamp)
     makeTimeTrhead.start()
-    if not secondCheck:
-        checkTimeTrhead = threading.Thread(target=checkTime)
-        checkTimeTrhead.start()
+    checkTimeTrhead = threading.Thread(target=checkTime)
+    checkTimeTrhead.start()
     ###线程0-检查版本改变
-    checkVersionThread = threading.Thread(target=checkVersion)
-    checkVersionThread.start()
+    # checkVersionThread = threading.Thread(target=checkVersion)
+    # checkVersionThread.start()
     ###线程1-常规终端只开获得时间戳
     # timeStampThread = threading.Thread(target=getTimeStamp)
     # timeStampThread.start()
     ###线程2-防t
-    againstThread = threading.Thread(target=against)
-    againstThread.start()
+    # againstThread = threading.Thread(target=against)
+    # againstThread.start()
     ###主线程非手动版么自动登陆：
     if handMade =='0':
         preLogin()
@@ -350,10 +334,4 @@ def mainWork():
 
 
 if __name__=='__main__':
-    if secondCheck:
-        now =datetime.datetime.now()
-        theH =int(now.strftime('%H'))
-        theM =int(now.strftime('%M'))
-        theS =int(now.strftime('%S'))
-        baseTime =theH *3600 +theM *60 +theS -10
     mainWork()
