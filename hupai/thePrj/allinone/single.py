@@ -35,7 +35,7 @@ curVersion = 0
 # infoList =requests.get(servUrl + 'getOrderInfo', {'hostname':hostName}).text.split('~')
 # identy ,orderid, orderpass, firstPrice ,secondPrice= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4]
 # firstPrice =firstPrice.split('-')
-first_bTime, first_eTime, first_dPrice =39 ,45 ,'500'
+first_bTime, first_eTime, first_dPrice =38 ,45 ,'500'
 # secondPrice =secondPrice.split('-')
 second_bTime, second_eTime, second_dPrice =48 ,55 ,'500'
 
@@ -293,6 +293,12 @@ def secondStep():
     global isGetTestImg
     global isFirstPrice
     while 1:
+        if timeStamp >first_bTime:
+            if isFirstPrice:
+                secondStepPrice(first_dPrice ,first_eTime)
+                time.sleep(1)
+                myLib.click_img(theConf.check_main_confirm)
+                isFirstPrice =0
         if timeStamp > second_bTime:
             secondStepPrice(second_dPrice ,second_eTime)
             break
