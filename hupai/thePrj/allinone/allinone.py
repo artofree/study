@@ -7,9 +7,9 @@ import configparser,os
 
 decodeThreadList = []
 theCodeDict = {}
-# servUrl = 'http://139.219.238.37:8000/'
+servUrl = 'http://139.219.238.37:8000/'
 # servUrl = 'http://192.168.0.106:8000/'
-servUrl = 'http://116.237.16.180:8000/'
+# servUrl = 'http://116.237.16.180:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #用于前期自动登陆打码
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
@@ -35,9 +35,9 @@ hostName =cf.get('main', 'hostname')
 infoList =requests.get(servUrl + 'getOrderInfo', {'hostname':hostName}).text.split('~')
 identy ,orderid, orderpass, firstPrice ,secondPrice= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4]
 firstPrice =firstPrice.split('-')
-first_bTime, first_eTime, first_dPrice =int(firstPrice[0]) ,int(firstPrice[1]) ,firstPrice[2]
+first_bTime, first_eTime, first_dPrice =float(firstPrice[0]) ,float(firstPrice[1]) ,firstPrice[2]
 secondPrice =secondPrice.split('-')
-second_bTime, second_eTime, second_dPrice =int(secondPrice[0]) ,int(secondPrice[1]) ,secondPrice[2]
+second_bTime, second_eTime, second_dPrice =float(secondPrice[0]) ,float(secondPrice[1]) ,secondPrice[2]
 
 ###第三常量，取自mainConf
 curStep =cf.get('main', 'step')
@@ -120,7 +120,8 @@ def makeTimeStamp():
         theM =int(now.strftime('%M'))
         theS =int(now.strftime('%S'))
         theStamp =theH *3600 +theM *60 +theS -baseTime +int(now.strftime('%f')[:2]) /100 -stampDlt
-        theStamp =round(theStamp ,2)
+        # theStamp =round(theStamp ,2)
+        # print(theStamp)
         if 0 <theStamp <60:
             timeStamp =theStamp
         time.sleep(0.1)
@@ -286,7 +287,7 @@ def secondStepPrice(dPrice ,eTime ,times):
             if eTime >timeStamp:
                 time.sleep(eTime - timeStamp)
             if not secondCheck:
-                theCode = requests.get(servUrl + 'getCode', payload)
+                theCode = requests.get(servUrl + 'getTrueCode', payload)
                 pyautogui.typewrite(theCode.text)
                 time.sleep(0.1)
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
@@ -355,5 +356,6 @@ if __name__=='__main__':
         theH =int(now.strftime('%H'))
         theM =int(now.strftime('%M'))
         theS =int(now.strftime('%S'))
+        #减10意味着当前为11：29：10，测试状态下不做对时
         baseTime =theH *3600 +theM *60 +theS -10
     mainWork()
