@@ -37,7 +37,7 @@ curVersion = 0
 # firstPrice =firstPrice.split('-')
 first_bTime, first_eTime, first_dPrice =38 ,45 ,'500'
 # secondPrice =secondPrice.split('-')
-second_bTime, second_eTime, second_dPrice =48 ,55 ,'500'
+second_bTime, second_eTime, second_dPrice =48 ,55.5 ,'700'
 
 ###第三常量，取自mainConf
 curStep =cf.get('main', 'step')
