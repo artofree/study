@@ -28,11 +28,12 @@ cf = configparser.ConfigParser()
 cf.read(r"C:\Users\guo\Desktop\mainConf")
 
 ###第一常量，版本号信息
-curVersion = 0
+curVersion = 2
 
 ###第二常量，用hostname获得拍牌人信息和出价策略
 hostName =cf.get('main', 'hostname')
 infoList =requests.get(servUrl + 'getOrderInfo', {'hostname':hostName}).text.split('~')
+print(infoList)
 identy ,orderid, orderpass, firstPrice ,secondPrice= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4]
 firstPrice =firstPrice.split('-')
 first_bTime, first_eTime, first_dPrice =float(firstPrice[0]) ,float(firstPrice[1]) ,firstPrice[2]
