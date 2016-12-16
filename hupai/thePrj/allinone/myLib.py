@@ -82,6 +82,7 @@ class myConf(object):
         self.coor_login_code =[1120 ,380]
         self.area_login_code =[1200 ,360 ,1320 ,395]
         self.coor_login_longin =[1150 ,450]
+        #如果卡这里可能是下面两个配置任一出错
         self.check_login_against =r'rsc\check_login_against.png'
         self.coor_login_confirmagainst =[1125 ,610]
         self.coor_login_identy =[1120 ,380]
@@ -89,26 +90,38 @@ class myConf(object):
         self.area_login_againstcode =[1200 ,415 ,1320 ,450]
         self.coor_login_againstlongin =[1150 ,500]
 
-        self.coor_main_kickconfirm =[1150 ,555]
+        #如果卡这里可能是下面两个配置任一出错
         self.check_main_kick =r'rsc\check_main_kick.png'
+        self.coor_main_kickconfirm =[1150 ,555]
+
         self.coor_main_firststep1 =[1200 ,385]
         self.coor_main_firststep2 =[1200 ,445]
         self.coor_main_firststepconfirm =[1310 ,440]
         self.area_main_firststepcode =[960 ,410 ,1150 ,540]
         self.coor_main_firststepcode =[1250 ,490]
         self.coor_main_firststepcodeconfirm =[1066 ,570]
+        #错误则第一次出价结果框不消失
         self.check_main_confirm =r'rsc\check_main_confirm.png'
 
+        #错误看不到价格
         self.coor_main_secondtestaddprice =[1160 ,450]
+        #错误则验证码框不消失
         self.coor_main_secondetestcancel =[1245 ,567]
 
+        #错误不会出验证码对话框
         self.coor_main_seconddeltaprice =[1190, 380]
+        #错误看不到将出的价格
         self.coor_main_secondaddprice =[1315, 375]
+        #错误不会出验证码对话框
         self.coor_main_secondconfirmprice =[1310, 485]
+        #错误则不会有code.png
         self.check_main_secondcodehere =r'rsc\check_main_secondcodehere.png'
         self.check_main_refreshcode =r'rsc\check_main_refreshcode.png'
+        #错误则code.png内容不对，需要重置区域坐标
         self.area_main_secondstepcode =[960, 410, 1190, 545]
+        #错误则验证码框光标不闪
         self.coor_main_secondstepcode =[1250, 480]
+        #错误则不出价
         self.coor_main_secondstepcodeconfirm =[1065, 570]
 
 

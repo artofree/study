@@ -28,7 +28,7 @@ cf = configparser.ConfigParser()
 cf.read(r"C:\Users\guo\Desktop\mainConf")
 
 ###第一常量，版本号信息
-curVersion = 2
+curVersion = 0
 
 ###第二常量，用hostname获得拍牌人信息和出价策略
 hostName =cf.get('main', 'hostname')
@@ -142,6 +142,7 @@ def checkTime():
             now =datetime.datetime.now()
             stampDlt =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS1
             stampDlt =round(stampDlt ,2)
+            print('time_12_check')
             if isMainClient =='1':
                 payload = {'times' :'1'}
                 requests.get(url=servUrl +'setTimeStamp' ,params=payload)
@@ -149,6 +150,7 @@ def checkTime():
             now =datetime.datetime.now()
             stampDlt =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS2
             stampDlt =round(stampDlt ,2)
+            print('time_23_check')
             if isMainClient =='1':
                 payload = {'times' :'2'}
                 requests.get(url=servUrl +'setTimeStamp' ,params=payload)
