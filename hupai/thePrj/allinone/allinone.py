@@ -160,7 +160,7 @@ def checkTime():
 def against():
     while 1:
         if myLib.check_img(theConf.check_main_kick):
-            pyautogui.click(theConf.coor_login_orderid)
+            pyautogui.click([1150,550])
             time.sleep(1)
             login()
         time.sleep(10)
