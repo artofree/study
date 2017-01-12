@@ -140,6 +140,7 @@ def checkTime():
             now =datetime.datetime.now()
             stampDlt =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS1
             stampDlt =round(stampDlt ,2)
+            print(stampDlt)
             # if isMainClient =='1':
             #     payload = {'times' :'1'}
             #     requests.get(url=servUrl +'setTimeStamp' ,params=payload)
@@ -147,6 +148,7 @@ def checkTime():
             now =datetime.datetime.now()
             stampDlt =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS2
             stampDlt =round(stampDlt ,2)
+            print(stampDlt)
             # if isMainClient =='1':
             #     payload = {'times' :'2'}
             #     requests.get(url=servUrl +'setTimeStamp' ,params=payload)

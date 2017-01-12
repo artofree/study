@@ -155,7 +155,7 @@ def checkTime():
                 payload = {'times' :'2'}
                 requests.get(url=servUrl +'setTimeStamp' ,params=payload)
             return
-        time.sleep(0.2)
+        time.sleep(0.1)
 
 def against():
     while 1:
@@ -288,11 +288,11 @@ def secondStepPrice(dPrice ,eTime ,times):
                 requests.post(servUrl + 'uploadPic', files=files, data=payload)
             # print(datetime.datetime.now())
             if eTime >timeStamp:
-                time.sleep(eTime - timeStamp)
+                time.sleep(eTime - timeStamp -0.3)
             if not secondCheck:
                 theCode = requests.get(servUrl + 'getTrueCode', payload)
                 pyautogui.typewrite(theCode.text)
-                time.sleep(0.1)
+                time.sleep(0.3)
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
             break
 
