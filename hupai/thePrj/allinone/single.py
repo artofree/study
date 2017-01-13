@@ -37,7 +37,7 @@ curVersion = 0
 # firstPrice =firstPrice.split('-')
 first_bTime, first_eTime, first_dPrice =38 ,45 ,'500'
 # secondPrice =secondPrice.split('-')
-second_bTime, second_eTime, second_dPrice =48 ,55.5 ,'700'
+second_bTime, second_eTime, second_dPrice =48 ,56.5 ,'800'
 
 ###第三常量，取自mainConf
 curStep =cf.get('main', 'step')
@@ -283,7 +283,7 @@ def secondStepPrice(dPrice ,eTime):
                 time.sleep(eTime - timeStamp)
             # theCode = requests.get(servUrl + 'getCode', payload)
             # pyautogui.typewrite(theCode.text)
-            time.sleep(0.1)
+            # time.sleep(0.1)
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
             break
 

@@ -111,7 +111,7 @@ def checkVersion():
             time.sleep(1)
             python = sys.executable
             os.execl(python, python, *sys.argv)
-        time.sleep(10)
+        time.sleep(0.1)
 
 def makeTimeStamp():
     global timeStamp ,stampDlt ,baseTime
@@ -288,11 +288,11 @@ def secondStepPrice(dPrice ,eTime ,times):
                 requests.post(servUrl + 'uploadPic', files=files, data=payload)
             # print(datetime.datetime.now())
             if eTime >timeStamp:
-                time.sleep(eTime - timeStamp -0.3)
+                time.sleep(eTime - timeStamp -0.5)
             if not secondCheck:
                 theCode = requests.get(servUrl + 'getTrueCode', payload)
                 pyautogui.typewrite(theCode.text)
-                time.sleep(0.3)
+                time.sleep(0.5)
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
             break
 
@@ -329,8 +329,8 @@ def mainWork():
         checkTimeTrhead = threading.Thread(target=checkTime)
         checkTimeTrhead.start()
     ###线程0-检查版本改变
-    checkVersionThread = threading.Thread(target=checkVersion)
-    checkVersionThread.start()
+    # checkVersionThread = threading.Thread(target=checkVersion)
+    # checkVersionThread.start()
     ###线程1-常规终端只开获得时间戳
     # timeStampThread = threading.Thread(target=getTimeStamp)
     # timeStampThread.start()
