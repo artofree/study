@@ -111,7 +111,7 @@ def checkVersion():
             time.sleep(1)
             python = sys.executable
             os.execl(python, python, *sys.argv)
-        time.sleep(0.1)
+        time.sleep(10)
 
 def makeTimeStamp():
     global timeStamp ,stampDlt ,baseTime
