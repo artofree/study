@@ -5,6 +5,8 @@ import cv2, pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 import configparser,os
 
+pyautogui.FAILSAFE =False
+
 decodeThreadList = []
 theCodeDict = {}
 servUrl = 'http://139.219.238.37:8000/'

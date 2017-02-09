@@ -37,7 +37,7 @@ curVersion = 0
 # firstPrice =firstPrice.split('-')
 first_bTime, first_eTime, first_dPrice =38 ,45 ,'500'
 # secondPrice =secondPrice.split('-')
-second_bTime, second_eTime, second_dPrice =48 ,57 ,'700'
+second_bTime, second_eTime, second_dPrice =48 ,56.5 ,'700'
 
 ###第三常量，取自mainConf
 curStep =cf.get('main', 'step')
@@ -153,7 +153,7 @@ def checkTime():
             #     payload = {'times' :'2'}
             #     requests.get(url=servUrl +'setTimeStamp' ,params=payload)
             return
-        time.sleep(0.1)
+        time.sleep(0.2)
 
 def against():
     while 1:
@@ -264,8 +264,10 @@ def secondStepGetTestImg():
 def secondStepPrice(dPrice ,eTime):
     while 1:
         if eTime >timeStamp:
-            time.sleep(eTime - timeStamp -0.5)
-            time.sleep(0.5)
+            # time.sleep(eTime - timeStamp -0.5)
+            # time.sleep(0.5)
+            time.sleep(eTime - timeStamp)
+            time.sleep(0.1)
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
             break
 
