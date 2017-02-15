@@ -1,4 +1,4 @@
-import time, threading, os
+import time, threading
 
 import requests
 
@@ -8,16 +8,23 @@ from datetime import datetime
 import configparser
 
 import zipfile
-import os
 
 import zipfile
-import os
+import os ,sys
 
-servUrl = 'http://127.0.0.1:8000/'
-r = requests.get(servUrl +'getVersionContent', stream=True)
-with open(r"/Users/guo/Desktop/2.png", 'wb') as fd:
-    for chunk in r.iter_content(10240):
-        fd.write(chunk)
+print(time.time())
+
+cmd = 'taskkill /F /IM iexplore.exe'
+os.system(cmd)
+time.sleep(1)
+python = sys.executable
+os.execl(python, python, *sys.argv)
+
+# servUrl = 'http://127.0.0.1:8000/'
+# r = requests.get(servUrl +'getVersionContent', stream=True)
+# with open(r"/Users/guo/Desktop/2.png", 'wb') as fd:
+#     for chunk in r.iter_content(10240):
+#         fd.write(chunk)
 # print(requests.get(servUrl +'getVersion').text)
 # # servUrl ='http://139.219.238.37:8000/'
 # fileUrl =r"/Users/guo/Desktop/1.png"

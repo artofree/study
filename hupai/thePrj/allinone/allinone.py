@@ -10,7 +10,7 @@ pyautogui.FAILSAFE =False
 decodeThreadList = []
 theCodeDict = {}
 servUrl = 'http://139.219.238.37:8000/'
-# servUrl = 'http://192.168.0.106:8000/'
+# servUrl = 'http://192.168.0.100:8000/'
 # servUrl = 'http://116.237.16.180:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #用于前期自动登陆打码
@@ -271,7 +271,7 @@ def secondStepPrice(dPrice ,eTime ,times):
     pyautogui.typewrite(dPrice)
     time.sleep(0.1)
     pyautogui.click(theConf.coor_main_secondaddprice)
-    time.sleep(0.1)
+    time.sleep(0.3)
     pyautogui.click(theConf.coor_main_secondconfirmprice)
     time.sleep(0.1)
     while 1:

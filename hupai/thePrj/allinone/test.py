@@ -1,14 +1,15 @@
 # # import damatu as td
-# import myLib ,damatu
-# from PIL import ImageGrab, Image
-# import numpy as np
-# import cv2 ,pyautogui, datetime, time, threading, requests
-# from io import BytesIO as StringIO
-# import configparser ,json ,zipfile ,os ,sys
+import myLib ,damatu
+from PIL import ImageGrab, Image
+import numpy as np
+import cv2 ,pyautogui, datetime, time, threading, requests
+from io import BytesIO as StringIO
+import configparser ,json ,zipfile ,os ,sys
 
-import  allinone
-
-i =0
+print(1)
+time.sleep(1)
+python = sys.executable
+os.execl(python, python, *sys.argv)
 
 # print(type(int('1')))
 
