@@ -278,6 +278,7 @@ def secondStepPrice(dPrice ,eTime ,times):
         if myLib.check_img(theConf.check_main_refreshcode):
             myLib.click_img(theConf.check_main_refreshcode)
         elif myLib.check_img(theConf.check_main_secondcodehere):
+            time.sleep(0.3)
             code = ImageGrab.grab(theConf.area_main_secondstepcode)
             payload = {'idt': identy ,'times' :times}
             if secondCheck:
