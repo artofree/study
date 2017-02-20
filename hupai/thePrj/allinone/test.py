@@ -6,10 +6,18 @@ import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 import configparser ,json ,zipfile ,os ,sys
 
-print(1)
-time.sleep(1)
-python = sys.executable
-os.execl(python, python, *sys.argv)
+code = ImageGrab.grab([960, 410, 1190, 545])
+catch = StringIO()
+code.save(catch, 'PNG')
+
+payload = {'idt': "000000000000000001" ,'times' :'0'}
+files = {'file': catch.getvalue()}
+
+while 1:
+    print(datetime.datetime.now())
+    # requests.post('http://58.33.101.128:8000/' + 'uploadPic', files=files, data=payload)
+    # requests.post('http://192.168.0.100:8000/' + 'uploadPic', files=files, data=payload)
+    requests.post('http://139.219.238.37:8000/' + 'uploadPic', files=files, data=payload)
 
 # print(type(int('1')))
 
