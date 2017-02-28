@@ -89,7 +89,7 @@ class myConf(object):
         self.coor_login_identy =[1120 ,380]
         self.coor_login_againstcode =[1120 ,435]
         self.area_login_againstcode =[1200 ,415 ,1320 ,450]
-        self.coor_login_againstlongin =[1150 ,500]
+        self.coor_login_againstlongin =[1150 ,501]
 
         #如果卡这里可能是下面两个配置任一出错
         self.check_main_kick =r'rsc\check_main_kick.png'

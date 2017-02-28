@@ -6,6 +6,7 @@ import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 import configparser ,json ,zipfile ,os
 
+
 # servUrl ='http://192.168.0.106:8000/'
 servUrl = 'http://139.219.238.37:8000/'
 fileUrl =r"C:\Users\guo\Desktop\archive.zip"
