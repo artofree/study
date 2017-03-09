@@ -14,10 +14,17 @@ payload = {'idt': "000000000000000001" ,'times' :'0'}
 files = {'file': catch.getvalue()}
 
 while 1:
-    print(datetime.datetime.now())
+    thetime =time.time()
+    requests.get('http://139.219.238.37:8000/' + 'getVersion')
+    if time.time() -thetime >1:
+        print(time.time() -thetime)
+    time.sleep(1)
+
     # requests.post('http://58.33.101.128:8000/' + 'uploadPic', files=files, data=payload)
     # requests.post('http://192.168.0.100:8000/' + 'uploadPic', files=files, data=payload)
-    requests.post('http://139.219.238.37:8000/' + 'uploadPic', files=files, data=payload)
+    # requests.get('http://139.219.238.37:8000/' + 'getVersion')
+    # requests.post('http://139.219.238.37:8000/' + 'uploadPic', files=files, data=payload)
+
 
 # print(type(int('1')))
 

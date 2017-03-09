@@ -12,13 +12,17 @@ import zipfile
 import zipfile
 import os ,sys
 
-print(time.time())
+while 1:
+    thetime =time.time()
+    time.sleep(0.1)
+    if time.time() -thetime >0.1:
+        print(time.time() -thetime)
 
-cmd = 'taskkill /F /IM iexplore.exe'
-os.system(cmd)
-time.sleep(1)
-python = sys.executable
-os.execl(python, python, *sys.argv)
+# cmd = 'taskkill /F /IM iexplore.exe'
+# os.system(cmd)
+# time.sleep(1)
+# python = sys.executable
+# os.execl(python, python, *sys.argv)
 
 # servUrl = 'http://127.0.0.1:8000/'
 # r = requests.get(servUrl +'getVersionContent', stream=True)
