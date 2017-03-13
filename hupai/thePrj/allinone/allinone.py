@@ -9,8 +9,7 @@ pyautogui.FAILSAFE =False
 
 decodeThreadList = []
 theCodeDict = {}
-servUrl = 'http://139.219.234.120:8000/'
-# servUrl = 'http://139.219.238.37:8000/'
+servUrl = 'http://139.219.238.37:8000/'
 # servUrl = 'http://192.168.8.102:8020/'
 # servUrl = 'http://116.237.16.180:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -124,7 +123,7 @@ def makeTimeStamp():
         theM =int(now.strftime('%M'))
         theS =int(now.strftime('%S'))
         theStamp =theH *3600 +theM *60 +theS -baseTime +int(now.strftime('%f')[:2]) /100 -stampDlt
-        # theStamp =round(theStamp ,2)
+        theStamp =round(theStamp ,2)
         # print(theStamp)
         if 0 <theStamp <60:
             timeStamp =theStamp
@@ -253,10 +252,12 @@ def secondStepGetTestImg():
     time.sleep(1)
     pyautogui.click(theConf.coor_main_secondconfirmprice)
     time.sleep(1)
+    print(str(timeStamp) + "_testimgbegin")
     while 1:
         if myLib.check_img(theConf.check_main_refreshcode):
             myLib.click_img(theConf.check_main_refreshcode)
         elif myLib.check_img(theConf.check_main_secondcodehere):
+            print(str(timeStamp) + "_testimgfind")
             if not secondCheck:
                 code = ImageGrab.grab(theConf.area_main_secondstepcode)
                 catch = StringIO()
@@ -264,7 +265,9 @@ def secondStepGetTestImg():
                 pyautogui.click(theConf.coor_main_secondstepcode)
                 payload = {'idt': identy ,'times' :'0'}
                 files = {'file': catch.getvalue()}
+                print(str(timeStamp) + "_testimgsendbegin")
                 requests.post(servUrl + 'uploadPic', files=files, data=payload)
+                print(str(timeStamp) + "_testimgsendend")
             pyautogui.click(theConf.coor_main_secondetestcancel)
             break
 
@@ -279,11 +282,13 @@ def secondStepPrice(dPrice ,eTime ,times):
     time.sleep(0.3)
     pyautogui.click(theConf.coor_main_secondconfirmprice)
     time.sleep(0.1)
+    print(str(timeStamp) + "_" + times + "_imgbegin")
     while 1:
         if myLib.check_img(theConf.check_main_refreshcode):
             myLib.click_img(theConf.check_main_refreshcode)
         elif myLib.check_img(theConf.check_main_secondcodehere):
             time.sleep(0.3)
+            print(str(timeStamp) + "_" + times + "_imgfind")
             code = ImageGrab.grab(theConf.area_main_secondstepcode)
             payload = {'idt': identy ,'times' :times}
             if secondCheck:
@@ -293,12 +298,16 @@ def secondStepPrice(dPrice ,eTime ,times):
                 code.save(catch, 'PNG')
                 pyautogui.click(theConf.coor_main_secondstepcode)
                 files = {'file': catch.getvalue()}
+                print(str(timeStamp) + "_" + times + "_imgsendbegin")
                 requests.post(servUrl + 'uploadPic', files=files, data=payload)
+                print(str(timeStamp) + "_" + times + "_imgsendend")
             # print(datetime.datetime.now())
             if eTime >timeStamp:
                 time.sleep(eTime - timeStamp -0.5)
             if not secondCheck:
+                print(str(timeStamp) + "_" + times + "_codegetbegin")
                 theCode = requests.get(servUrl + 'getTrueCode', payload)
+                print(str(timeStamp) + "_" + times + "_codegetend")
                 pyautogui.typewrite(theCode.text)
                 time.sleep(0.5)
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
@@ -330,6 +339,7 @@ def secondStep():
 ###主线程
 
 def mainWork():
+    pyautogui.click(1800,800)
     ###无论是否主终端都启动对时线程：
     makeTimeTrhead = threading.Thread(target=makeTimeStamp)
     makeTimeTrhead.start()
