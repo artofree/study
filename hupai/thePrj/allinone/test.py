@@ -13,12 +13,18 @@ code.save(catch, 'PNG')
 payload = {'idt': "000000000000000001" ,'times' :'0'}
 files = {'file': catch.getvalue()}
 
+count =0
+
 while 1:
-    thetime =time.time()
-    requests.get('http://139.219.238.37:8000/' + 'getVersion')
-    if time.time() -thetime >1:
-        print(time.time() -thetime)
-    time.sleep(1)
+    # thetime =time.time()
+    # requests.get('http://139.219.238.37:8000/' + 'getVersion')
+    requests.get('http://139.219.238.37:8000/static/exp/1.png')
+    count +=1
+    if count %100 ==0:
+        print(datetime.datetime.now())
+    # if time.time() -thetime >1:
+        # print(time.time() -thetime)
+    # time.sleep(1)
 
     # requests.post('http://58.33.101.128:8000/' + 'uploadPic', files=files, data=payload)
     # requests.post('http://192.168.0.100:8000/' + 'uploadPic', files=files, data=payload)

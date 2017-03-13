@@ -357,14 +357,16 @@ def mainWork():
     againstThread.start()
     ###主线程非手动版么自动登陆：
     if handMade =='0':
-        preLogin()
-        login()
-        ###若在第一阶段出价并记录已出价
+        ###未登陆：
         if curStep == '0':
+            preLogin()
+            login()
+        ###未第一次出价
+        if curStep == '1':
             firstStep('100')
-            firstStep('200')
-            cf.set('main', 'step', '1')
-            cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
+            # firstStep('200')
+            # cf.set('main', 'step', '1')
+            # cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
     ###线程3-第二阶段是个线程
     secondStepThread =threading.Thread(target=secondStep)
     secondStepThread.start()
