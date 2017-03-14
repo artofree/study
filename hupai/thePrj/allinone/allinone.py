@@ -29,6 +29,17 @@ timeTarget2 = cv2.cvtColor(np.array(timeTarget2, dtype=np.uint8), cv2.COLOR_RGBA
 cf = configparser.ConfigParser()
 cf.read(r"C:\Users\guo\Desktop\mainConf")
 
+#初始化价格比对图列表
+imgPriceArea =()
+imgPrice1 ,imgPrice2 =0 ,0
+priceImageLst =[]
+priceList =list(range(86000 ,88201 ,100))
+for index in range(len(priceList)):
+    priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
+    priceImage = Image.open(priceUrl)
+    priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+    priceImageLst.append(priceImage)
+
 ###第一常量，版本号信息
 curVersion = 0
 
@@ -322,7 +333,7 @@ def secondStep():
     global isGetTestImg
     global isFirstPrice
     while 1:
-        if timeStamp >27:
+        if timeStamp >25:
             if isGetTestImg:
                 secondStepGetTestImg()
                 isGetTestImg =0
