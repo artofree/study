@@ -6,22 +6,27 @@ import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 import configparser ,json ,zipfile ,os ,sys
 
-code = ImageGrab.grab([960, 410, 1190, 545])
-catch = StringIO()
-code.save(catch, 'PNG')
-
-payload = {'idt': "000000000000000001" ,'times' :'0'}
-files = {'file': catch.getvalue()}
-
-count =0
-
+time.sleep(10)
 while 1:
-    # thetime =time.time()
-    # requests.get('http://139.219.238.37:8000/' + 'getVersion')
-    requests.get('http://139.219.238.37:8000/static/exp/1.png')
-    count +=1
-    if count %100 ==0:
-        print(datetime.datetime.now())
+    print(pyautogui.size())
+    time.sleep(1)
+
+# code = ImageGrab.grab([960, 410, 1190, 545])
+# catch = StringIO()
+# code.save(catch, 'PNG')
+#
+# payload = {'idt': "000000000000000001" ,'times' :'0'}
+# files = {'file': catch.getvalue()}
+#
+# count =0
+#
+# while 1:
+#     # thetime =time.time()
+#     # requests.get('http://139.219.238.37:8000/' + 'getVersion')
+#     requests.get('http://139.219.238.37:8000/static/exp/1.png')
+#     count +=1
+#     if count %100 ==0:
+#         print(datetime.datetime.now())
     # if time.time() -thetime >1:
         # print(time.time() -thetime)
     # time.sleep(1)

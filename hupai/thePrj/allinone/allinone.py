@@ -133,10 +133,12 @@ isFirstTimeChecked =False
 def checkTime():
     global timeTarget1 ,timeTarget2 ,stampDlt ,isFirstTimeChecked
     while 1:
-        try:
-            screen = ImageGrab.grab(s_checkTime)
-        except OSError:
-            continue
+        # try:
+        #     screen = ImageGrab.grab(s_checkTime)
+        # # except (OSError, MemoryError):
+        # except OSError:
+        #     continue
+        screen = ImageGrab.grab(s_checkTime)
         screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
         res1 = cv2.matchTemplate(screen, timeTarget1, myLib.method)
         min_val1, max_val1, min_loc1, max_loc1 = cv2.minMaxLoc(res1)
@@ -255,6 +257,7 @@ def secondStepGetTestImg():
     print(str(timeStamp) + "_testimgbegin")
     while 1:
         if myLib.check_img(theConf.check_main_refreshcode):
+            print("refreshcode")
             myLib.click_img(theConf.check_main_refreshcode)
         elif myLib.check_img(theConf.check_main_secondcodehere):
             print(str(timeStamp) + "_testimgfind")
@@ -353,8 +356,8 @@ def mainWork():
     # timeStampThread = threading.Thread(target=getTimeStamp)
     # timeStampThread.start()
     ###线程2-防t
-    againstThread = threading.Thread(target=against)
-    againstThread.start()
+    # againstThread = threading.Thread(target=against)
+    # againstThread.start()
     ###主线程非手动版么自动登陆：
     if handMade =='0':
         ###未登陆：
@@ -365,8 +368,8 @@ def mainWork():
         if curStep == '1':
             firstStep('100')
             # firstStep('200')
-            # cf.set('main', 'step', '1')
-            # cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
+            cf.set('main', 'step', '2')
+            cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
     ###线程3-第二阶段是个线程
     secondStepThread =threading.Thread(target=secondStep)
     secondStepThread.start()

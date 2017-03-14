@@ -131,10 +131,11 @@ isFirstTimeChecked =False
 def checkTime():
     global timeTarget1 ,timeTarget2 ,stampDlt ,isFirstTimeChecked
     while 1:
-        try:
-            screen = ImageGrab.grab(s_checkTime)
-        except OSError:
-            continue
+        # try:
+        #     screen = ImageGrab.grab(s_checkTime)
+        # except OSError:
+        #     continue
+        screen = ImageGrab.grab(s_checkTime)
         screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
         res1 = cv2.matchTemplate(screen, timeTarget1, myLib.method)
         min_val1, max_val1, min_loc1, max_loc1 = cv2.minMaxLoc(res1)
