@@ -352,9 +352,9 @@ def secondStepPrice(dPrice ,eTime ,times):
                             eTime -=0.5
                         else:
                             eTime +=0.5
-                    print("eTime =" +"etime:" +str(eTime) +" - priceOffset:" +str((imgPrice2 -basePrice -1500)/1000) +" - peopleOffset:" +str(peopleCountOffset))
-                    eTime =eTime -(imgPrice2 -basePrice -1500)/1000 -peopleCountOffset
-                    print(eTime)
+                        print("eTime =" +"etime:" +str(eTime) +" - priceOffset:" +str((imgPrice2 -basePrice -1500)/1000) +" - peopleOffset:" +str(peopleCountOffset))
+                        eTime =eTime -(imgPrice2 -basePrice -1500)/1000 -peopleCountOffset
+                        print(eTime)
                 if eTime >timeStamp +0.6:
                     time.sleep(eTime -timeStamp -0.6)
             #然后取回并输入验证码：
