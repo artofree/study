@@ -397,7 +397,6 @@ def secondStep():
 ###主线程
 
 def mainWork():
-    pyautogui.click(1800,800)
     ###无论是否主终端都启动对时线程：
     makeTimeTrhead = threading.Thread(target=makeTimeStamp)
     makeTimeTrhead.start()
@@ -415,6 +414,7 @@ def mainWork():
     # againstThread.start()
     ###主线程非手动版么自动登陆：
     if handMade =='0':
+        pyautogui.click(1800, 800)
         ###未登陆：
         if curStep == '0':
             preLogin()
