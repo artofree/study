@@ -53,7 +53,7 @@ def check_img(url):
     screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
     res = cv2.matchTemplate(screen,target,method)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-    print(max_val)
+    # print(max_val)
     if max_val >0.9:
         # return max_loc
         return 1

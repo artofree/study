@@ -6,28 +6,29 @@ import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 import configparser ,json ,zipfile ,os ,sys
 
-time.sleep(5)
-priceImageLst =[]
-priceList =list(range(86000 ,88201 ,100))
-print(priceList)
-for index in range(len(priceList)):
-    priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
-    print(priceUrl)
-    priceImage = Image.open(priceUrl)
-    priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
-    priceImageLst.append(priceImage)
-print(len(priceImageLst))
-
-print(datetime.datetime.now())
-screen =ImageGrab.grab((600 ,450 ,750 ,500))
-# screen.show()
-screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
-for index in range(len(priceList)):
-    res = cv2.matchTemplate(screen,priceImageLst[index],myLib.method)
-    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-    if max_val >0.99:
-        i =0
-print(datetime.datetime.now())
+print(5 >3 +2)
+# time.sleep(5)
+# priceImageLst =[]
+# priceList =list(range(86000 ,88201 ,100))
+# print(priceList)
+# for index in range(len(priceList)):
+#     priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
+#     print(priceUrl)
+#     priceImage = Image.open(priceUrl)
+#     priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+#     priceImageLst.append(priceImage)
+# print(len(priceImageLst))
+#
+# print(datetime.datetime.now())
+# screen =ImageGrab.grab((600 ,450 ,750 ,500))
+# # screen.show()
+# screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+# for index in range(len(priceList)):
+#     res = cv2.matchTemplate(screen,priceImageLst[index],myLib.method)
+#     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+#     if max_val >0.99:
+#         i =0
+# print(datetime.datetime.now())
 
 
 # code = ImageGrab.grab([960, 410, 1190, 545])

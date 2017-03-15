@@ -21,7 +21,7 @@ lock = threading.Lock()
 timeStamp ,stampDlt=0 ,0
 baseH ,baseM ,baseS1 ,baseS2=11 ,29 ,12 ,23
 baseTime =baseH *3600 +baseM *60
-s_checkTime = (500, 200, 900, 600)
+s_checkTime = (580, 430, 720, 480)
 timeTarget1 = Image.open(r'rsc\29_12.png')
 timeTarget1 = cv2.cvtColor(np.array(timeTarget1, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
 timeTarget2 = Image.open(r'rsc\29_23.png')
@@ -30,7 +30,7 @@ cf = configparser.ConfigParser()
 cf.read(r"C:\Users\guo\Desktop\mainConf")
 
 #初始化价格比对图列表
-imgPriceArea =()
+imgPriceArea =(600 ,450 ,750 ,500)
 imgPrice1 ,imgPrice2 =0 ,0
 priceImageLst =[]
 priceList =list(range(86000 ,88201 ,100))
@@ -39,6 +39,17 @@ for index in range(len(priceList)):
     priceImage = Image.open(priceUrl)
     priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
     priceImageLst.append(priceImage)
+#截图取价函数
+def getImgPrice():
+    global  imgPriceArea ,priceList ,priceImageLst
+    screen =ImageGrab.grab(imgPriceArea)
+    screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+    for priceIndex in range(len(priceList)):
+        res = cv2.matchTemplate(screen,priceImageLst[priceIndex],myLib.method)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        if max_val >0.99:
+            return priceList[priceIndex]
+    return 0
 
 ###第一常量，版本号信息
 curVersion = 0
@@ -47,7 +58,7 @@ curVersion = 0
 hostName =cf.get('main', 'hostname')
 infoList =requests.get(servUrl + 'getOrderInfo', {'hostname':hostName}).text.split('~')
 print(infoList)
-identy ,orderid, orderpass, firstPrice ,secondPrice= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4]
+identy ,orderid, orderpass, firstPrice ,secondPrice ,isPriceOffset= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4] ,int(infoList[5])
 firstPrice =firstPrice.split('-')
 first_bTime, first_eTime, first_dPrice =float(firstPrice[0]) ,float(firstPrice[1]) ,firstPrice[2]
 secondPrice =secondPrice.split('-')
@@ -58,6 +69,10 @@ curStep =cf.get('main', 'step')
 isMainClient =cf.get('main', 'mainclient')
 handMade =cf.get('main', 'handmade')
 secondCheck =int(cf.get('main', 'secondCheck'))
+#最终出价时间的人数变量：
+peopleCountOffset =float(cf.get('main', 'peopleCountOffset'))
+basePrice =int(cf.get('main', 'basePrice'))
+
 
 
 def getCode():
@@ -288,12 +303,17 @@ def secondStepGetTestImg():
 
 ###第二阶段出价函数
 def secondStepPrice(dPrice ,eTime ,times):
-    pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
+    global imgPrice1 ,imgPrice2
     pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
     pyautogui.typewrite(dPrice)
-    time.sleep(0.1)
+    time.sleep(0.05)
     pyautogui.click(theConf.coor_main_secondaddprice)
-    time.sleep(0.3)
+    time.sleep(0.05)
+    ###加塞检查46秒最低价,secondCheck的时候也可以执行
+    if isPriceOffset and times =='2':
+        imgPrice1 =getImgPrice()
+        print(imgPrice1)
+    ###继续出价
     pyautogui.click(theConf.coor_main_secondconfirmprice)
     time.sleep(0.1)
     print(str(timeStamp) + "_" + times + "_imgbegin")
@@ -301,7 +321,7 @@ def secondStepPrice(dPrice ,eTime ,times):
         if myLib.check_img(theConf.check_main_refreshcode):
             myLib.click_img(theConf.check_main_refreshcode)
         elif myLib.check_img(theConf.check_main_secondcodehere):
-            time.sleep(0.3)
+            time.sleep(0.5)
             print(str(timeStamp) + "_" + times + "_imgfind")
             code = ImageGrab.grab(theConf.area_main_secondstepcode)
             payload = {'idt': identy ,'times' :times}
@@ -316,14 +336,36 @@ def secondStepPrice(dPrice ,eTime ,times):
                 requests.post(servUrl + 'uploadPic', files=files, data=payload)
                 print(str(timeStamp) + "_" + times + "_imgsendend")
             # print(datetime.datetime.now())
-            if eTime >timeStamp:
-                time.sleep(eTime - timeStamp -0.5)
+            #如果第一价，睡到出价前0.6秒，第二价，先睡到53.5,计算etime
+            if times =='1':
+                if eTime >timeStamp +0.6:
+                    time.sleep(eTime - timeStamp -0.6)
+            else:
+                if 53.5 >timeStamp:
+                    time.sleep(53.5 -timeStamp)
+                #然后先检查最低成交价并计算出最终出价时间
+                if isPriceOffset:
+                    imgPrice2 =getImgPrice()
+                    print(imgPrice2)
+                    if imgPrice1 !=0 and imgPrice2 !=0:
+                        if imgPrice2 -imgPrice1 >=300:
+                            eTime -=0.5
+                        else:
+                            eTime +=0.5
+                    print("eTime =" +"etime:" +str(eTime) +" - priceOffset:" +str((imgPrice2 -basePrice -1500)/1000) +" - peopleOffset:" +str(peopleCountOffset))
+                    eTime =eTime -(imgPrice2 -basePrice -1500)/1000 -peopleCountOffset
+                    print(eTime)
+                    if eTime >timeStamp +0.6:
+                        time.sleep(eTime -timeStamp -0.6)
+            #然后取回并输入验证码：
             if not secondCheck:
                 print(str(timeStamp) + "_" + times + "_codegetbegin")
                 theCode = requests.get(servUrl + 'getTrueCode', payload)
                 print(str(timeStamp) + "_" + times + "_codegetend")
                 pyautogui.typewrite(theCode.text)
-                time.sleep(0.5)
+            #睡到出价时间
+            if eTime >timeStamp:
+                time.sleep(eTime -timeStamp)
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
             break
 
@@ -343,7 +385,9 @@ def secondStep():
                 time.sleep(1)
                 myLib.click_img(theConf.check_main_confirm)
                 isFirstPrice =0
-        if timeStamp > second_bTime:
+        #第二次出价统一基准时间
+        # if timeStamp > second_bTime:
+        if timeStamp > 46.2:
             secondStepPrice(second_dPrice ,second_eTime ,'2')
             break
         time.sleep(0.1)
