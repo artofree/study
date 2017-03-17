@@ -72,6 +72,7 @@ secondCheck =int(cf.get('main', 'secondCheck'))
 #最终出价时间的人数变量：
 peopleCountOffset =float(cf.get('main', 'peopleCountOffset'))
 basePrice =int(cf.get('main', 'basePrice'))
+etimeOffset =float(cf.get('main', 'etimeOffset'))
 
 
 
@@ -276,7 +277,7 @@ def firstStep(price):
 
 ###获取预览图
 def secondStepGetTestImg():
-    pyautogui.click(theConf.coor_main_secondtestaddprice)
+    pyautogui.doubleClick(theConf.coor_main_secondtestaddprice)
     time.sleep(1)
     pyautogui.click(theConf.coor_main_secondconfirmprice)
     time.sleep(1)
@@ -305,6 +306,8 @@ def secondStepGetTestImg():
 def secondStepPrice(dPrice ,eTime ,times):
     global imgPrice1 ,imgPrice2
     pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
+    pyautogui.press('backspace')
+    pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
     pyautogui.typewrite(dPrice)
     time.sleep(0.05)
     pyautogui.click(theConf.coor_main_secondaddprice)
@@ -312,6 +315,8 @@ def secondStepPrice(dPrice ,eTime ,times):
     ###加塞检查46秒最低价,secondCheck的时候也可以执行
     if isPriceOffset and times =='2':
         imgPrice1 =getImgPrice()
+        if imgPrice1 ==0:
+            imgPrice1 = getImgPrice()
         print(imgPrice1)
     ###继续出价
     pyautogui.click(theConf.coor_main_secondconfirmprice)
@@ -336,16 +341,20 @@ def secondStepPrice(dPrice ,eTime ,times):
                 requests.post(servUrl + 'uploadPic', files=files, data=payload)
                 print(str(timeStamp) + "_" + times + "_imgsendend")
             # print(datetime.datetime.now())
-            #如果第一价，睡到出价前0.6秒，第二价，先睡到53.5,计算etime
+            #如果第一价，睡到出价前0.6秒取吗然后再睡到出价时间，睡两次
             if times =='1':
                 if eTime >timeStamp +0.6:
                     time.sleep(eTime - timeStamp -0.6)
+            # 第二价，可能睡三次，先睡到53.5,看是否计算etime
+            # 无论是否计算etime，此时如果etime大于当前时间加0.6，就再睡到0.6时间取吗，之后再睡到出价时间
             else:
                 if 53.5 >timeStamp:
                     time.sleep(53.5 -timeStamp)
                 #然后先检查最低成交价并计算出最终出价时间
                 if isPriceOffset:
                     imgPrice2 =getImgPrice()
+                    if imgPrice2 ==0:
+                        imgPrice2 = getImgPrice()
                     print(imgPrice2)
                     if imgPrice1 !=0 and imgPrice2 !=0:
                         if imgPrice2 -imgPrice1 >=300:
@@ -354,7 +363,9 @@ def secondStepPrice(dPrice ,eTime ,times):
                             eTime +=0.5
                         print("eTime =" +"etime:" +str(eTime) +" - priceOffset:" +str((imgPrice2 -basePrice -1500)/1000) +" - peopleOffset:" +str(peopleCountOffset))
                         eTime =eTime -(imgPrice2 -basePrice -1500)/1000 -peopleCountOffset
-                        print(eTime)
+                        print("cal_etime :" +str(eTime))
+                else:
+                    eTime +=etimeOffset
                 if eTime >timeStamp +0.6:
                     time.sleep(eTime -timeStamp -0.6)
             #然后取回并输入验证码：
@@ -366,6 +377,7 @@ def secondStepPrice(dPrice ,eTime ,times):
             #睡到出价时间
             if eTime >timeStamp:
                 time.sleep(eTime -timeStamp)
+            print(str(timeStamp) + "_" + times + "_confirmPrice")
             pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
             break
 
@@ -421,7 +433,7 @@ def mainWork():
             login()
         ###未第一次出价
         if curStep == '1':
-            firstStep('100')
+            firstStep('86000')
             # firstStep('200')
             cf.set('main', 'step', '2')
             cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
