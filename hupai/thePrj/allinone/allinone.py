@@ -9,7 +9,7 @@ pyautogui.FAILSAFE =False
 
 decodeThreadList = []
 theCodeDict = {}
-servUrl = 'http://139.219.238.37:8000/'
+servUrl = 'http://139.219.238.37:8020/'
 # servUrl = 'http://192.168.8.102:8020/'
 # servUrl = 'http://116.237.16.180:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -51,8 +51,9 @@ def getImgPrice():
             return priceList[priceIndex]
     return 0
 
-###第一常量，版本号信息
+###第一常量，版本号信息，时间信息
 curVersion = 0
+testBeginTime ,firstBeginTime=20 ,33
 
 ###第二常量，用hostname获得拍牌人信息和出价策略
 hostName =cf.get('main', 'hostname')
@@ -176,15 +177,16 @@ def checkTime():
             now =datetime.datetime.now()
             stampDlt =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS1
             stampDlt =round(stampDlt ,2)
-            print('time_12_check')
+            print('time_12_check--' +str(stampDlt))
             if isMainClient =='1':
                 payload = {'times' :'1'}
                 requests.get(url=servUrl +'setTimeStamp' ,params=payload)
         if max_val2 >0.99:
             now =datetime.datetime.now()
-            stampDlt =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS2
-            stampDlt =round(stampDlt ,2)
-            print('time_23_check')
+            stampDltNew =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS2
+            stampDltNew =round(stampDltNew ,2)
+            stampDlt =round((stampDlt +stampDltNew) /2 ,2)
+            print('time_23_check--' +str(stampDltNew) +'--' +str(stampDlt))
             if isMainClient =='1':
                 payload = {'times' :'2'}
                 requests.get(url=servUrl +'setTimeStamp' ,params=payload)
@@ -256,6 +258,7 @@ def login():
 
 
 def firstStep(price):
+    time.sleep(5)
     pyautogui.doubleClick(theConf.coor_main_firststep1)
     time.sleep(1)
     pyautogui.typewrite(price)
@@ -312,7 +315,7 @@ def secondStepPrice(dPrice ,eTime ,times):
     time.sleep(0.05)
     pyautogui.click(theConf.coor_main_secondaddprice)
     time.sleep(0.05)
-    ###加塞检查46秒最低价,secondCheck的时候也可以执行
+    ###加塞检查42秒最低价,secondCheck的时候也可以执行
     if isPriceOffset and times =='2':
         imgPrice1 =getImgPrice()
         if imgPrice1 ==0:
@@ -348,8 +351,8 @@ def secondStepPrice(dPrice ,eTime ,times):
             # 第二价，可能睡三次，先睡到53.5,看是否计算etime
             # 无论是否计算etime，此时如果etime大于当前时间加0.6，就再睡到0.6时间取吗，之后再睡到出价时间
             else:
-                if 53.5 >timeStamp:
-                    time.sleep(53.5 -timeStamp)
+                if 52.5 >timeStamp:
+                    time.sleep(52.5 -timeStamp)
                 #然后先检查最低成交价并计算出最终出价时间
                 if isPriceOffset:
                     imgPrice2 =getImgPrice()
@@ -387,19 +390,18 @@ def secondStep():
     global isGetTestImg
     global isFirstPrice
     while 1:
-        if timeStamp >25:
+        if timeStamp >testBeginTime:
             if isGetTestImg:
                 secondStepGetTestImg()
                 isGetTestImg =0
-        if timeStamp >first_bTime:
+        if timeStamp >firstBeginTime:
             if isFirstPrice:
                 secondStepPrice(first_dPrice ,first_eTime ,'1')
                 time.sleep(1)
                 myLib.click_img(theConf.check_main_confirm)
                 isFirstPrice =0
         #第二次出价统一基准时间
-        # if timeStamp > second_bTime:
-        if timeStamp > 46.2:
+        if timeStamp > second_bTime:
             secondStepPrice(second_dPrice ,second_eTime ,'2')
             break
         time.sleep(0.1)
@@ -433,8 +435,7 @@ def mainWork():
             login()
         ###未第一次出价
         if curStep == '1':
-            firstStep('86000')
-            # firstStep('200')
+            firstStep('87900')
             cf.set('main', 'step', '2')
             cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
     ###线程3-第二阶段是个线程
