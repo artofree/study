@@ -332,7 +332,7 @@ def secondStepPrice(dPrice ,eTime ,times):
             time.sleep(0.5)
             print(str(timeStamp) + "_" + times + "_imgfind")
             code = ImageGrab.grab(theConf.area_main_secondstepcode)
-            payload = {'idt': identy ,'times' :times}
+            payload = {'idt': identy ,'times' :times ,'hostName':hostName}
             if secondCheck:
                 code.save(code_url, "PNG")
             else:
