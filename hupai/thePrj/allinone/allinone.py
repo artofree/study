@@ -296,7 +296,7 @@ def secondStepGetTestImg():
                 catch = StringIO()
                 code.save(catch, 'PNG')
                 pyautogui.click(theConf.coor_main_secondstepcode)
-                payload = {'idt': identy ,'times' :'0'}
+                payload = {'idt': identy, 'times': '0', 'hostName': hostName}
                 files = {'file': catch.getvalue()}
                 print(str(timeStamp) + "_testimgsendbegin")
                 requests.post(servUrl + 'uploadPic', files=files, data=payload)
