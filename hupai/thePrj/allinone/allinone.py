@@ -9,7 +9,8 @@ pyautogui.FAILSAFE =False
 
 decodeThreadList = []
 theCodeDict = {}
-servUrl = 'http://139.219.238.37:8020/'
+servUrl = 'http://52.80.83.187:8020/'
+# servUrl = 'http://139.219.238.37:8020/'
 # servUrl = 'http://192.168.8.102:8020/'
 # servUrl = 'http://116.237.16.180:8000/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
