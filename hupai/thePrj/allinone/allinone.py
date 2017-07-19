@@ -282,9 +282,11 @@ def firstStep(price):
 ###获取预览图
 def secondStepGetTestImg():
     pyautogui.doubleClick(theConf.coor_main_secondtestaddprice)
-    time.sleep(1)
+    time.sleep(0.5)
+    pyautogui.click(theConf.coor_main_secondtestaddprice)
+    time.sleep(0.5)
     pyautogui.click(theConf.coor_main_secondconfirmprice)
-    time.sleep(1)
+    time.sleep(0.5)
     print(str(timeStamp) + "_testimgbegin")
     while 1:
         if myLib.check_img(theConf.check_main_refreshcode):
