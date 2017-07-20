@@ -436,9 +436,9 @@ def mainWork():
         if curStep == '0':
             preLogin()
             login()
-        ###未第一次出价
+        ###第一次出价
         if curStep == '1':
-            firstStep('87900')
+            firstStep('89800')
             cf.set('main', 'step', '2')
             cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
     ###线程3-第二阶段是个线程
