@@ -33,8 +33,9 @@ cf.read(r"C:\Users\guo\Desktop\mainConf")
 #初始化价格比对图列表
 imgPriceArea =(600 ,450 ,750 ,500)
 imgPrice1 ,imgPrice2 =0 ,0
+imgPriceTime1 ,imgPriceTime2 =50.5 ,53.5
 priceImageLst =[]
-priceList =list(range(86000 ,88201 ,100))
+priceList =list(range(90000 ,92401 ,100))
 for index in range(len(priceList)):
     priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
     priceImage = Image.open(priceUrl)
@@ -43,14 +44,25 @@ for index in range(len(priceList)):
 #截图取价函数
 def getImgPrice():
     global  imgPriceArea ,priceList ,priceImageLst
+    thePrice =0
     screen =ImageGrab.grab(imgPriceArea)
     screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
     for priceIndex in range(len(priceList)):
         res = cv2.matchTemplate(screen,priceImageLst[priceIndex],myLib.method)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
         if max_val >0.99:
-            return priceList[priceIndex]
-    return 0
+            thePrice =priceList[priceIndex]
+    if thePrice ==0:
+        time.sleep(0.2)
+        screen = ImageGrab.grab(imgPriceArea)
+        screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+        for priceIndex in range(len(priceList)):
+            res = cv2.matchTemplate(screen, priceImageLst[priceIndex], myLib.method)
+            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+            if max_val > 0.99:
+                thePrice = priceList[priceIndex]
+    return thePrice
+
 
 ###第一常量，版本号信息，时间信息
 curVersion = 0
@@ -72,9 +84,12 @@ isMainClient =cf.get('main', 'mainclient')
 handMade =cf.get('main', 'handmade')
 secondCheck =int(cf.get('main', 'secondCheck'))
 #最终出价时间的人数变量：
-peopleCountOffset =float(cf.get('main', 'peopleCountOffset'))
+nn =int(cf.get('main', 'nn'))
 basePrice =int(cf.get('main', 'basePrice'))
-etimeOffset =float(cf.get('main', 'etimeOffset'))
+#出价时间计算常量：
+#计算式为：tb +(nb -nn) *nw +(pb -(53秒价-basePrice))/100 *pw +(cb -(53秒价-50秒价))/100 *cw
+nb ,pb ,cb , tb ,nw ,pw ,cw =22, 1700, 200, 55, 0.1, 0.1, 0.5
+
 
 
 
@@ -312,18 +327,10 @@ def secondStepGetTestImg():
 def secondStepPrice(dPrice ,eTime ,times):
     global imgPrice1 ,imgPrice2
     pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
-    pyautogui.press('backspace')
-    pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
     pyautogui.typewrite(dPrice)
-    time.sleep(0.05)
+    time.sleep(0.1)
     pyautogui.click(theConf.coor_main_secondaddprice)
-    time.sleep(0.05)
-    ###加塞检查42秒最低价,secondCheck的时候也可以执行
-    if isPriceOffset and times =='2':
-        imgPrice1 =getImgPrice()
-        if imgPrice1 ==0:
-            imgPrice1 = getImgPrice()
-        print(imgPrice1)
+    time.sleep(0.1)
     ###继续出价
     pyautogui.click(theConf.coor_main_secondconfirmprice)
     time.sleep(0.1)
@@ -332,7 +339,7 @@ def secondStepPrice(dPrice ,eTime ,times):
         if myLib.check_img(theConf.check_main_refreshcode):
             myLib.click_img(theConf.check_main_refreshcode)
         elif myLib.check_img(theConf.check_main_secondcodehere):
-            time.sleep(0.5)
+            time.sleep(1)
             print(str(timeStamp) + "_" + times + "_imgfind")
             code = ImageGrab.grab(theConf.area_main_secondstepcode)
             payload = {'idt': identy ,'times' :times ,'hostName':hostName}
@@ -348,32 +355,33 @@ def secondStepPrice(dPrice ,eTime ,times):
                 print(str(timeStamp) + "_" + times + "_imgsendend")
             # print(datetime.datetime.now())
             #如果第一价，睡到出价前0.6秒取吗然后再睡到出价时间，睡两次
-            if times =='1':
-                if eTime >timeStamp +0.6:
-                    time.sleep(eTime - timeStamp -0.6)
             # 第二价，可能睡三次，先睡到53.5,看是否计算etime
             # 无论是否计算etime，此时如果etime大于当前时间加0.6，就再睡到0.6时间取吗，之后再睡到出价时间
-            else:
-                if 52.5 >timeStamp:
-                    time.sleep(52.5 -timeStamp)
-                #然后先检查最低成交价并计算出最终出价时间
+            if times =='2':
                 if isPriceOffset:
-                    imgPrice2 =getImgPrice()
-                    if imgPrice2 ==0:
-                        imgPrice2 = getImgPrice()
-                    print(imgPrice2)
+                    # 睡到第1次检查价格：
+                    if imgPriceTime1 > timeStamp:
+                        time.sleep(imgPriceTime1 - timeStamp)
+                    imgPrice1 =getImgPrice()
+                    print('imgPrice1---' +str(imgPrice1) +'---' +str(imgPrice1 -basePrice))
+                    # 睡到第2次检查价格：
+                    if imgPriceTime2 > timeStamp:
+                        time.sleep(imgPriceTime2 - timeStamp)
+                    imgPrice2 = getImgPrice()
+                    print('imgPrice2---' + str(imgPrice2) +'---' +str(imgPrice2 -basePrice))
+                    #计算出价时间
                     if imgPrice1 !=0 and imgPrice2 !=0:
-                        if imgPrice2 -imgPrice1 >=300:
-                            eTime -=0.5
-                        else:
-                            eTime +=0.5
-                        print("eTime =" +"etime:" +str(eTime) +" - priceOffset:" +str((imgPrice2 -basePrice -1500)/1000) +" - peopleOffset:" +str(peopleCountOffset))
-                        eTime =eTime -(imgPrice2 -basePrice -1500)/1000 -peopleCountOffset
+                        priceOffset =0
+                        if isPriceOffset ==2:
+                            priceOffset =-0.5
+                        if isPriceOffset ==3:
+                            priceOffset =0.5
+                        print('nb ,pb ,cb , tb ,nw ,pw ,cw =22, 1700, 200, 55, 0.1, 0.1, 0.5')
+                        print('tb +(nb -nn) *nw +(pb -(imgPrice2-basePrice))/100 *pw +(cb -(imgPrice2-imgPrice1))/100 *cw +priceOffset')
+                        eTime =tb +(nb -nn) *nw +(pb -(imgPrice2-basePrice))/100 *pw +(cb -(imgPrice2-imgPrice1))/100 *cw +priceOffset
                         print("cal_etime :" +str(eTime))
-                else:
-                    eTime +=etimeOffset
-                if eTime >timeStamp +0.6:
-                    time.sleep(eTime -timeStamp -0.6)
+            if eTime >timeStamp +0.6:
+                time.sleep(eTime -timeStamp -0.6)
             #然后取回并输入验证码：
             if not secondCheck:
                 print(str(timeStamp) + "_" + times + "_codegetbegin")
@@ -403,6 +411,8 @@ def secondStep():
                 time.sleep(1)
                 myLib.click_img(theConf.check_main_confirm)
                 isFirstPrice =0
+            pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
+            pyautogui.press('backspace')
         #第二次出价统一基准时间
         if timeStamp > second_bTime:
             secondStepPrice(second_dPrice ,second_eTime ,'2')
@@ -438,7 +448,7 @@ def mainWork():
             login()
         ###第一次出价
         if curStep == '1':
-            firstStep('89800')
+            firstStep(str(basePrice))
             cf.set('main', 'step', '2')
             cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
     ###线程3-第二阶段是个线程

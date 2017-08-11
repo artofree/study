@@ -6,30 +6,47 @@ import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 import configparser ,json ,zipfile ,os ,sys
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#用于前期自动登陆打码
+code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
+
 # time.sleep(5)
 priceImageLst =[]
-priceList =list(range(9000 ,92401 ,100))
-print(priceList)
+priceList =list(range(90000 ,92401 ,100))
+# print(priceList)
 for index in range(len(priceList)):
     priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
     priceImage = Image.open(priceUrl)
     priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
     priceImageLst.append(priceImage)
 
-time.sleep(5)
-screen =ImageGrab.grab((600 ,450 ,750 ,500))
-screen.show()
+time.sleep(10)
+
+print(datetime.datetime.now())
+screen = ImageGrab.grab((600, 450, 750, 500))
+screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+for index in range(len(priceList)):
+    res = cv2.matchTemplate(screen,priceImageLst[index],myLib.method)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+    if max_val > 0.99:
+        print(priceList[index])
+print(datetime.datetime.now())
+
+# screen =ImageGrab.grab((600 ,450 ,750 ,500))
+# screen.save(code_url, "PNG")
+# screen.show()
 # valList =[]
-while 1:
-    screen = ImageGrab.grab((600, 450, 750, 500))
-    screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
-    for index in range(len(priceList)):
-        res = cv2.matchTemplate(screen,priceImageLst[index],myLib.method)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-        # valList.append(max_val)
-        if max_val > 0.99:
-            print(priceList[index])
-    time.sleep(0.5)
+# while 1:
+#     screen = ImageGrab.grab((600, 450, 750, 500))
+#     screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+#     for index in range(len(priceList)):
+#         res = cv2.matchTemplate(screen,priceImageLst[index],myLib.method)
+#         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+#         # valList.append(max_val)
+#         if max_val > 0.99:
+#             print(priceList[index])
+#     time.sleep(0.5)
+
     # print(valList)
     # valList =[]
     # time.sleep(0.5)
