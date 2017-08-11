@@ -83,7 +83,7 @@ def click_img(url):
 class myConf(object):
     def __init__(self):
         # self.coor_login_telcom =[880 ,390]
-        self.coor_login_telcom =[857 ,480]
+        self.coor_login_telcom =[1080 ,488]
         self.coor_login_notelcom =[1050 ,390]
         self.coor_login_closefirstpage =[810 ,40]
 
@@ -109,7 +109,7 @@ class myConf(object):
         self.coor_main_firststep1 =[1200 ,385]
         self.coor_main_firststep2 =[1200 ,445]
         self.coor_main_firststepconfirm =[1310 ,440]
-        self.area_main_firststepcode =[960 ,410 ,1150 ,540]
+        self.area_main_firststepcode =[960, 400, 1200, 545]
         self.coor_main_firststepcode =[1250 ,490]
         self.coor_main_firststepcodeconfirm =[1066 ,570]
         #错误则第一次出价结果框不消失

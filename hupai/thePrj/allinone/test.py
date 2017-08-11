@@ -8,7 +8,7 @@ import configparser ,json ,zipfile ,os ,sys
 
 # time.sleep(5)
 priceImageLst =[]
-priceList =list(range(86000 ,88201 ,100))
+priceList =list(range(9000 ,92401 ,100))
 print(priceList)
 for index in range(len(priceList)):
     priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
@@ -16,10 +16,10 @@ for index in range(len(priceList)):
     priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
     priceImageLst.append(priceImage)
 
-# time.sleep(5)
-# screen =ImageGrab.grab((600 ,450 ,750 ,500))
-# screen.show()
-valList =[]
+time.sleep(5)
+screen =ImageGrab.grab((600 ,450 ,750 ,500))
+screen.show()
+# valList =[]
 while 1:
     screen = ImageGrab.grab((600, 450, 750, 500))
     screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
