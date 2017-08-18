@@ -332,18 +332,18 @@ def secondStepPrice(dPrice ,eTime ,times):
     global imgPrice1 ,imgPrice2
     pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
     pyautogui.typewrite(dPrice)
-    time.sleep(0.1)
+    time.sleep(0.05)
     pyautogui.click(theConf.coor_main_secondaddprice)
-    time.sleep(0.1)
+    time.sleep(0.05)
     ###继续出价
     pyautogui.click(theConf.coor_main_secondconfirmprice)
-    time.sleep(0.1)
     print(str(timeStamp) + "_" + times + "_imgbegin")
+    time.sleep(0.1)
     while 1:
         if myLib.check_img(theConf.check_main_refreshcode):
             myLib.click_img(theConf.check_main_refreshcode)
         elif myLib.check_img(theConf.check_main_secondcodehere):
-            time.sleep(1)
+            time.sleep(0.8)
             print(str(timeStamp) + "_" + times + "_imgfind")
             code = ImageGrab.grab(theConf.area_main_secondstepcode)
             payload = {'idt': identy ,'times' :times ,'hostName':hostName}
@@ -386,8 +386,8 @@ def secondStepPrice(dPrice ,eTime ,times):
                         if isPriceOffset ==3:
                             eTime =calTime +0.5
                         print("etime :" +str(eTime))
-            if eTime >timeStamp +0.6:
-                time.sleep(eTime -timeStamp -0.6)
+            if eTime >timeStamp +0.5:
+                time.sleep(eTime -timeStamp -0.5)
             #然后取回并输入验证码：
             if not secondCheck:
                 print(str(timeStamp) + "_" + times + "_codegetbegin")

@@ -120,7 +120,7 @@ class myConf(object):
         #错误则验证码框不消失
         self.coor_main_secondetestcancel =[1245 ,567]
 
-        #错误不会出验证码对话框
+        #错误则自定价格光标不闪
         self.coor_main_seconddeltaprice =[1190, 380]
         #错误看不到将出的价格
         self.coor_main_secondaddprice =[1315, 375]
