@@ -201,7 +201,8 @@ def checkTime():
             now =datetime.datetime.now()
             stampDltNew =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS2
             stampDltNew =round(stampDltNew ,2)
-            stampDlt =round((stampDlt +stampDltNew) /2 ,2)
+            # stampDlt =round((stampDlt +stampDltNew) /2 ,2)
+            stampDlt =min(stampDlt ,stampDltNew)
             print('time_23_check--' +str(stampDltNew) +'--' +str(stampDlt))
             if isMainClient =='1':
                 payload = {'times' :'2'}
@@ -371,15 +372,17 @@ def secondStepPrice(dPrice ,eTime ,times):
                     print('imgPrice2---' + str(imgPrice2) +'---' +str(imgPrice2 -basePrice))
                     #计算出价时间
                     if imgPrice1 !=0 and imgPrice2 !=0:
-                        priceOffset =0
-                        if isPriceOffset ==2:
-                            priceOffset =-0.5
-                        if isPriceOffset ==3:
-                            priceOffset =0.5
                         print('nb ,pb ,cb , tb ,nw ,pw ,cw =22, 1700, 200, 55, 0.1, 0.1, 0.5')
                         print('tb +(nb -nn) *nw +(pb -(imgPrice2-basePrice))/100 *pw +(cb -(imgPrice2-imgPrice1))/100 *cw +priceOffset')
-                        eTime =tb +(nb -nn) *nw +(pb -(imgPrice2-basePrice))/100 *pw +(cb -(imgPrice2-imgPrice1))/100 *cw +priceOffset
-                        print("cal_etime :" +str(eTime))
+                        calTime =tb +(nb -nn) *nw +(pb -(imgPrice2-basePrice))/100 *pw +(cb -(imgPrice2-imgPrice1))/100 *cw
+                        print("calTime :" + str(calTime))
+                        if isPriceOffset ==1:
+                            eTime =calTime
+                        if isPriceOffset ==2:
+                            eTime =calTime -0.5
+                        if isPriceOffset ==3:
+                            eTime =calTime +0.5
+                        print("etime :" +str(eTime))
             if eTime >timeStamp +0.6:
                 time.sleep(eTime -timeStamp -0.6)
             #然后取回并输入验证码：
@@ -449,8 +452,8 @@ def mainWork():
         ###第一次出价
         if curStep == '1':
             firstStep(str(basePrice))
-            cf.set('main', 'step', '2')
-            cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
+            # cf.set('main', 'step', '2')
+            # cf.write(open(r"C:\Users\guo\Desktop\step", "w"))
     ###线程3-第二阶段是个线程
     secondStepThread =threading.Thread(target=secondStep)
     secondStepThread.start()
