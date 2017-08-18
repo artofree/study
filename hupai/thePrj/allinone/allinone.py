@@ -202,7 +202,10 @@ def checkTime():
             stampDltNew =int(now.strftime('%H')) *3600 +int(now.strftime('%M')) *60 +int(now.strftime('%S')) +int(now.strftime('%f')[:2]) /100 -baseTime -baseS2
             stampDltNew =round(stampDltNew ,2)
             # stampDlt =round((stampDlt +stampDltNew) /2 ,2)
-            stampDlt =min(stampDlt ,stampDltNew)
+            if stampDlt ==0:
+                stampDlt =stampDltNew
+            else:
+                stampDlt =min(stampDlt ,stampDltNew)
             print('time_23_check--' +str(stampDltNew) +'--' +str(stampDlt))
             if isMainClient =='1':
                 payload = {'times' :'2'}
