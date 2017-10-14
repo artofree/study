@@ -1,16 +1,16 @@
 import myLib, damatu, sys
-from PIL import ImageGrab, Image
+from PIL import ImageGrab, Image ,ImageFilter
 import numpy as np
 import cv2, pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
-import configparser,os
+import configparser ,os ,pytesseract
 
 pyautogui.FAILSAFE =False
 
 decodeThreadList = []
 theCodeDict = {}
 # servUrl = 'http://52.80.83.187:8020/'
-servUrl = 'http://58.33.62.143:8020/'
+servUrl = 'http://192.168.0.100:8020/'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #用于前期自动登陆打码
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
@@ -31,40 +31,6 @@ cf.read(r"C:\Users\guo\Desktop\mainConf")
 #初始化码区图片：
 codeAreaPic = ImageGrab.grab(theConf.area_main_secondstepcode)
 codeAreaPic =cv2.cvtColor(np.array(codeAreaPic, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
-#初始化价格比对图列表
-# imgPriceArea =(600 ,450 ,750 ,500)
-imgPriceArea =(600 ,450 ,750 ,500)
-imgPrice1 ,imgPrice2 =0 ,0
-imgPriceTime1 ,imgPriceTime2 =50.5 ,53.5
-priceImageLst =[]
-priceList =list(range(90000 ,92401 ,100))
-for index in range(len(priceList)):
-    priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
-    priceImage = Image.open(priceUrl)
-    priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
-    priceImageLst.append(priceImage)
-#截图取价函数
-def getImgPrice():
-    global  imgPriceArea ,priceList ,priceImageLst
-    thePrice =0
-    screen =ImageGrab.grab(imgPriceArea)
-    screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
-    for priceIndex in range(len(priceList)):
-        res = cv2.matchTemplate(screen,priceImageLst[priceIndex],myLib.method)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-        if max_val >0.99:
-            thePrice =priceList[priceIndex]
-    if thePrice ==0:
-        time.sleep(0.2)
-        screen = ImageGrab.grab(imgPriceArea)
-        screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
-        for priceIndex in range(len(priceList)):
-            res = cv2.matchTemplate(screen, priceImageLst[priceIndex], myLib.method)
-            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-            if max_val > 0.99:
-                thePrice = priceList[priceIndex]
-    return thePrice
-
 
 ###第一常量，版本号信息，时间信息
 curVersion = 0
@@ -92,7 +58,37 @@ basePrice =int(cf.get('main', 'basePrice'))
 #计算式为：tb +(nb -nn) *nw +(pb -(53秒价-basePrice))/100 *pw +(cb -(53秒价-50秒价))/100 *cw
 nb ,pb ,cb , tb ,nw ,pw ,cw =22, 1700, 200, 55, 0.1, 0.1, 0.5
 
+#当前价格的严格区域，注意，缩放比例要严格依此进行！！！
+imgPriceArea =(664, 468, 720, 484)
+#获取当前价格函数：
+def getImgPrice1():
+    img =ImageGrab.grab(imgPriceArea)
+    img =img.convert('L')
+    img =img.resize((560, 160),Image.ANTIALIAS)
+    code =pytesseract.image_to_string(img ,config='digits -psm 8')
+    print('oricode is :' +code)
+    #解决非数字问题
+    nCode =''
+    for theC in code:
+        if theC in ['0','1','2','3','4','5','6','7','8','9']:
+            nCode +=theC
+    #长度大于5么取后五位
+    if len(nCode) >5:
+        nCode =nCode[-5:]
+    if len(nCode) >0:
+        if int(nCode) <basePrice :
+            return 0
+    else:
+        return 0
+    return int(nCode)
 
+def getImgPrice():
+    vcode =getImgPrice1()
+    if vcode ==0 :
+        vcode =getImgPrice1()
+        if vcode ==0 :
+            return 0
+    return vcode
 
 
 def getCode():
@@ -350,6 +346,7 @@ def secondStepPrice1(dPrice ,eTime):
         print(str(timeStamp) + "_1_imgsendbegin")
         requests.post(servUrl + 'uploadPic', files=files, data=payload)
         print(str(timeStamp) + "_1_imgsendend")
+    #第一价，睡到出价前0.5秒取吗然后再睡到出价时间，睡两次
     if eTime >timeStamp +0.5:
         time.sleep(eTime -timeStamp -0.5)
     #然后取回并输入验证码：
@@ -367,7 +364,8 @@ def secondStepPrice1(dPrice ,eTime):
 def getCodePic():
     global codeAreaPic
     oldTime =timeStamp
-    print(str(timeStamp) + "_2_codeherefind")
+    print(str(timeStamp) + "_2_codebegin")
+    payload = {'idt': identy, 'times': '2', 'hostName': hostName}
     while 1:
         time.sleep(0.1)
         if timeStamp -oldTime >5:
@@ -389,9 +387,8 @@ def getCodePic():
                 code.save(catch, 'PNG')
                 pyautogui.click(theConf.coor_main_secondstepcode)
                 files = {'file': catch.getvalue()}
-                payload = {'idt': identy, 'times': '2', 'hostName': hostName}
                 requests.post(servUrl + 'uploadPic', files=files, data=payload)
-                print(str(timeStamp) + "_2_code_newStatus")
+                print(str(timeStamp) + "_2_code_upload")
 
 
 
@@ -406,14 +403,12 @@ def secondStepPrice2(dPrice ,eTime):
     ###继续出价
     pyautogui.click(theConf.coor_main_secondconfirmprice)
     print(str(timeStamp) + "_2_imgbegin")
-    time.sleep(0.5)
+    time.sleep(0.3)
     #启动取码线程
     getCodePicThread = threading.Thread(target=getCodePic)
     getCodePicThread.start()
-    # print(datetime.datetime.now())
-    #如果第一价，睡到出价前0.6秒取吗然后再睡到出价时间，睡两次
     # 第二价，可能睡三次，先睡到53.5,看是否计算etime
-    # 无论是否计算etime，此时如果etime大于当前时间加0.6，就再睡到0.6时间取吗，之后再睡到出价时间
+    # 无论是否计算etime，此时如果etime大于当前时间加0.5，就再睡到0.5时间取吗，之后再睡到出价时间
     if isPriceOffset:
         # 睡到第1次检查价格：
         if imgPriceTime1 > timeStamp:
@@ -442,14 +437,15 @@ def secondStepPrice2(dPrice ,eTime):
         time.sleep(eTime -timeStamp -0.5)
     #然后取回并输入验证码：
     if not secondCheck:
-        print(str(timeStamp) + "_" + times + "_codegetbegin")
+        print(str(timeStamp) + "_2_codegetbegin")
+        payload = {'idt': identy ,'times' :'2' ,'hostName':hostName}
         theCode = requests.get(servUrl + 'getTrueCode', payload)
-        print(str(timeStamp) + "_" + times + "_codegetend")
+        print(str(timeStamp) + "_2_codegetend")
         pyautogui.typewrite(theCode.text)
     #睡到出价时间
     if eTime >timeStamp:
         time.sleep(eTime -timeStamp)
-    print(str(timeStamp) + "_" + times + "_confirmPrice")
+    print(str(timeStamp) + "_2_confirmPrice")
     pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
 
 isGetTestImg =1

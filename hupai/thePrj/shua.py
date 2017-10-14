@@ -7,10 +7,20 @@ import numpy as np
 import pyautogui,datetime,time ,threading
 
 
-pyautogui.click(x=1000 ,y=900 ,button='left')
+# time.sleep(10)
+# pyautogui.doubleClick(x=1220 ,y=125)
+# time.sleep(5)
+# pyautogui.doubleClick(x=900 ,y=332)
+
+pyautogui.click(x=1000 ,y=900)
 time.sleep(1)
-pyautogui.click(x=520 ,y=705 ,button='left')
-time.sleep(5)
-pyautogui.click(x=320 ,y=15 ,button='left')
-time.sleep(5)
-pyautogui.click(x=888 ,y=688 ,button='left')
+# pyautogui.doubleClick(x=1135 ,y=380)
+pyautogui.doubleClick(x=520 ,y=710)
+# time.sleep(5)
+# pyautogui.click(x=1250 ,y=42)
+# time.sleep(5)
+# pyautogui.doubleClick(x=870 ,y=680)
+# time.sleep(5)
+# pyautogui.click(x=1450 ,y=42)
+# time.sleep(5)
+# pyautogui.doubleClick(x=1135 ,y=380)

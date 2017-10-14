@@ -14,22 +14,36 @@ jpg_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.jpg')
 
 import pytesseract
 from PIL import ImageGrab, Image ,ImageFilter
-time.sleep(8)
-oldTime =time.time()
-codeList =[]
-while 1:
-    img =ImageGrab.grab((664, 468, 720, 484))
-    img =img.convert('L')
-    # img.show()
-    img =img.resize((560, 160),Image.ANTIALIAS)
-    img =img.filter(ImageFilter.EDGE_ENHANCE_MORE)
-    vcode = pytesseract.image_to_string(img ,config='digits -psm 8')
-    print(vcode)
-    time.sleep(0.5)
+# time.sleep(8)
+# oldTime =time.time()
+# codeList =[]
+# while 1:
+#     img =ImageGrab.grab((600, 468, 720, 484))
+#     img =img.convert('L')
+#     img =img.resize((1200, 160),Image.ANTIALIAS)
+#     # img =img.filter(ImageFilter.EDGE_ENHANCE_MORE)
+#     vcode = pytesseract.image_to_string(img ,config='digits -psm 8')
+#     ncode =vcode.replace(' ' ,'')
+#     ncode =ncode.replace(':' ,'')[-5:]
+#     ret ='1'
+#     if len(ncode) >0:
+#         if int(ncode) <80000 :
+#             ret ='0'
+#     else:
+#         ret ='0'
+#     print(vcode +'--' +ncode +'--' +ret)
+#     time.sleep(0.5)
     # theCode =''
     # for theChar in vcode:
     #     if theChar in ['0','1','2','3','4','5','6','7','8','9']:
     #         theCode +=theChar
+
+code ='dsfadsf12432ui3up9rq0h5fj 6 {78}:}'
+nCode =''
+for theC in code:
+    if theC in ['0','1','2','3','4','5','6','7','8','9']:
+        nCode +=theC
+print(nCode)
 
 # image =Image.open(os.path.join(os.path.join(BASE_DIR, 'rsc'), '2.JPG'))
 # time.sleep(8)
