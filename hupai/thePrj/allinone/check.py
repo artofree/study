@@ -12,13 +12,13 @@ code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
 
 
 #检查当前价格区域
-time.sleep(6)
-screen = ImageGrab.grab((600, 450, 750, 500))
-screen.show()
+# time.sleep(6)
+# screen = ImageGrab.grab((600, 450, 750, 500))
+# screen.show()
 
 
 #检查对时区域
-# time.sleep(6)
-# s_checkTime = (580, 430, 720, 480)
-# screen = ImageGrab.grab(s_checkTime)
-# screen.show()
+time.sleep(6)
+s_checkTime = (580, 430, 720, 480)
+screen = ImageGrab.grab(s_checkTime)
+screen.show()

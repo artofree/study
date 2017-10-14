@@ -9,28 +9,79 @@ import configparser ,json ,zipfile ,os ,sys
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #用于前期自动登陆打码
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
+jpg_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.jpg')
 
+
+import pytesseract
+from PIL import ImageGrab, Image ,ImageFilter
+time.sleep(8)
+oldTime =time.time()
+codeList =[]
+while 1:
+    img =ImageGrab.grab((664, 468, 720, 484))
+    img =img.convert('L')
+    # img.show()
+    img =img.resize((560, 160),Image.ANTIALIAS)
+    img =img.filter(ImageFilter.EDGE_ENHANCE_MORE)
+    vcode = pytesseract.image_to_string(img ,config='digits -psm 8')
+    print(vcode)
+    time.sleep(0.5)
+    # theCode =''
+    # for theChar in vcode:
+    #     if theChar in ['0','1','2','3','4','5','6','7','8','9']:
+    #         theCode +=theChar
+
+# image =Image.open(os.path.join(os.path.join(BASE_DIR, 'rsc'), '2.JPG'))
+# time.sleep(8)
+# screen = ImageGrab.grab((664, 468, 706, 484))
+# screen.save(jpg_url)
+# screen = screen.convert('L')
+# screen =screen.resize((420, 160),Image.ANTIALIAS)
+# # screen =screen.filter(ImageFilter.EDGE_ENHANCE_MORE)
+# screen.show()
+# vcode = pytesseract.image_to_string(screen ,config='digits -psm 7')
+# print(vcode)
+
+# from pyocr import pyocr
+# tools = pyocr.get_available_tools()[:]
+# print("Using '%s'" % (tools[0].get_name()))
+# tools[0].SetVariable("tessedit_char_whitelist", "0123456789")
+# print(tools[0].image_to_string(Image.open(jpg_url),lang='eng'))
+
+# screen.save(jpg_url)
+# screen.save(code_url, "PNG")
+# img =Image.open(jpg_url)
+# img =img.convert('1')
+# vcode = pytesseract.image_to_string(img ,config='digits -psm 7')
+# vcode = pytesseract.image_to_string(screen)
+# print(vcode)
+
+
+
+
+
+#关于价格匹配
 # time.sleep(5)
-priceImageLst =[]
-priceList =list(range(90000 ,92401 ,100))
-# print(priceList)
-for index in range(len(priceList)):
-    priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
-    priceImage = Image.open(priceUrl)
-    priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
-    priceImageLst.append(priceImage)
-
-time.sleep(10)
-
-print(datetime.datetime.now())
-screen = ImageGrab.grab((600, 450, 750, 500))
-screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
-for index in range(len(priceList)):
-    res = cv2.matchTemplate(screen,priceImageLst[index],myLib.method)
-    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-    if max_val > 0.99:
-        print(priceList[index])
-print(datetime.datetime.now())
+# priceImageLst =[]
+# priceList =list(range(90000 ,92401 ,100))
+# # print(priceList)
+# for index in range(len(priceList)):
+#     priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
+#     priceImage = Image.open(priceUrl)
+#     priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+#     priceImageLst.append(priceImage)
+#
+# time.sleep(10)
+#
+# print(datetime.datetime.now())
+# screen = ImageGrab.grab((600, 450, 750, 500))
+# screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+# for index in range(len(priceList)):
+#     res = cv2.matchTemplate(screen,priceImageLst[index],myLib.method)
+#     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+#     if max_val > 0.99:
+#         print(priceList[index])
+# print(datetime.datetime.now())
 
 # screen =ImageGrab.grab((600 ,450 ,750 ,500))
 # screen.save(code_url, "PNG")
