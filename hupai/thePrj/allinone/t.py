@@ -11,9 +11,57 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
 jpg_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.jpg')
 
+# img1 =Image.open(r'rsc\price\86900.png')
+img1 =Image.open(code_url)
+img1 = cv2.cvtColor(np.array(img1, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+img2 =Image.open(r'rsc\price\80000.png')
+img2 = cv2.cvtColor(np.array(img2, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+res = cv2.matchTemplate(img1,img2,myLib.method)
+min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+print(max_val)
 
-import pytesseract
-from PIL import ImageGrab, Image ,ImageFilter
+
+# imgPriceArea =(600 ,450 ,750 ,500)
+# imgPrice1 ,imgPrice2 =0 ,0
+# imgPriceTime1 ,imgPriceTime2 =50.5 ,53.5
+# priceImageLst =[]
+# priceList =list(range(85000 ,93000 ,100))
+# for index in range(len(priceList)):
+#     priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
+#     priceImage = Image.open(priceUrl)
+#     priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+#     priceImageLst.append(priceImage)
+# #截图取价函数
+# def getImgPrice():
+#     global  imgPriceArea ,priceList ,priceImageLst
+#     thePrice =0
+#     screen =ImageGrab.grab(imgPriceArea)
+#     screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+#     for priceIndex in range(len(priceList)):
+#         res = cv2.matchTemplate(screen,priceImageLst[priceIndex],myLib.method)
+#         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+#         if max_val >0.99:
+#             thePrice =priceList[priceIndex]
+#     if thePrice ==0:
+#         print('----------------------------------------------')
+#         time.sleep(0.2)
+#         screen = ImageGrab.grab(imgPriceArea)
+#         screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+#         for priceIndex in range(len(priceList)):
+#             res = cv2.matchTemplate(screen, priceImageLst[priceIndex], myLib.method)
+#             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+#             if max_val > 0.99:
+#                 thePrice = priceList[priceIndex]
+#     return thePrice
+#
+# time.sleep(8)
+# while 1:
+#     print(getImgPrice())
+#     time.sleep(0.5)
+
+
+# import pytesseract
+# from PIL import ImageGrab, Image ,ImageFilter
 # time.sleep(8)
 # oldTime =time.time()
 # codeList =[]
@@ -38,12 +86,12 @@ from PIL import ImageGrab, Image ,ImageFilter
     #     if theChar in ['0','1','2','3','4','5','6','7','8','9']:
     #         theCode +=theChar
 
-code ='dsfadsf12432ui3up9rq0h5fj 6 {78}:}'
-nCode =''
-for theC in code:
-    if theC in ['0','1','2','3','4','5','6','7','8','9']:
-        nCode +=theC
-print(nCode)
+# code ='dsfadsf12432ui3up9rq0h5fj 6 {78}:}'
+# nCode =''
+# for theC in code:
+#     if theC in ['0','1','2','3','4','5','6','7','8','9']:
+#         nCode +=theC
+# print(nCode)
 
 # image =Image.open(os.path.join(os.path.join(BASE_DIR, 'rsc'), '2.JPG'))
 # time.sleep(8)

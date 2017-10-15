@@ -1,8 +1,8 @@
 #初始化价格比对图列表
 # imgPriceArea =(600 ,450 ,750 ,500)
 imgPriceArea =(600 ,450 ,750 ,500)
-imgPrice1 ,imgPrice2 =0 ,0
-imgPriceTime1 ,imgPriceTime2 =50.5 ,53.5
+
+
 priceImageLst =[]
 priceList =list(range(90000 ,92401 ,100))
 for index in range(len(priceList)):

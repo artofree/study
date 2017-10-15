@@ -1,9 +1,9 @@
 import myLib, damatu, sys
-from PIL import ImageGrab, Image ,ImageFilter
+from PIL import ImageGrab, Image
 import numpy as np
 import cv2, pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
-import configparser ,os ,pytesseract
+import configparser,os
 
 pyautogui.FAILSAFE =False
 
@@ -31,6 +31,40 @@ cf.read(r"C:\Users\guo\Desktop\mainConf")
 #初始化码区图片：
 codeAreaPic = ImageGrab.grab(theConf.area_main_secondstepcode)
 codeAreaPic =cv2.cvtColor(np.array(codeAreaPic, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+#初始化价格比对图列表
+# imgPriceArea =(600 ,450 ,750 ,500)
+imgPriceArea =(600 ,450 ,750 ,500)
+imgPrice1 ,imgPrice2 =0 ,0
+imgPriceTime1 ,imgPriceTime2 =50.5 ,53.5
+priceImageLst =[]
+priceList =list(range(90000 ,92401 ,100))
+for index in range(len(priceList)):
+    priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
+    priceImage = Image.open(priceUrl)
+    priceImage = cv2.cvtColor(np.array(priceImage, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+    priceImageLst.append(priceImage)
+#截图取价函数
+def getImgPrice():
+    global  imgPriceArea ,priceList ,priceImageLst
+    thePrice =0
+    screen =ImageGrab.grab(imgPriceArea)
+    screen =cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+    for priceIndex in range(len(priceList)):
+        res = cv2.matchTemplate(screen,priceImageLst[priceIndex],myLib.method)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        if max_val >0.98:
+            thePrice =priceList[priceIndex]
+    if thePrice ==0:
+        time.sleep(0.1)
+        screen = ImageGrab.grab(imgPriceArea)
+        screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+        for priceIndex in range(len(priceList)):
+            res = cv2.matchTemplate(screen, priceImageLst[priceIndex], myLib.method)
+            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+            if max_val > 0.98:
+                thePrice = priceList[priceIndex]
+    return thePrice
+
 
 ###第一常量，版本号信息，时间信息
 curVersion = 0
@@ -58,37 +92,7 @@ basePrice =int(cf.get('main', 'basePrice'))
 #计算式为：tb +(nb -nn) *nw +(pb -(53秒价-basePrice))/100 *pw +(cb -(53秒价-50秒价))/100 *cw
 nb ,pb ,cb , tb ,nw ,pw ,cw =22, 1700, 200, 55, 0.1, 0.1, 0.5
 
-#当前价格的严格区域，注意，缩放比例要严格依此进行！！！
-imgPriceArea =(664, 468, 720, 484)
-#获取当前价格函数：
-def getImgPrice1():
-    img =ImageGrab.grab(imgPriceArea)
-    img =img.convert('L')
-    img =img.resize((560, 160),Image.ANTIALIAS)
-    code =pytesseract.image_to_string(img ,config='digits -psm 8')
-    print('oricode is :' +code)
-    #解决非数字问题
-    nCode =''
-    for theC in code:
-        if theC in ['0','1','2','3','4','5','6','7','8','9']:
-            nCode +=theC
-    #长度大于5么取后五位
-    if len(nCode) >5:
-        nCode =nCode[-5:]
-    if len(nCode) >0:
-        if int(nCode) <basePrice :
-            return 0
-    else:
-        return 0
-    return int(nCode)
 
-def getImgPrice():
-    vcode =getImgPrice1()
-    if vcode ==0 :
-        vcode =getImgPrice1()
-        if vcode ==0 :
-            return 0
-    return vcode
 
 
 def getCode():
