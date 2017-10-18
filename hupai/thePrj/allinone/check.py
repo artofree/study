@@ -14,7 +14,7 @@ imgPriceArea =(600 ,450 ,750 ,500)
 imgPrice1 ,imgPrice2 =0 ,0
 imgPriceTime1 ,imgPriceTime2 =50.5 ,53.5
 priceImageLst =[]
-priceList =list(range(90000 ,92401 ,100))
+priceList =list(range(88000 ,95000 ,100))
 for index in range(len(priceList)):
     priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
     priceImage = Image.open(priceUrl)
@@ -47,7 +47,9 @@ def getImgPrice():
 
 #检查价格
 time.sleep(8)
-print(getImgPrice())
+while 1:
+    print(getImgPrice())
+    time.sleep(0.5)
 
 
 #检查对时区域
