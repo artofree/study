@@ -329,7 +329,7 @@ def secondStepPrice1(dPrice ,eTime):
     time.sleep(0.05)
     ###继续出价
     pyautogui.click(theConf.coor_main_secondconfirmprice)
-    time.sleep(0.8)
+    time.sleep(1)
     code = ImageGrab.grab(theConf.area_main_secondstepcode)
     payload = {'idt': identy ,'times' :'1' ,'hostName':hostName}
     if secondCheck:
@@ -427,10 +427,10 @@ def secondStepPrice2(dPrice ,eTime):
             if isPriceOffset ==2:
                 eTime =calTime -0.5
             if isPriceOffset ==3:
-                eTime =calTime +0.5
+                eTime =calTime +0.3
             print("etime :" +str(eTime))
-    if eTime >timeStamp +0.5:
-        time.sleep(eTime -timeStamp -0.5)
+    if eTime >timeStamp +0.6:
+        time.sleep(eTime -timeStamp -0.6)
     #然后取回并输入验证码：
     if not secondCheck:
         print(str(timeStamp) + "_2_codegetbegin")
@@ -460,8 +460,9 @@ def secondStep():
                 time.sleep(1)
                 myLib.click_img(theConf.check_main_confirm)
                 isFirstPrice =0
-            pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
-            pyautogui.press('backspace')
+                time.sleep(0.1)
+                pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
+                pyautogui.press('backspace')
         #第二次出价统一基准时间
         if timeStamp > second_bTime:
             secondStepPrice2(second_dPrice ,second_eTime)
