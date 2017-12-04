@@ -44,58 +44,23 @@ def getImgPrice():
                 thePrice = priceList[priceIndex]
     return thePrice
 
+# time.sleep(8)
+# theConf = myLib.myConf()
+# print(myLib.check_img(theConf.check_main_refreshcode))
+
 
 #检查价格
-# time.sleep(8)
-# print(datetime.datetime.now())
-# print(getImgPrice())
-# print(datetime.datetime.now())
+time.sleep(6)
+print(datetime.datetime.now())
+print(getImgPrice())
+print(datetime.datetime.now())
 
 
-#检查对时区域
+# 检查对时区域
 # time.sleep(6)
 # s_checkTime = (580, 430, 720, 480)
 # screen = ImageGrab.grab(s_checkTime)
 # screen.show()
 
-
-
-
-
-# #当前价格的严格区域，注意，缩放比例要严格依此进行！！！
-# imgPriceArea =(600, 468, 650, 484)
-# #获取当前价格函数：
-# def getImgPrice1():
-#     img =ImageGrab.grab(imgPriceArea)
-#     img =img.convert('L')
-#     img =img.resize((500, 160),Image.ANTIALIAS)
-#     code =pytesseract.image_to_string(img ,config='digits -psm 7')
-#     print('oricode is :' +code)
-#     #解决空格问题
-#     nCode =''
-#     for theC in code:
-#         if theC in ['0','1','2','3','4','5','6','7','8','9']:
-#             nCode +=theC
-#     #长度大于5么取后五位
-#     if len(nCode) >5:
-#         nCode =nCode[-5:]
-#     if len(nCode) >0:
-#         if int(nCode) <80000 :
-#             return 0
-#     else:
-#         return 0
-#     return int(nCode)
-#
-# def getImgPrice():
-#     vcode =getImgPrice1()
-#     if vcode ==0 :
-#         vcode =getImgPrice1()
-#         if vcode ==0 :
-#             return 0
-#     return vcode
-
-# while 1:
-#     print('fincode is :'+str(getImgPrice()))
-#     time.sleep(0.5)
 
 

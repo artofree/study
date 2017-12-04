@@ -83,8 +83,8 @@ def click_img(url):
 class myConf(object):
     def __init__(self):
         # self.coor_login_telcom =[880 ,390]
-        self.coor_login_telcom =[1080 ,488]
-        self.coor_login_notelcom =[1050 ,390]
+        self.coor_login_telcom =[1080 ,508]
+        self.coor_login_notelcom =[1080 ,508]
         self.coor_login_closefirstpage =[810 ,40]
 
         self.coor_login_checkie =[1250 ,745]
@@ -115,19 +115,18 @@ class myConf(object):
         #错误则第一次出价结果框不消失
         self.check_main_confirm =r'rsc\check_main_confirm.png'
 
-        #错误看不到价格
+        #错误看不到获取预览码的价格
         self.coor_main_secondtestaddprice =[1160 ,450]
         #错误则验证码框不消失
         self.coor_main_secondetestcancel =[1245 ,567]
 
-        #错误则自定价格光标不闪
+        #错误则自定加价光标不闪
         self.coor_main_seconddeltaprice =[1190, 380]
         #错误看不到将出的价格
         self.coor_main_secondaddprice =[1315, 375]
         #错误不会出验证码对话框
         self.coor_main_secondconfirmprice =[1310, 485]
-        #错误则不会有code.png
-        self.check_main_secondcodehere =r'rsc\check_main_secondcodehere.png'
+        # self.check_main_secondcodehere =r'rsc\check_main_secondcodehere.png'
         self.check_main_refreshcode =r'rsc\check_main_refreshcode.png'
         #错误则code.png内容不对，需要重置区域坐标
         self.area_main_secondstepcode =[960, 400, 1200, 545]
