@@ -113,6 +113,12 @@ def getCode():
 def deCode(area_code, lim=0):
     global theCodeDict
     global decodeThreadList
+    if myLib.check_img(theConf.check_main_refreshcode):
+        myLib.click_img(theConf.check_main_refreshcode)
+        time.sleep(3)
+        if myLib.check_img(theConf.check_main_refreshcode):
+            myLib.click_img(theConf.check_main_refreshcode)
+            time.sleep(3)
     code = ImageGrab.grab(area_code)
     code.save(code_url, "PNG")
     time.sleep(1)
@@ -120,7 +126,7 @@ def deCode(area_code, lim=0):
         t = threading.Thread(target=getCode)
         t.start()
         decodeThreadList.append(t)
-    time.sleep(10)
+    time.sleep(12)
 
     for t in decodeThreadList:
         myLib.stop_thread(t)
@@ -290,7 +296,7 @@ def firstStep(price):
     pyautogui.typewrite(price)
     time.sleep(1)
     pyautogui.click(theConf.coor_main_firststepconfirm)
-    time.sleep(3)
+    time.sleep(5)
     pyautogui.click(theConf.coor_main_firststepcode)
     time.sleep(1)
     pyautogui.typewrite(deCode(theConf.area_main_firststepcode, 4))
