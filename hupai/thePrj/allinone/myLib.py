@@ -117,7 +117,7 @@ class myConf(object):
 
         #错误看不到获取预览码的价格
         self.coor_main_secondtestaddprice =[1160 ,450]
-        #错误则验证码框不消失
+        #错误则yulan验证码框不消失
         self.coor_main_secondetestcancel =[1245 ,567]
 
         #错误则自定加价光标不闪
