@@ -17,7 +17,7 @@ code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
 theConf = myLib.myConf()
 lock = threading.Lock()
 
-timeStamp ,stampDlt=0 ,0
+timeStamp ,stampDlt =0 ,0
 baseH ,baseM ,baseS1 ,baseS2=11 ,29 ,12 ,23
 baseTime =baseH *3600 +baseM *60
 s_checkTime = (580, 430, 720, 480)
@@ -37,7 +37,7 @@ imgPriceArea =(600 ,450 ,750 ,500)
 imgPrice1 ,imgPrice2 =0 ,0
 imgPriceTime1 ,imgPriceTime2 =50.5 ,53.5
 priceImageLst =[]
-priceList =list(range(88000 ,95000 ,100))
+priceList =list(range(86000 ,90000 ,100))
 for index in range(len(priceList)):
     priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
     priceImage = Image.open(priceUrl)
@@ -79,6 +79,7 @@ firstPrice =firstPrice.split('-')
 first_bTime, first_eTime, first_dPrice =float(firstPrice[0]) ,float(firstPrice[1]) ,firstPrice[2]
 secondPrice =secondPrice.split('-')
 second_bTime, second_eTime, second_dPrice =float(secondPrice[0]) ,float(secondPrice[1]) ,secondPrice[2]
+finTime =second_eTime
 
 ###第三常量，取自mainConf
 curStep =cf.get('main', 'step')
@@ -364,13 +365,14 @@ def secondStepPrice1(dPrice ,eTime):
     pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
 
 def getCodePic():
-    global codeAreaPic
+    global codeAreaPic ,finTime
     oldTime =timeStamp
     print(str(timeStamp) + "_2_codebegin")
     payload = {'idt': identy, 'times': '2', 'hostName': hostName}
     while 1:
         time.sleep(0.1)
-        if timeStamp -oldTime >5:
+        if timeStamp -oldTime >5 or finTime -timeStamp <2:
+            print(timeStamp ,oldTime ,finTime ,timeStamp)
             break
         if myLib.check_img(theConf.check_main_refreshcode):
             myLib.click_img(theConf.check_main_refreshcode)
@@ -395,9 +397,15 @@ def getCodePic():
 
 
 ###二阶段第二次出价函数
-def secondStepPrice2(dPrice ,eTime):
-    global imgPrice1 ,imgPrice2
-    pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
+def secondStepPrice2(bTime ,dPrice ,eTime):
+    global imgPrice1 ,imgPrice2 ,finTime
+    #特殊化短策略出价前的等待时间
+    restTime = 0.6
+    if bTime >48.5:
+        restTime =0.4
+    if bTime >49.5:
+        restTime =0.2
+# pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
     pyautogui.typewrite(dPrice)
     time.sleep(0.05)
     pyautogui.click(theConf.coor_main_secondaddprice)
@@ -405,7 +413,7 @@ def secondStepPrice2(dPrice ,eTime):
     ###继续出价
     pyautogui.click(theConf.coor_main_secondconfirmprice)
     print(str(timeStamp) + "_2_imgbegin")
-    time.sleep(0.3)
+    time.sleep(0.2)
     #启动取码线程
     getCodePicThread = threading.Thread(target=getCodePic)
     getCodePicThread.start()
@@ -434,9 +442,10 @@ def secondStepPrice2(dPrice ,eTime):
                 eTime =calTime -0.5
             if isPriceOffset ==3:
                 eTime =calTime +0.3
+            finTime =eTime
             print("etime :" +str(eTime))
-    if eTime >timeStamp +0.6:
-        time.sleep(eTime -timeStamp -0.6)
+    if eTime >timeStamp +restTime:
+        time.sleep(eTime -timeStamp -restTime)
     #然后取回并输入验证码：
     if not secondCheck:
         print(str(timeStamp) + "_2_codegetbegin")
@@ -445,10 +454,11 @@ def secondStepPrice2(dPrice ,eTime):
         print(str(timeStamp) + "_2_codegetend")
         pyautogui.typewrite(theCode.text)
     #睡到出价时间
+    pyautogui.moveTo(theConf.coor_main_secondstepcodeconfirm)
     if eTime >timeStamp:
         time.sleep(eTime -timeStamp)
     print(str(timeStamp) + "_2_confirmPrice")
-    pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
+    pyautogui.click()
 
 isGetTestImg =1
 isFirstPrice =1
@@ -466,12 +476,14 @@ def secondStep():
                 time.sleep(1)
                 myLib.click_img(theConf.check_main_confirm)
                 isFirstPrice =0
-                time.sleep(0.1)
+                time.sleep(0.5)
+
                 pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
                 pyautogui.press('backspace')
+                pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
         #第二次出价统一基准时间
         if timeStamp > second_bTime:
-            secondStepPrice2(second_dPrice ,second_eTime)
+            secondStepPrice2(second_bTime ,second_dPrice ,second_eTime)
             break
         time.sleep(0.1)
 
