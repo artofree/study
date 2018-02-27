@@ -35,7 +35,7 @@ codeAreaPic =cv2.cvtColor(np.array(codeAreaPic, dtype=np.uint8), cv2.COLOR_RGBA2
 # imgPriceArea =(600 ,450 ,750 ,500)
 imgPriceArea =(600 ,450 ,750 ,500)
 imgPrice1 ,imgPrice2 =0 ,0
-imgPriceTime1 ,imgPriceTime2 =50.5 ,53.5
+imgPriceTime1 ,imgPriceTime2 ,isImgPrice1Check=47.3 ,53.3 ,1
 priceImageLst =[]
 priceList =list(range(86000 ,90000 ,100))
 for index in range(len(priceList)):
@@ -91,7 +91,8 @@ nn =int(cf.get('main', 'nn'))
 basePrice =int(cf.get('main', 'basePrice'))
 #出价时间计算常量：
 #计算式为：tb +(nb -nn) *nw +(pb -(53秒价-basePrice))/100 *pw +(cb -(53秒价-50秒价))/100 *cw
-nb ,pb ,cb , tb ,nw ,pw ,cw =22, 1700, 200, 55, 0.1, 0.1, 0.5
+# nb ,pb ,cb ,tb ,nw ,pw ,cw =22, 1700, 200, 55, 0.1, 0.1, 0.5
+nb ,pb ,cb ,tb ,nw ,pw ,cw =18, 10, 2, 56, 0, 0.1, 0.3
 
 
 
@@ -169,7 +170,7 @@ def checkVersion():
         time.sleep(10)
 
 def makeTimeStamp():
-    global timeStamp ,stampDlt ,baseTime
+    global timeStamp ,stampDlt ,baseTime ,imgPrice1 ,isImgPrice1Check ,imgPriceTime1 ,isPriceOffset
     while 1:
         now =datetime.datetime.now()
         theH =int(now.strftime('%H'))
@@ -180,6 +181,12 @@ def makeTimeStamp():
         # print(theStamp)
         if 0 <theStamp <60:
             timeStamp =theStamp
+            if isPriceOffset:
+                if isImgPrice1Check:
+                    if imgPriceTime1 < timeStamp:
+                        imgPrice1 = getImgPrice()
+                        print('imgPrice1---' + str(imgPrice1) + '---:' + str(imgPrice1 - basePrice))
+                        isImgPrice1Check =0
         time.sleep(0.1)
 
 isFirstTimeChecked =False
@@ -421,27 +428,26 @@ def secondStepPrice2(bTime ,dPrice ,eTime):
     # 无论是否计算etime，此时如果etime大于当前时间加0.5，就再睡到0.5时间取吗，之后再睡到出价时间
     if isPriceOffset:
         # 睡到第1次检查价格：
-        if imgPriceTime1 > timeStamp:
-            time.sleep(imgPriceTime1 - timeStamp)
-        imgPrice1 =getImgPrice()
-        print('imgPrice1---' +str(imgPrice1) +'---' +str(imgPrice1 -basePrice))
+        # if imgPriceTime1 > timeStamp:
+        #     time.sleep(imgPriceTime1 - timeStamp)
+        # imgPrice1 =getImgPrice()
+        # print('imgPrice1---' +str(imgPrice1) +'---' +str(imgPrice1 -basePrice))
         # 睡到第2次检查价格：
         if imgPriceTime2 > timeStamp:
             time.sleep(imgPriceTime2 - timeStamp)
         imgPrice2 = getImgPrice()
-        print('imgPrice2---' + str(imgPrice2) +'---' +str(imgPrice2 -basePrice))
+        print('imgPrice2---' + str(imgPrice2) +'---:' +str(imgPrice2 -basePrice))
         #计算出价时间
         if imgPrice1 !=0 and imgPrice2 !=0:
-            print('nb ,pb ,cb , tb ,nw ,pw ,cw =22, 1700, 200, 55, 0.1, 0.1, 0.5')
-            print('tb +(nb -nn) *nw +(pb -(imgPrice2-basePrice))/100 *pw +(cb -(imgPrice2-imgPrice1))/100 *cw +priceOffset')
-            calTime =tb +(nb -nn) *nw +(pb -(imgPrice2-basePrice))/100 *pw +(cb -(imgPrice2-imgPrice1))/100 *cw
+            print('nb ,pb ,cb , tb ,nw ,pw ,cw =18, 10, 2, 56, 0, 0.1, 0.3')
+            calTime =tb +(nb -nn) *nw +(pb -(imgPrice2-basePrice)/100) *pw +(cb -(imgPrice2-imgPrice1)/100) *cw
             print("calTime :" + str(calTime))
             if isPriceOffset ==1:
                 eTime =calTime
             if isPriceOffset ==2:
                 eTime =calTime -0.5
             if isPriceOffset ==3:
-                eTime =calTime +0.3
+                eTime =calTime +0.5
             finTime =eTime
             print("etime :" +str(eTime))
     if eTime >timeStamp +restTime:
