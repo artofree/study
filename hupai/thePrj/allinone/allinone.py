@@ -238,6 +238,7 @@ def against():
         time.sleep(10)
 
 
+
 def preLogin():
     pyautogui.click(x=260, y=1060)
     time.sleep(5)
