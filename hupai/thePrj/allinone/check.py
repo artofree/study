@@ -46,10 +46,10 @@ def getImgPrice():
 
 
 # 检查价格
-# time.sleep(6)
-# print(datetime.datetime.now())
-# print(getImgPrice())
-# print(datetime.datetime.now())
+time.sleep(6)
+print(datetime.datetime.now())
+print(getImgPrice())
+print(datetime.datetime.now())
 
 
 # 检查对时区域
@@ -59,9 +59,9 @@ def getImgPrice():
 # screen.show()
 
 # 检查价格区域
-time.sleep(6)
-screen = ImageGrab.grab(imgPriceArea)
-screen.show()
+# time.sleep(6)
+# screen = ImageGrab.grab(imgPriceArea)
+# screen.show()
 
 
 

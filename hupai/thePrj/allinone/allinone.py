@@ -242,6 +242,13 @@ def against():
 def preLogin():
     pyautogui.click(x=260, y=1060)
     time.sleep(5)
+    pyautogui.click([360 ,40])
+    time.sleep(1)
+    pyautogui.typewrite('https://paimai.alltobid.com/')
+    # pyautogui.typewrite('www.163.com')
+    time.sleep(1)
+    pyautogui.press('enter')
+    time.sleep(8)
     pyautogui.click(theConf.coor_login_telcom)
     time.sleep(1)
     pyautogui.click(theConf.coor_login_closefirstpage)
