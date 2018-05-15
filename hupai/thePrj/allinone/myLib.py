@@ -87,8 +87,8 @@ class myConf(object):
         self.coor_login_notelcom =[1080 ,508]
         self.coor_login_closefirstpage =[810 ,40]
 
-        self.coor_login_checkie =[1250 ,745]
-        self.coor_login_agree =[1200 ,740]
+        self.coor_login_checkie =[1255 ,565]
+        self.coor_login_agree =[1255 ,565]
         self.coor_login_orderid =[1120 ,270]
         self.coor_login_orderpass =[1120 ,325]
         self.coor_login_code =[1120 ,380]

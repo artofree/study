@@ -87,12 +87,13 @@ isMainClient =cf.get('main', 'mainclient')
 handMade =cf.get('main', 'handmade')
 secondCheck =int(cf.get('main', 'secondCheck'))
 #最终出价时间的人数变量：
-nn =int(cf.get('main', 'nn'))
+tag =int(cf.get('main', 'tag'))
 basePrice =int(cf.get('main', 'basePrice'))
 #出价时间计算常量：
 #计算式为：tb +(nb -nn) *nw +(pb -(53秒价-basePrice))/100 *pw +(cb -(53秒价-50秒价))/100 *cw
 # nb ,pb ,cb ,tb ,nw ,pw ,cw =22, 1700, 200, 55, 0.1, 0.1, 0.5
-nb ,pb ,cb ,tb ,nw ,pw ,cw =18, 10, 2, 56, 0, 0.1, 0.3
+# nb ,pb ,cb ,tb ,nw ,pw ,cw =18, 10, 2, 56, 0, 0.1, 0.3
+pb ,cb ,tb ,tagw ,pw ,cw =12, 2, 55.5, 0.5, 0.1, 0.2
 
 
 
@@ -447,8 +448,8 @@ def secondStepPrice2(bTime ,dPrice ,eTime):
         print('imgPrice2---' + str(imgPrice2) +'---:' +str(imgPrice2 -basePrice))
         #计算出价时间
         if imgPrice1 !=0 and imgPrice2 !=0:
-            print('nb ,pb ,cb , tb ,nw ,pw ,cw =18, 10, 2, 56, 0, 0.1, 0.3')
-            calTime =tb +(nb -nn) *nw +(pb -(imgPrice2-basePrice)/100) *pw +(cb -(imgPrice2-imgPrice1)/100) *cw
+            print('pb ,cb ,tb ,tagw ,pw ,cw =12, 2, 55.5, 0.5, 0.1, 0.2')
+            calTime =tb +tag *tagw +(pb -(imgPrice2-basePrice)/100) *pw +(cb -(imgPrice2-imgPrice1)/100) *cw
             print("calTime :" + str(calTime))
             if isPriceOffset ==1:
                 eTime =calTime
