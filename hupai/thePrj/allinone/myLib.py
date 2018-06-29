@@ -87,8 +87,8 @@ class myConf(object):
         self.coor_login_notelcom =[1080 ,508]
         self.coor_login_closefirstpage =[810 ,40]
 
-        self.coor_login_checkie =[1255 ,565]
-        self.coor_login_agree =[1255 ,565]
+        self.coor_login_checkie =[1255 ,745]
+        self.coor_login_agree =[1255 ,745]
         self.coor_login_orderid =[1120 ,270]
         self.coor_login_orderpass =[1120 ,325]
         self.coor_login_code =[1120 ,380]
@@ -116,24 +116,24 @@ class myConf(object):
         self.check_main_confirm =r'rsc\check_main_confirm.png'
 
         #错误看不到获取预览码的价格
-        self.coor_main_secondtestaddprice =[1160 ,450]
+        self.coor_main_secondtestaddprice =[1160 ,440]
         #错误则yulan验证码框不消失
-        self.coor_main_secondetestcancel =[1245 ,567]
+        self.coor_main_secondetestcancel =[1255 ,560]
 
         #错误则自定加价光标不闪
-        self.coor_main_seconddeltaprice =[1190, 380]
+        self.coor_main_seconddeltaprice =[1190, 372]
         #错误看不到将出的价格
-        self.coor_main_secondaddprice =[1315, 375]
+        self.coor_main_secondaddprice =[1310, 370]
         #错误不会出验证码对话框
-        self.coor_main_secondconfirmprice =[1310, 485]
+        self.coor_main_secondconfirmprice =[1310, 478]
         # self.check_main_secondcodehere =r'rsc\check_main_secondcodehere.png'
         self.check_main_refreshcode =r'rsc\check_main_refreshcode.png'
         #错误则code.png内容不对，需要重置区域坐标
-        self.area_main_secondstepcode =[960, 400, 1200, 545]
+        self.area_main_secondstepcode =[960, 400, 1200, 530]
         #错误则验证码框光标不闪
         self.coor_main_secondstepcode =[1250, 480]
         #错误则不出价
-        self.coor_main_secondstepcodeconfirm =[1065, 570]
+        self.coor_main_secondstepcodeconfirm =[1065, 560]
 
 
 

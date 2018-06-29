@@ -291,15 +291,15 @@ def login():
     pyautogui.typewrite(orderpass)
     time.sleep(1)
     pyautogui.click(theConf.coor_login_code)
-    time.sleep(1)
-    pyautogui.typewrite(deCode(theConf.area_login_code))
-    time.sleep(1)
-    pyautogui.click(theConf.coor_login_longin)
-    time.sleep(5)
-    if myLib.check_img(theConf.check_login_against):
-        pyautogui.click(theConf.coor_login_confirmagainst)
-        time.sleep(1)
-        againstLogin()
+    # time.sleep(1)
+    # pyautogui.typewrite(deCode(theConf.area_login_code))
+    # time.sleep(1)
+    # pyautogui.click(theConf.coor_login_longin)
+    # time.sleep(5)
+    # if myLib.check_img(theConf.check_login_against):
+    #     pyautogui.click(theConf.coor_login_confirmagainst)
+    #     time.sleep(1)
+    #     againstLogin()
 
 
 def firstStep(price):
@@ -315,13 +315,13 @@ def firstStep(price):
     pyautogui.click(theConf.coor_main_firststepconfirm)
     time.sleep(5)
     pyautogui.click(theConf.coor_main_firststepcode)
-    time.sleep(1)
-    pyautogui.typewrite(deCode(theConf.area_main_firststepcode, 4))
-    time.sleep(1)
-    pyautogui.click(theConf.coor_main_firststepcodeconfirm)
-    time.sleep(5)
-    myLib.click_img(theConf.check_main_confirm)
-    time.sleep(1)
+    # time.sleep(1)
+    # pyautogui.typewrite(deCode(theConf.area_main_firststepcode, 4))
+    # time.sleep(15)
+    # pyautogui.click(theConf.coor_main_firststepcodeconfirm)
+    # time.sleep(5)
+    # myLib.click_img(theConf.check_main_confirm)
+    # time.sleep(1)
 
 ###获取预览图
 def secondStepGetTestImg():
@@ -416,11 +416,11 @@ def getCodePic():
 def secondStepPrice2(bTime ,dPrice ,eTime):
     global imgPrice1 ,imgPrice2 ,finTime
     #特殊化短策略出价前的等待时间
-    restTime = 0.6
-    if bTime >48.5:
-        restTime =0.4
-    if bTime >49.5:
-        restTime =0.2
+    restTime = 0.3
+    # if bTime >48.5:
+    #     restTime =0.4
+    # if bTime >49.5:
+    #     restTime =0.2
 # pyautogui.doubleClick(theConf.coor_main_seconddeltaprice)
     pyautogui.typewrite(dPrice)
     time.sleep(0.05)
@@ -447,6 +447,8 @@ def secondStepPrice2(bTime ,dPrice ,eTime):
         imgPrice2 = getImgPrice()
         print('imgPrice2---' + str(imgPrice2) +'---:' +str(imgPrice2 -basePrice))
         #计算出价时间
+        # imgPrice1 = 88000
+        # imgPrice2 = 88500
         if imgPrice1 !=0 and imgPrice2 !=0:
             print('pb ,cb ,tb ,tagw ,pw ,cw =12, 2, 55.5, 0.5, 0.1, 0.2')
             calTime =tb +tag *tagw +(pb -(imgPrice2-basePrice)/100) *pw +(cb -(imgPrice2-imgPrice1)/100) *cw
