@@ -63,6 +63,24 @@ print(datetime.datetime.now())
 # screen = ImageGrab.grab(imgPriceArea)
 # screen.show()
 
+# time.sleep(8)
+# s_checkTime = (580, 430, 720, 480)
+# timeTarget1 = Image.open(r'rsc\29_12.png')
+# timeTarget1 = cv2.cvtColor(np.array(timeTarget1, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+#
+# print(datetime.datetime.now())
+# screen = ImageGrab.grab(s_checkTime)
+# screen = cv2.cvtColor(np.array(screen, dtype=np.uint8), cv2.COLOR_RGB2GRAY)
+#
+# res1 = cv2.matchTemplate(screen, timeTarget1, myLib.method)
+# min_val1, max_val1, min_loc1, max_loc1 = cv2.minMaxLoc(res1)
+# if max_val1 >0.99:
+#     print(1)
+# else:
+#     print(0)
+# print(datetime.datetime.now())
+
+
 
 
 

@@ -76,7 +76,13 @@ def click_img(url):
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
         if max_val >0.9:
             xc ,yc=area_grab[0] +max_loc[0] +img_size[0]//2 ,(area_grab[1] +max_loc[1] +img_size[1]//2)
-            pyautogui.click(xc ,yc)
+            pyautogui.doubleClick(xc ,yc)
+            time.sleep(0.2)
+            pyautogui.doubleClick(xc, yc)
+            time.sleep(0.3)
+            pyautogui.doubleClick(xc, yc)
+            time.sleep(0.4)
+            pyautogui.doubleClick(xc, yc)
             break
 
 
