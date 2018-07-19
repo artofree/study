@@ -173,10 +173,10 @@ def makeTimeStamp():
                 imgPrice45 = getImgPrice()
                 print('imgPrice45.2---' + str(imgPrice45) + '---:' + str(imgPrice45 - basePrice))
                 if (imgPrice45 - basePrice) >= 900 and pFlag == 2:
+                    print('change stage45...!')
                     second_bTime, second_dPrice ,second_eTime =sub_bTime ,sub_dPrice ,sub_eTime
             #48秒一定检查价格，取价失败执行原策略。随即对pFlag3检查，满足pFlag3执行子策略，不满足执行48-45策略
             if timeStamp > imgPriceTime48 and isImgPriceCheck48 == 1 and (pFlag ==3 or pFlag ==4):
-                isImgPriceCheck48 = 0
                 imgPrice48 = getImgPrice()
                 print('imgPrice48.2---' + str(imgPrice48) + '---:' + str(imgPrice48 - basePrice))
                 if pFlag == 3 and imgPrice48 != 0 and imgPrice45 != 0:
@@ -185,6 +185,8 @@ def makeTimeStamp():
                         second_bTime, second_dPrice, second_eTime = sub_bTime, sub_dPrice, sub_eTime
                     else:
                         second_dPrice = str(int(second_dPrice) - (imgPrice48 - imgPrice45))
+                isImgPriceCheck48 = 0
+
             if timeStamp > imgPriceTime49 and isImgPriceCheck49 == 1 and pFlag ==1:
                 isImgPriceCheck49 = 0
                 imgPrice49 = getImgPrice()
@@ -430,7 +432,7 @@ def secondStepPrice2(dPrice ,eTime):
     getCodePicThread.start()
 
     if pFlag ==4:
-        time.sleep(54.0 - timeStamp)
+        time.sleep(54.5 - timeStamp)
         if not secondCheck:
             print(str(timeStamp) + "_2_54codegetbegin")
             payload = {'idt': identy ,'times' :'2' ,'hostName':hostName}
