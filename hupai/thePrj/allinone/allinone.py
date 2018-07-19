@@ -34,7 +34,7 @@ codeAreaPic =cv2.cvtColor(np.array(codeAreaPic, dtype=np.uint8), cv2.COLOR_RGBA2
 #初始化价格比对图列表
 # imgPriceArea =(600 ,450 ,750 ,500)
 imgPriceArea =(600 ,450 ,750 ,500)
-imgPriceTime45 ,imgPriceTime48 , isImgPriceCheck45 ,isImgPriceCheck48 ,imgPrice45 ,imgPrice48=45.2 ,48.2 ,1 ,1 ,0 ,0
+imgPriceTime45 ,imgPriceTime48 , imgPriceTime49 ,imgPriceTime54 ,isImgPriceCheck45 ,isImgPriceCheck48 ,isImgPriceCheck49 ,imgPrice45 ,imgPrice48 ,imgPrice49=45.2 ,48.2 ,49.5 ,54.5 ,1 ,1 ,1 ,0 ,0 ,0
 priceImageLst =[]
 priceList =list(range(86000 ,90000 ,100))
 for index in range(len(priceList)):
@@ -91,11 +91,13 @@ isMainClient =cf.get('main', 'mainclient')
 handMade =cf.get('main', 'handmade')
 secondCheck =int(cf.get('main', 'secondCheck'))
 #最终出价时间的人数变量：
-tag =int(cf.get('main', 'tag'))
+# tag =int(cf.get('main', 'tag'))
 basePrice =int(cf.get('main', 'basePrice'))
 #出价时间计算常量：
 #计算式为：tb +(nb -nn) *nw +(pb -(53秒价-basePrice))/100 *pw +(cb -(53秒价-50秒价))/100 *cw
-pb ,cb ,tb ,tagw ,pw ,cw =12, 2, 55.5, 0.5, 0.1, 0.2
+#pb ,cb ,tb ,tagw ,pw ,cw =12, 2, 55.5, 0.5, 0.1, 0.2
+#计算式为：tb +(cb -(54秒价-49秒价)/100) *cw
+tb ,cb ,cw =55.0 ,3.0 ,0.25
 
 
 def getCode():
@@ -154,7 +156,7 @@ def deCode(area_code, lim=0):
     return theCode
 
 def makeTimeStamp():
-    global timeStamp ,stampDlt ,baseTime ,isImgPriceCheck45 ,imgPrice45 ,isImgPriceCheck48 ,imgPrice48 ,second_bTime, second_eTime, second_dPrice
+    global timeStamp ,stampDlt ,baseTime ,isImgPriceCheck45 ,imgPrice45 ,isImgPriceCheck48 ,imgPrice48 ,isImgPriceCheck49 ,imgPrice49 ,second_bTime, second_eTime, second_dPrice
     while 1:
         now =datetime.datetime.now()
         theH =int(now.strftime('%H'))
@@ -166,14 +168,14 @@ def makeTimeStamp():
         if 0 <theStamp <60:
             timeStamp =theStamp
             # 45秒一定检查价格，取价格失败执行原策略。随即对pFlag2检查，pFlag3也需要用到该价格。满足pFlag2执行子策略，否则执行原策略
-            if timeStamp > imgPriceTime45 and isImgPriceCheck45 == 1 and pFlag !=0:
+            if timeStamp > imgPriceTime45 and isImgPriceCheck45 == 1 and (pFlag ==2 or pFlag ==3):
                 isImgPriceCheck45 = 0
                 imgPrice45 = getImgPrice()
                 print('imgPrice45.2---' + str(imgPrice45) + '---:' + str(imgPrice45 - basePrice))
                 if (imgPrice45 - basePrice) >= 900 and pFlag == 2:
                     second_bTime, second_dPrice ,second_eTime =sub_bTime ,sub_dPrice ,sub_eTime
             #48秒一定检查价格，取价失败执行原策略。随即对pFlag3检查，满足pFlag3执行子策略，不满足执行48-45策略
-            if timeStamp > imgPriceTime48 and isImgPriceCheck48 == 1 and pFlag !=0:
+            if timeStamp > imgPriceTime48 and isImgPriceCheck48 == 1 and (pFlag ==3 or pFlag ==4):
                 isImgPriceCheck48 = 0
                 imgPrice48 = getImgPrice()
                 print('imgPrice48.2---' + str(imgPrice48) + '---:' + str(imgPrice48 - basePrice))
@@ -183,6 +185,10 @@ def makeTimeStamp():
                         second_bTime, second_dPrice, second_eTime = sub_bTime, sub_dPrice, sub_eTime
                     else:
                         second_dPrice = str(int(second_dPrice) - (imgPrice48 - imgPrice45))
+            if timeStamp > imgPriceTime49 and isImgPriceCheck49 == 1 and pFlag ==1:
+                isImgPriceCheck49 = 0
+                imgPrice49 = getImgPrice()
+                print('imgPrice49.3---' + str(imgPrice49) + '---:' + str(imgPrice49 - basePrice))
         time.sleep(0.1)
 
 isFirstTimeChecked =False
@@ -434,7 +440,7 @@ def secondStepPrice2(dPrice ,eTime):
         print(datetime.datetime.now())
         imgPrice540 = getImgPrice()
         print('imgPrice54.0---' + str(imgPrice540) + '---:' + str(imgPrice540 - basePrice))
-        if imgPrice540 !=0:
+        if imgPrice540 !=0 and imgPrice48 !=0:
             if (imgPrice540 -imgPrice48) >=500:
                 print(str(timeStamp) + "_2_54confirmPrice")
                 pyautogui.doubleClick(theConf.coor_main_secondstepcodeconfirm)
@@ -442,13 +448,13 @@ def secondStepPrice2(dPrice ,eTime):
 
     # 仅仅在pFlag ==1的时候取54.2价格，并计算出价时间
     if pFlag ==1:
-        time.sleep(54.2 - timeStamp)
-        imgPrice542 = getImgPrice()
-        print('imgPrice54.2---' + str(imgPrice542) +'---:' +str(imgPrice542 -basePrice))
+        time.sleep(imgPriceTime54 - timeStamp)
+        imgPrice543 = getImgPrice()
+        print('imgPrice54.3---' + str(imgPrice543) +'---:' +str(imgPrice543 -basePrice))
         #计算出价时间
-        if imgPrice48 !=0 and imgPrice542 !=0:
-            print('pb ,cb ,tb ,tagw ,pw ,cw =12, 2, 55.5, 0.5, 0.1, 0.2')
-            calTime =tb +tag *tagw +(pb -(imgPrice542-basePrice)/100) *pw +(cb -(imgPrice542-imgPrice48)/100) *cw
+        if imgPrice49 !=0 and imgPrice543 !=0:
+            print('tb ,cb ,cw =55.0 ,3.0 ,0.25')
+            calTime =tb +(cb -(imgPrice543-imgPrice49)/100) *cw
             print("calTime :" + str(calTime))
             if subPrice ==1:
                 eTime =calTime
@@ -475,7 +481,7 @@ def secondStepPrice2(dPrice ,eTime):
 isGetTestImg =1
 isFirstPrice =1
 def secondStep():
-    global isGetTestImg ,isFirstPrice ,imgPrice45 ,isImgPriceCheck45 ,imgPrice48 ,isImgPriceCheck48 ,second_bTime, second_dPrice, second_eTime
+    global isGetTestImg ,isFirstPrice ,second_bTime, second_dPrice, second_eTime
     while 1:
         if timeStamp >testBeginTime:
             if isGetTestImg:
