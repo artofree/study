@@ -93,8 +93,8 @@ class myConf(object):
         self.coor_login_notelcom =[1080 ,508]
         self.coor_login_closefirstpage =[810 ,40]
 
-        self.coor_login_checkie =[1255 ,745]
-        self.coor_login_agree =[1255 ,745]
+        self.coor_login_checkie =[1250 ,565]
+        self.coor_login_agree =[1250 ,565]
         self.coor_login_orderid =[1120 ,270]
         self.coor_login_orderpass =[1120 ,325]
         self.coor_login_code =[1120 ,380]
@@ -112,8 +112,8 @@ class myConf(object):
         self.check_main_kick =r'rsc\check_main_kick.png'
         self.coor_main_kickconfirm =[1150 ,555]
 
-        self.coor_main_firststep1 =[1200 ,385]
-        self.coor_main_firststep2 =[1200 ,445]
+        self.coor_main_firststep1 =[1200 ,375]
+        self.coor_main_firststep2 =[1200 ,435]
         self.coor_main_firststepconfirm =[1310 ,440]
         self.area_main_firststepcode =[960, 400, 1200, 545]
         self.coor_main_firststepcode =[1250 ,490]

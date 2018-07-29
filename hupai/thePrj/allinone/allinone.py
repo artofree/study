@@ -34,7 +34,7 @@ codeAreaPic =cv2.cvtColor(np.array(codeAreaPic, dtype=np.uint8), cv2.COLOR_RGBA2
 #初始化价格比对图列表
 # imgPriceArea =(600 ,450 ,750 ,500)
 imgPriceArea =(600 ,450 ,750 ,500)
-imgPriceTime45 ,imgPriceTime48 , imgPriceTime49 ,imgPriceTime54 ,isImgPriceCheck45 ,isImgPriceCheck48 ,isImgPriceCheck49 ,imgPrice45 ,imgPrice48 ,imgPrice49=45.2 ,48.2 ,49.5 ,54.5 ,1 ,1 ,1 ,0 ,0 ,0
+imgPriceTime45 ,imgPriceTime48 , imgPriceTime49 ,imgPriceTime54 ,isImgPriceCheck45 ,isImgPriceCheck48 ,isImgPriceCheck49 ,imgPrice45 ,imgPrice48 ,imgPrice49=45.2 ,48.2 ,49.3 ,54.3 ,1 ,1 ,1 ,0 ,0 ,0
 priceImageLst =[]
 priceList =list(range(86000 ,90000 ,100))
 for index in range(len(priceList)):
@@ -432,8 +432,8 @@ def secondStepPrice2(dPrice ,eTime):
     getCodePicThread.start()
 
     if pFlag ==4:
-        time.sleep(54.5 - timeStamp)
-        if not secondCheck:
+        time.sleep(54.1 - timeStamp)
+        if secondCheck ==0:
             print(str(timeStamp) + "_2_54codegetbegin")
             payload = {'idt': identy ,'times' :'2' ,'hostName':hostName}
             theCode = requests.get(servUrl + 'getTrueCode', payload)
@@ -468,7 +468,7 @@ def secondStepPrice2(dPrice ,eTime):
     if eTime >timeStamp +restTime:
         time.sleep(eTime -timeStamp -restTime)
     #然后取回并输入验证码：
-    if not secondCheck and pFlag !=4:
+    if secondCheck ==0 and pFlag !=4:
         print(str(timeStamp) + "_2_codegetbegin")
         payload = {'idt': identy ,'times' :'2' ,'hostName':hostName}
         theCode = requests.get(servUrl + 'getTrueCode', payload)
