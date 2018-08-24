@@ -380,6 +380,7 @@ def secondStepPrice1(dPrice ,eTime):
         time.sleep(eTime -timeStamp)
     print(str(timeStamp) + "_1_confirmPrice")
     pyautogui.click(theConf.coor_main_secondstepcodeconfirm)
+    
 
 def getCodePic():
     global codeAreaPic
