@@ -73,17 +73,13 @@ testBeginTime ,firstBeginTime=20 ,33
 hostName =cf.get('main', 'hostname')
 infoList =requests.get(servUrl + 'getOrderInfo', {'hostname':hostName}).text.split('~')
 print(infoList)
-identy ,orderid, orderpass, firstPrice ,secondPrice ,subPrice ,pFlag= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4] ,infoList[5] ,int(infoList[6])
+identy ,orderid, orderpass, firstPrice ,secondPrice ,subPrice ,pFlag ,osFlag= infoList[0] ,infoList[1] ,infoList[2] ,infoList[3] ,infoList[4] ,infoList[5] ,int(infoList[6]) ,int(infoList[7])
 firstPrice =firstPrice.split('-')
 first_bTime, first_eTime, first_dPrice =float(firstPrice[0]) ,float(firstPrice[1]) ,firstPrice[2]
 secondPrice =secondPrice.split('-')
 second_bTime, second_eTime, second_dPrice =float(secondPrice[0]) ,float(secondPrice[1]) ,secondPrice[2]
-sub_bTime, sub_eTime, sub_dPrice =0 ,0 ,0
-if pFlag ==1:
-    subPrice =int(subPrice)
-else:
-    subPrice =subPrice.split('-')
-    sub_bTime, sub_eTime, sub_dPrice =float(subPrice[0]) ,float(subPrice[1]) ,subPrice[2]
+subPrice =subPrice.split('-')
+sub_bTime, sub_eTime, sub_dPrice =float(subPrice[0]) ,float(subPrice[1]) ,subPrice[2]
 
 ###第三常量，取自mainConf
 curStep =cf.get('main', 'step')
@@ -156,7 +152,7 @@ def deCode(area_code, lim=0):
     return theCode
 
 def makeTimeStamp():
-    global timeStamp ,stampDlt ,baseTime ,isImgPriceCheck45 ,imgPrice45 ,isImgPriceCheck48 ,imgPrice48 ,isImgPriceCheck49 ,imgPrice49 ,second_bTime, second_eTime, second_dPrice
+    global timeStamp ,stampDlt ,baseTime ,isImgPriceCheck45 ,imgPrice45 ,isImgPriceCheck48 ,imgPrice48 ,isImgPriceCheck49 ,imgPrice49 ,second_bTime, second_eTime, second_dPrice ,pFlag
     while 1:
         now =datetime.datetime.now()
         theH =int(now.strftime('%H'))
@@ -167,15 +163,17 @@ def makeTimeStamp():
         # print(theStamp)
         if 0 <theStamp <60:
             timeStamp =theStamp
-            # 45秒一定检查价格，取价格失败执行原策略。随即对pFlag2检查，pFlag3也需要用到该价格。满足pFlag2执行子策略，否则执行原策略
+            # 45秒检查价格，取价格失败执行原策略。随即对pFlag2检查，pFlag3也需要用到该价格。满足pFlag2执行子策略，否则执行原策略
             if timeStamp > imgPriceTime45 and isImgPriceCheck45 == 1 and (pFlag ==2 or pFlag ==3):
-                isImgPriceCheck45 = 0
                 imgPrice45 = getImgPrice()
                 print('imgPrice45.2---' + str(imgPrice45) + '---:' + str(imgPrice45 - basePrice))
                 if (imgPrice45 - basePrice) >= 900 and pFlag == 2:
                     print('change stage45...!')
                     second_bTime, second_dPrice ,second_eTime =sub_bTime ,sub_dPrice ,sub_eTime
-            #48秒一定检查价格，取价失败执行原策略。随即对pFlag3检查，满足pFlag3执行子策略，不满足执行48-45策略
+                    if osFlag !=0:
+                        pFlag =1
+                isImgPriceCheck45 = 0
+            # 48秒检查价格，取价失败执行原策略。随即对pFlag3检查，满足pFlag3执行子策略，不满足执行48-45策略
             if timeStamp > imgPriceTime48 and isImgPriceCheck48 == 1 and (pFlag ==3 or pFlag ==4):
                 imgPrice48 = getImgPrice()
                 print('imgPrice48.2---' + str(imgPrice48) + '---:' + str(imgPrice48 - basePrice))
@@ -186,11 +184,11 @@ def makeTimeStamp():
                     else:
                         second_dPrice = str(int(second_dPrice) - (imgPrice48 - imgPrice45))
                 isImgPriceCheck48 = 0
-
+            # 49秒价格检查:
             if timeStamp > imgPriceTime49 and isImgPriceCheck49 == 1 and pFlag ==1:
-                isImgPriceCheck49 = 0
                 imgPrice49 = getImgPrice()
                 print('imgPrice49.3---' + str(imgPrice49) + '---:' + str(imgPrice49 - basePrice))
+                isImgPriceCheck49 = 0
         time.sleep(0.1)
 
 isFirstTimeChecked =False
@@ -458,11 +456,11 @@ def secondStepPrice2(dPrice ,eTime):
             print('tb ,cb ,cw =55.0 ,3.0 ,0.25')
             calTime =tb +(cb -(imgPrice543-imgPrice49)/100) *cw
             print("calTime :" + str(calTime))
-            if subPrice ==1:
+            if osFlag ==1:
                 eTime =calTime
-            if subPrice ==2:
+            if osFlag ==2:
                 eTime =calTime -0.5
-            if subPrice ==3:
+            if osFlag ==3:
                 eTime =calTime +0.5
             print("etime :" +str(eTime))
     if eTime >timeStamp +restTime:
