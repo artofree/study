@@ -67,7 +67,7 @@ def getImgPrice():
 
 ###第一常量，版本号信息，时间信息
 curVersion = 0
-testBeginTime ,firstBeginTime=20 ,33
+testBeginTime ,firstBeginTime=16 ,33
 
 ###第二常量，用hostname获得拍牌人信息和出价策略
 hostName =cf.get('main', 'hostname')
@@ -331,7 +331,16 @@ def secondStepGetTestImg():
     pyautogui.click(theConf.coor_main_secondtestaddprice)
     time.sleep(0.1)
     pyautogui.click(theConf.coor_main_secondconfirmprice)
-    time.sleep(1.5)
+    time.sleep(5)
+    if myLib.check_img(theConf.check_main_refreshcode):
+        myLib.click_img(theConf.check_main_refreshcode)
+    time.sleep(0.3)
+    if myLib.check_img(theConf.check_main_refreshcode):
+        myLib.click_img(theConf.check_main_refreshcode)
+    time.sleep(0.3)
+    if myLib.check_img(theConf.check_main_refreshcode):
+        myLib.click_img(theConf.check_main_refreshcode)
+    time.sleep(0.3)
     if not secondCheck:
         code = ImageGrab.grab(theConf.area_main_secondstepcode)
         catch = StringIO()

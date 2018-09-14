@@ -135,7 +135,7 @@ class myConf(object):
         # self.check_main_secondcodehere =r'rsc\check_main_secondcodehere.png'
         self.check_main_refreshcode =r'rsc\check_main_refreshcode.png'
         #错误则code.png内容不对，需要重置区域坐标
-        self.area_main_secondstepcode =[960, 400, 1200, 530]
+        self.area_main_secondstepcode =[950, 395, 1270, 545]
         #错误则验证码框光标不闪
         self.coor_main_secondstepcode =[1250, 480]
         #错误则不出价
