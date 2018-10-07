@@ -88,8 +88,7 @@ def click_img(url):
 
 class myConf(object):
     def __init__(self):
-        # self.coor_login_telcom =[880 ,390]
-        self.coor_login_telcom =[1080 ,508]
+        self.coor_login_telcom = [930, 508]
         self.coor_login_notelcom =[1080 ,508]
         self.coor_login_closefirstpage =[810 ,40]
 
