@@ -46,10 +46,10 @@ def getImgPrice():
 
 
 # 检查价格
-time.sleep(8)
-print(datetime.datetime.now())
-print(getImgPrice())
-print(datetime.datetime.now())
+# time.sleep(8)
+# print(datetime.datetime.now())
+# print(getImgPrice())
+# print(datetime.datetime.now())
 
 
 # 检查对时区域
