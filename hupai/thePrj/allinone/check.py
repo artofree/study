@@ -4,7 +4,7 @@ from PIL import ImageGrab, Image
 import numpy as np
 import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
-import configparser ,json ,zipfile ,os ,sys ,pytesseract
+import configparser ,json ,zipfile ,os ,sys
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 #用于前期自动登陆打码
