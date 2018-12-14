@@ -469,9 +469,9 @@ def secondStepPrice2(dPrice ,eTime):
             if osFlag ==1:
                 eTime =calTime
             if osFlag ==2:
-                eTime =calTime -0.5
+                eTime =calTime -0.3
             if osFlag ==3:
-                eTime =calTime +0.5
+                eTime =calTime +0.3
             print("etime :" +str(eTime))
     if eTime >timeStamp +restTime:
         time.sleep(eTime -timeStamp -restTime)
