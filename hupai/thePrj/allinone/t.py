@@ -6,19 +6,37 @@ import cv2 ,pyautogui, datetime, time, threading, requests
 from io import BytesIO as StringIO
 import configparser ,json ,zipfile ,os ,sys
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-#用于前期自动登陆打码
-code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
-jpg_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.jpg')
+from ctypes import cdll
+import os
 
-img1 =Image.open(r'rsc\price\90900.png')
-# img1 =Image.open(code_url)
-img1 = cv2.cvtColor(np.array(img1, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
-img2 =Image.open(r'rsc\price\90000.png')
-img2 = cv2.cvtColor(np.array(img2, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
-res = cv2.matchTemplate(img1,img2,myLib.method)
-min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-print(max_val)
+_sopen = cdll.msvcrt._sopen
+_close = cdll.msvcrt._close
+_SH_DENYRW = 0x10
+
+def is_open(filename):
+    if not os.access(filename, os.F_OK):
+        return False # file doesn't exist
+    h = _sopen(filename, 0, _SH_DENYRW, 0)
+    if h == 3:
+        _close(h)
+        return False # file is not opened by anyone else
+    return True # file is already open
+
+print(is_open(r"C:\Users\guo\Desktop\huawei\theIps"))
+
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# #用于前期自动登陆打码
+# code_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.png')
+# jpg_url = os.path.join(os.path.join(BASE_DIR, 'rsc'), 'code.jpg')
+#
+# img1 =Image.open(r'rsc\price\90900.png')
+# # img1 =Image.open(code_url)
+# img1 = cv2.cvtColor(np.array(img1, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+# img2 =Image.open(r'rsc\price\90000.png')
+# img2 = cv2.cvtColor(np.array(img2, dtype=np.uint8), cv2.COLOR_RGBA2GRAY)
+# res = cv2.matchTemplate(img1,img2,myLib.method)
+# min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+# print(max_val)
 
 
 # imgPriceArea =(600 ,450 ,750 ,500)

@@ -149,7 +149,6 @@ class myConf(object):
 
 
 
-
 # theConf = myConf()
 # time.sleep(5)
 # print(check_img(theConf.check_main_kick))

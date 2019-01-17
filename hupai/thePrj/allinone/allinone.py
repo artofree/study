@@ -36,7 +36,8 @@ codeAreaPic =cv2.cvtColor(np.array(codeAreaPic, dtype=np.uint8), cv2.COLOR_RGBA2
 imgPriceArea =(600 ,450 ,750 ,500)
 imgPriceTime45 ,imgPriceTime48 , imgPriceTime49 ,imgPriceTime54 ,isImgPriceCheck45 ,isImgPriceCheck48 ,isImgPriceCheck49 ,imgPrice45 ,imgPrice48 ,imgPrice49=45.2 ,48.2 ,49.3 ,54.3 ,1 ,1 ,1 ,0 ,0 ,0
 priceImageLst =[]
-priceList =list(range(86000 ,90000 ,100))
+priceList =list(range(88000 ,91000 ,100))
+# priceList =list(range(86000 ,91000 ,100))
 for index in range(len(priceList)):
     priceUrl ='rsc\\price\\' +str(priceList[index]) +'.png'
     priceImage = Image.open(priceUrl)
@@ -167,7 +168,7 @@ def makeTimeStamp():
             if timeStamp > imgPriceTime45 and isImgPriceCheck45 == 1 and (pFlag ==2 or pFlag ==3):
                 imgPrice45 = getImgPrice()
                 print('imgPrice45.2---' + str(imgPrice45) + '---:' + str(imgPrice45 - basePrice))
-                if (imgPrice45 - basePrice) >= 900 and pFlag == 2:
+                if (imgPrice45 - basePrice) >= 800 and pFlag == 2:
                     print('change stage45...!')
                     second_bTime, second_dPrice ,second_eTime =sub_bTime ,sub_dPrice ,sub_eTime
                     if osFlag !=0:
